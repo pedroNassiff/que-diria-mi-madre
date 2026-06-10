@@ -32,6 +32,31 @@
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
 
+    {% comment %} QDM · Google Fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap"
+      rel="stylesheet"
+    >
+
+    {% comment %} QDM · Motion CSS {% endcomment %}
+    {{ 'qdm-motion.css' | asset_url | stylesheet_tag }}
+
+    {% comment %} QDM · GSAP 3 + plugins (CDN) {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js" defer></script>
+
+    {% comment %} QDM · Lenis smooth scroll (CDN) {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+
+    {% comment %} QDM · Motion JS (después de GSAP y Lenis) {% endcomment %}
+    <script src="{{ 'qdm-motion.js' | asset_url }}" defer></script>
+
+    {% comment %} QDM · Organization schema {% endcomment %}
+    {%- render 'qdm-schema-org' -%}
+
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
     {% endif %}

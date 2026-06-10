@@ -1,0 +1,317 @@
+{%- comment -%}
+  QDM · Hero — sección principal homepage
+  Animaciones: text reveal GSAP SplitText + parallax imagen (solo desktop)
+  data-hero         → wrapper, target para initHero()
+  data-hero-image   → imagen de fondo, target para parallax
+  data-hero-title   → H1, SplitText por palabras
+  data-hero-subtitle → subtítulo, fade-in con delay
+  data-hero-cta     → bloque de CTAs, fade-in final
+{%- endcomment -%}
+
+<section
+  class="qdm-hero"
+  data-hero
+  {% if section.settings.image != blank %}
+    style="--qdm-hero-min-height: {{ section.settings.min_height_desktop }}vh;"
+  {% endif %}
+>
+  {%- comment -%} Imagen de fondo con parallax {%- endcomment -%}
+  {%- if section.settings.image != blank -%}
+    <div class="qdm-hero__media" data-hero-image aria-hidden="true">
+      {{
+        section.settings.image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '768, 1200, 1440, 1920',
+          sizes: '100vw',
+          class: 'qdm-hero__img'
+      }}
+    </div>
+  {%- else -%}
+    <div class="qdm-hero__media qdm-hero__media--placeholder" data-hero-image aria-hidden="true"></div>
+  {%- endif -%}
+
+  <div class="qdm-hero__overlay" aria-hidden="true"></div>
+
+  <div class="qdm-hero__content page-width">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="qdm-hero__title" data-hero-title>
+        {{ section.settings.heading }}
+      </h1>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="qdm-hero__subtitle" data-hero-subtitle>
+        {{ section.settings.subheading | escape }}
+      </p>
+    {%- endif -%}
+
+    <div class="qdm-hero__ctas" data-hero-cta>
+      {%- if section.settings.cta_1_label != blank -%}
+        <a
+          href="{{ section.settings.cta_1_url | default: '/collections' }}"
+          class="qdm-btn qdm-btn--primary"
+        >
+          {{ section.settings.cta_1_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.cta_2_label != blank -%}
+        <a
+          href="{{ section.settings.cta_2_url | default: '/pages/manifiesto' }}"
+          class="qdm-btn qdm-btn--ghost"
+        >
+          {{ section.settings.cta_2_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .qdm-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: var(--qdm-hero-min-height, 92vh);
+    overflow: hidden;
+    background-color: var(--qdm-carbon, #262522);
+  }
+
+  /* Media / imagen de fondo */
+  .qdm-hero__media {
+    position: absolute;
+    inset: -15% 0 -15%;  /* margen extra para el parallax */
+    z-index: 0;
+  }
+
+  .qdm-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .qdm-hero__media--placeholder {
+    background-color: var(--qdm-sand, #E0DED7);
+  }
+
+  /* Overlay degradado */
+  .qdm-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      rgba(38, 37, 34, 0.72) 0%,
+      rgba(38, 37, 34, 0.18) 55%,
+      transparent 100%
+    );
+  }
+
+  /* Contenido */
+  .qdm-hero__content {
+    position: relative;
+    z-index: 2;
+    padding-block: 6rem 5rem;
+    max-width: 720px;
+  }
+
+  .qdm-hero__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--qdm-cream, #FFFEF7);
+    margin: 0 0 1.25rem;
+    /* Necesario para SplitText overflow hidden en palabras */
+    overflow: visible;
+  }
+
+  /* Las palabras spliteadas por GSAP necesitan overflow hidden */
+  .qdm-hero__title .word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  .qdm-hero__subtitle {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
+    font-weight: 400;
+    line-height: 1.55;
+    color: rgba(255, 254, 247, 0.82);
+    margin: 0 0 2.5rem;
+    max-width: 560px;
+  }
+
+  /* CTAs */
+  .qdm-hero__ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .qdm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition:
+      background-color 200ms var(--qdm-ease-ui, cubic-bezier(0.4, 0, 0.2, 1)),
+      color 200ms var(--qdm-ease-ui, cubic-bezier(0.4, 0, 0.2, 1)),
+      transform 150ms ease,
+      opacity 150ms ease;
+  }
+
+  .qdm-btn:active {
+    transform: scale(0.985);
+  }
+
+  .qdm-btn--primary {
+    background-color: var(--qdm-amber, #EBB86E);
+    color: var(--qdm-carbon, #262522);
+    border: 2px solid transparent;
+  }
+
+  @media (hover: hover) {
+    .qdm-btn--primary:hover {
+      background-color: var(--qdm-camel, #C9A787);
+    }
+  }
+
+  .qdm-btn--ghost {
+    background-color: transparent;
+    color: var(--qdm-cream, #FFFEF7);
+    border: 1.5px solid rgba(255, 254, 247, 0.55);
+  }
+
+  @media (hover: hover) {
+    .qdm-btn--ghost:hover {
+      border-color: var(--qdm-cream, #FFFEF7);
+      background-color: rgba(255, 254, 247, 0.08);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .qdm-hero {
+      min-height: 90svh;
+      align-items: flex-end;
+    }
+
+    .qdm-hero__content {
+      padding-block: 3rem 4rem;
+    }
+
+    .qdm-hero__ctas {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .qdm-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .qdm-hero__title,
+    .qdm-hero__subtitle {
+      display: none;
+    }
+  }
+
+  /* Reducción de movimiento — el JS ya lo maneja, pero por si acaso */
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-hero__media {
+      inset: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Hero",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Titular (H1)",
+      "default": "<p>Qué diría mi madre<br>si supiera lo bien que me queda.</p>",
+      "info": "El H1 aparece en buscadores — incluir material, origen y propósito."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Joyería con intención. Plata 925 certificada. Para quien ya dejó de pedirle permiso al qué dirán."
+    },
+    {
+      "type": "header",
+      "content": "Botones"
+    },
+    {
+      "type": "text",
+      "id": "cta_1_label",
+      "label": "Botón principal — texto",
+      "default": "Ver piezas"
+    },
+    {
+      "type": "url",
+      "id": "cta_1_url",
+      "label": "Botón principal — link"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_label",
+      "label": "Botón secundario — texto",
+      "default": "Leer el manifiesto"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_url",
+      "label": "Botón secundario — link"
+    },
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen de fondo",
+      "info": "Recomendado: 1920×1080px o superior, horizontal."
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "min": 60,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Altura mínima (desktop)",
+      "default": 90
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Hero"
+    }
+  ]
+}
+{% endschema %}

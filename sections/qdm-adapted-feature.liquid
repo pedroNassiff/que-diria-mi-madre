@@ -1,0 +1,304 @@
+{%- comment -%}
+  QDM · Joyería Adaptada — sección homepage (S6)
+  Diferenciador clave de la marca: joyería para personas con audífonos.
+  Layout: 2 columnas (texto izquierda, imagen derecha) desktop / stack mobile
+  data-reveal → animaciones scroll reveal
+{%- endcomment -%}
+
+<section class="qdm-adapted" data-section-id="{{ section.id }}">
+  <div class="qdm-adapted__inner page-width">
+
+    {%- comment -%} Columna texto {%- endcomment -%}
+    <div class="qdm-adapted__text" data-reveal="fade-up" data-reveal-delay="0">
+
+      {%- if section.settings.badge != blank -%}
+        <p class="qdm-adapted__badge">{{ section.settings.badge | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="qdm-adapted__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="qdm-adapted__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.bullets_enabled -%}
+        <ul class="qdm-adapted__bullets">
+          {%- if section.settings.bullet_1 != blank -%}
+            <li>{{ section.settings.bullet_1 | escape }}</li>
+          {%- endif -%}
+          {%- if section.settings.bullet_2 != blank -%}
+            <li>{{ section.settings.bullet_2 | escape }}</li>
+          {%- endif -%}
+          {%- if section.settings.bullet_3 != blank -%}
+            <li>{{ section.settings.bullet_3 | escape }}</li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank -%}
+        <a
+          href="{{ section.settings.cta_url | default: '/collections/joyas-adaptadas' }}"
+          class="qdm-btn qdm-btn--primary qdm-adapted__cta"
+        >
+          {{ section.settings.cta_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.trust_badge != blank -%}
+        <p class="qdm-adapted__trust">{{ section.settings.trust_badge | escape }}</p>
+      {%- endif -%}
+
+    </div>
+
+    {%- comment -%} Columna imagen {%- endcomment -%}
+    <div class="qdm-adapted__media" data-reveal="fade-left" data-reveal-delay="120">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 960
+          | image_tag:
+            loading: 'lazy',
+            widths: '480, 640, 800, 960',
+            sizes: '(min-width: 768px) 50vw, 100vw',
+            class: 'qdm-adapted__img',
+            alt: section.settings.image.alt | escape
+        }}
+      {%- else -%}
+        <div class="qdm-adapted__img-placeholder"></div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .qdm-adapted {
+    background-color: var(--qdm-sand, #E0DED7);
+    padding-block: 5rem;
+  }
+
+  .qdm-adapted__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  /* Badge */
+  .qdm-adapted__badge {
+    display: inline-block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--qdm-carbon, #262522);
+    background-color: var(--qdm-amber, #EBB86E);
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Título */
+  .qdm-adapted__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 1.25rem;
+  }
+
+  /* Cuerpo */
+  .qdm-adapted__body {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--qdm-carbon, #262522);
+    margin-bottom: 1.75rem;
+  }
+
+  .qdm-adapted__body p {
+    margin: 0 0 0.75rem;
+  }
+
+  .qdm-adapted__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Bullets */
+  .qdm-adapted__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .qdm-adapted__bullets li {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    color: var(--qdm-carbon, #262522);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .qdm-adapted__bullets li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--qdm-amber, #EBB86E);
+    font-weight: 700;
+  }
+
+  /* CTA */
+  .qdm-adapted__cta {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Trust badge */
+  .qdm-adapted__trust {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(38, 37, 34, 0.55);
+    margin: 0;
+  }
+
+  /* Imagen */
+  .qdm-adapted__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .qdm-adapted__img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: var(--qdm-nude, #CFBFB3);
+  }
+
+  /* Mobile — stack */
+  @media (max-width: 767px) {
+    .qdm-adapted {
+      padding-block: 3.5rem;
+    }
+
+    .qdm-adapted__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    /* En mobile la imagen va primero */
+    .qdm-adapted__media {
+      order: -1;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Joyas Adaptadas",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Texto del badge",
+      "default": "★ Exclusivo QDM"
+    },
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titular",
+      "default": "Diseñada desde adentro."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Texto principal",
+      "default": "<p>Sabemos lo que es. No como tendencia, sino como experiencia vivida.</p><p>Creamos joyería adaptada para personas que usan audífonos porque creemos que ningún dispositivo debería hacer que te sintieras menos tú misma.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Bullets"
+    },
+    {
+      "type": "checkbox",
+      "id": "bullets_enabled",
+      "label": "Mostrar bullets",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bullet_1",
+      "label": "Bullet 1",
+      "default": "Compatible con audífonos BTE y RIC"
+    },
+    {
+      "type": "text",
+      "id": "bullet_2",
+      "label": "Bullet 2",
+      "default": "Plata reciclada de ley 925"
+    },
+    {
+      "type": "text",
+      "id": "bullet_3",
+      "label": "Bullet 3",
+      "default": "Fabricada en España"
+    },
+    {
+      "type": "header",
+      "content": "Botón"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del botón",
+      "default": "Ver joyas adaptadas"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link del botón"
+    },
+    {
+      "type": "text",
+      "id": "trust_badge",
+      "label": "Texto de confianza (bajo el botón)",
+      "default": "Fabricada en España · Plata reciclada 925"
+    },
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen",
+      "info": "Persona real con audífono usando la pieza. Ratio 4:5 recomendado."
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Joyas Adaptadas"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,165 @@
+{%- comment -%}
+  QDM · Marquee — manifiesto en loop continuo
+  Animación CSS pura (qdm-motion.css keyframe qdm-marquee)
+  data-marquee       → wrapper, target para initMarquee() (pausa hover/focus)
+  data-marquee-track → el track animado
+  El contenido se duplica en Liquid para que el loop sea perfecto (translateX -50%)
+{%- endcomment -%}
+
+{%- assign separator = section.settings.separator | default: '·' -%}
+
+<div
+  class="qdm-marquee-section color-{{ section.settings.color_scheme }}"
+  data-marquee
+  aria-hidden="true"
+  role="presentation"
+>
+  <div class="qdm-marquee-track" data-marquee-track>
+    {%- comment -%} Duplicar el contenido para el loop perfecto (translateX -50%) {%- endcomment -%}
+    {%- for i in (1..2) -%}
+      <span class="qdm-marquee-content" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          <span class="qdm-marquee-item" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</span>
+          <span class="qdm-marquee-sep" aria-hidden="true">{{ separator }}</span>
+        {%- endfor -%}
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .qdm-marquee-section {
+    overflow: hidden;
+    white-space: nowrap;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--qdm-nude, #CFBFB3);
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+    background-color: var(--qdm-cream, #FFFEF7);
+    user-select: none;
+  }
+
+  .qdm-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    animation: qdm-marquee 35s linear infinite;
+    will-change: transform;
+  }
+
+  /* Heredar velocidad desde setting */
+  .qdm-marquee-section[data-speed] .qdm-marquee-track {
+    animation-duration: var(--qdm-marquee-speed, 35s);
+  }
+
+  .qdm-marquee-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .qdm-marquee-item {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: clamp(0.8125rem, 1vw + 0.5rem, 1rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--qdm-carbon, #262522);
+    padding-inline: 1.5rem;
+  }
+
+  .qdm-marquee-sep {
+    color: var(--qdm-camel, #C9A787);
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  /* Schema heredado del tema para color_scheme */
+  .qdm-marquee-section.color-inverse-1,
+  .qdm-marquee-section.color-inverse-2 {
+    background-color: var(--qdm-carbon, #262522);
+    border-color: rgba(255, 254, 247, 0.15);
+  }
+
+  .qdm-marquee-section.color-inverse-1 .qdm-marquee-item,
+  .qdm-marquee-section.color-inverse-2 .qdm-marquee-item {
+    color: var(--qdm-cream, #FFFEF7);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-marquee-track {
+      animation-play-state: paused;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Marquee",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "paragraph",
+      "content": "Añade las frases del marquee. Se repetirán en loop continuo."
+    },
+    {
+      "type": "header",
+      "content": "Separador"
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Símbolo separador",
+      "default": "·",
+      "info": "Carácter entre frases. Por defecto: punto centrado ·"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Esquema de color",
+      "options": [
+        { "value": "color-1", "label": "Crema (principal)" },
+        { "value": "inverse-1", "label": "Carbón (oscuro)" }
+      ],
+      "default": "color-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "phrase",
+      "name": "Frase",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Frase",
+          "default": "Objetos con alma"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Marquee",
+      "blocks": [
+        { "type": "phrase", "settings": { "text": "Objetos con alma" } },
+        { "type": "phrase", "settings": { "text": "Plata 925 certificada" } },
+        { "type": "phrase", "settings": { "text": "Fabricada en Europa" } },
+        { "type": "phrase", "settings": { "text": "Para quien se atreve" } },
+        { "type": "phrase", "settings": { "text": "Símbolo antes que tendencia" } },
+        { "type": "phrase", "settings": { "text": "Hecha con intención" } },
+        { "type": "phrase", "settings": { "text": "QDM" } },
+        { "type": "phrase", "settings": { "text": "Qué Diría Mi Madre" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

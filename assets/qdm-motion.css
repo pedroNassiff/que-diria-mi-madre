@@ -1,0 +1,357 @@
+/**
+ * QDM · Motion System — CSS
+ * Estados iniciales, transiciones y animaciones CSS puras
+ * Para usar junto a qdm-motion.js
+ */
+
+/* ─────────────────────────────────────────────────────────
+   0. CUSTOM PROPERTIES — motion tokens
+───────────────────────────────────────────────────────── */
+
+:root {
+  --qdm-ease-enter:   cubic-bezier(0.16, 1, 0.3, 1);
+  --qdm-ease-hover:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --qdm-ease-ui:      cubic-bezier(0.4, 0, 0.2, 1);
+  --qdm-dur-reveal:   700ms;
+  --qdm-dur-hover:    450ms;
+  --qdm-dur-page:     180ms;
+  --qdm-dur-ui:       300ms;
+}
+
+/* Reducir cuando el usuario lo pide */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --qdm-dur-reveal:  0ms;
+    --qdm-dur-hover:   0ms;
+    --qdm-dur-page:    0ms;
+    --qdm-dur-ui:      0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   1. SCROLL REVEAL — estados iniciales y finales
+───────────────────────────────────────────────────────── */
+
+/* Estado inicial — invisible */
+[data-reveal] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+[data-reveal="fade-up"] {
+  transform: translateY(28px);
+}
+
+[data-reveal="fade-left"] {
+  transform: translateX(24px);
+}
+
+[data-reveal="fade-right"] {
+  transform: translateX(-24px);
+}
+
+[data-reveal="fade-in"] {
+  /* solo opacity, sin transform */
+}
+
+/* Estado final — visible */
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition:
+    opacity var(--qdm-dur-reveal) var(--qdm-ease-enter),
+    transform var(--qdm-dur-reveal) var(--qdm-ease-enter);
+}
+
+/* ─────────────────────────────────────────────────────────
+   2. HERO — SplitText palabras
+───────────────────────────────────────────────────────── */
+
+/* Las palabras del hero necesitan overflow hidden para que
+   el slide-up no sea visible antes de la animación */
+[data-hero-title] .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+/* ─────────────────────────────────────────────────────────
+   3. NAVEGACIÓN — scroll state
+───────────────────────────────────────────────────────── */
+
+[data-header] {
+  transition:
+    background-color var(--qdm-dur-ui) var(--qdm-ease-ui),
+    backdrop-filter var(--qdm-dur-ui) var(--qdm-ease-ui),
+    box-shadow var(--qdm-dur-ui) var(--qdm-ease-ui);
+}
+
+/* Estado transparente (top of page) */
+[data-header]:not(.is-scrolled) {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Estado sólido (scrolled) */
+[data-header].is-scrolled {
+  background-color: rgba(var(--color-page-bg-rgb, 255 255 255) / 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(0 0 0 / 0.06);
+}
+
+/* Underline animado en links de nav */
+.nav-link-animated {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link-animated::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  right: 50%;
+  height: 1px;
+  background: currentColor;
+  transition:
+    left var(--qdm-dur-ui) var(--qdm-ease-hover),
+    right var(--qdm-dur-ui) var(--qdm-ease-hover);
+}
+
+@media (hover: hover) {
+  .nav-link-animated:hover::after,
+  .nav-link-animated[aria-current="page"]::after {
+    left: 0;
+    right: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   4. IMÁGENES DE PRODUCTO — hover zoom
+───────────────────────────────────────────────────────── */
+
+/* Contenedor necesita overflow: hidden */
+[data-product-img-wrap] {
+  overflow: hidden;
+}
+
+@media (hover: hover) {
+  [data-product-img-1] {
+    transition:
+      transform var(--qdm-dur-hover) var(--qdm-ease-hover);
+  }
+
+  [data-product-card]:hover [data-product-img-1] {
+    transform: scale(1.04);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   5. MARQUEE — animación continua
+───────────────────────────────────────────────────────── */
+
+[data-marquee] {
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+[data-marquee-track] {
+  display: inline-flex;
+  gap: 0;
+  animation: qdm-marquee 35s linear infinite;
+  will-change: transform;
+}
+
+@keyframes qdm-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* 50% porque duplicamos el contenido */
+}
+
+/* El contenido del marquee debe duplicarse en Liquid:
+   {{ content }}{{ content }} para que el loop sea perfecto */
+
+/* ─────────────────────────────────────────────────────────
+   6. CART DRAWER
+───────────────────────────────────────────────────────── */
+
+[data-cart-drawer] {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(420px, 100vw);
+  height: 100dvh;
+  transform: translateX(100%);
+  transition: transform var(--qdm-dur-ui) var(--qdm-ease-ui);
+  z-index: 500;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+[data-cart-drawer].is-open {
+  transform: translateX(0);
+}
+
+[data-cart-overlay] {
+  position: fixed;
+  inset: 0;
+  background: rgba(0 0 0 / 0);
+  z-index: 499;
+  pointer-events: none;
+  transition: background-color var(--qdm-dur-ui) var(--qdm-ease-ui);
+}
+
+[data-cart-overlay].is-visible {
+  background: rgba(0 0 0 / 0.4);
+  pointer-events: auto;
+}
+
+/* ─────────────────────────────────────────────────────────
+   7. ACCORDION / FAQ
+───────────────────────────────────────────────────────── */
+
+[data-accordion-content] {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 320ms var(--qdm-ease-ui),
+    opacity 280ms ease;
+}
+
+[data-accordion].is-open [data-accordion-content] {
+  opacity: 1;
+  /* max-height se setea via JS con el valor real */
+}
+
+/* Ícono de flecha en el trigger */
+[data-accordion-trigger] [data-accordion-icon] {
+  transition: transform 300ms var(--qdm-ease-ui);
+}
+
+[data-accordion].is-open [data-accordion-trigger] [data-accordion-icon] {
+  transform: rotate(180deg);
+}
+
+/* ─────────────────────────────────────────────────────────
+   8. PAGE TRANSITIONS — View Transitions API
+───────────────────────────────────────────────────────── */
+
+/* Para browsers con View Transitions API nativa */
+@keyframes qdm-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes qdm-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+::view-transition-old(root) {
+  animation: qdm-fade-out var(--qdm-dur-page) ease forwards;
+}
+
+::view-transition-new(root) {
+  animation: qdm-fade-in 220ms ease forwards;
+}
+
+/* ─────────────────────────────────────────────────────────
+   9. BOTONES — feedback táctil
+───────────────────────────────────────────────────────── */
+
+.btn,
+button[type="submit"],
+[data-add-to-cart] {
+  transition:
+    background-color 200ms var(--qdm-ease-ui),
+    color 200ms var(--qdm-ease-ui),
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+@media (hover: hover) {
+  .btn:hover,
+  button[type="submit"]:hover,
+  [data-add-to-cart]:hover {
+    opacity: 0.88;
+  }
+}
+
+.btn:active,
+button[type="submit"]:active,
+[data-add-to-cart]:active {
+  transform: scale(0.985);
+}
+
+/* ─────────────────────────────────────────────────────────
+   10. SMOOTH SCROLL — nativo como base
+───────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Lenis override — cuando Lenis está activo, scroll nativo debe ser auto */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* ─────────────────────────────────────────────────────────
+   11. GALERÍA DE PRODUCTO — thumbnail activo
+───────────────────────────────────────────────────────── */
+
+[data-gallery-thumb] {
+  cursor: pointer;
+  transition: opacity 200ms ease;
+}
+
+[data-gallery-thumb]:not(.is-active) {
+  opacity: 0.55;
+}
+
+[data-gallery-thumb]:hover,
+[data-gallery-thumb].is-active {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────────────
+   12. UTILIDADES GENERALES
+───────────────────────────────────────────────────────── */
+
+/* Evitar flash de contenido sin estilo en elementos animados */
+.js-animating {
+  visibility: hidden;
+}
+
+/* Para sticky product gallery en desktop */
+@media (min-width: 768px) {
+  [data-product-gallery] {
+    /* GSAP ScrollTrigger maneja el pin, esto es el fallback CSS */
+    align-self: start;
+    position: sticky;
+    top: 80px; /* altura del nav */
+  }
+}
+
+/* Image lazy load fade-in */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 400ms var(--qdm-ease-hover);
+}
+
+img[loading="lazy"].is-loaded,
+img.lazyloaded {
+  opacity: 1;
+}

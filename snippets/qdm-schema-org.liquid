@@ -1,0 +1,43 @@
+{%- comment -%}
+  QDM · Organization Schema — JSON-LD
+  Renderizado en layout/theme.liquid en todas las páginas.
+  GEO: permite que ChatGPT / Perplexity identifiquen la marca y la citen.
+  Validar en: https://search.google.com/test/rich-results
+{%- endcomment -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "QDM · Qué Diría Mi Madre",
+  "alternateName": "QDM",
+  "url": {{ shop.url | json }},
+  "logo": {
+    "@type": "ImageObject",
+    "url": {{ shop.url | append: '/assets/qdm-logo.png' | json }}
+  },
+  "description": "Joyería artesanal con significado. Plata de ley 925 certificada por AIDIMME. Fabricada en Europa. Especialistas en joyería adaptada para personas con audífonos BTE y RIC.",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "España"
+  },
+  "areaServed": ["ES", "AR", "MX", "CL", "CO"],
+  "sameAs": [
+    "https://www.instagram.com/quediriamimadre"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["Spanish"]
+  },
+  "keywords": [
+    "joyería artesanal España",
+    "plata 925 certificada",
+    "joyas para audífonos",
+    "joyería adaptada hipoacusia",
+    "joyería con significado",
+    "plata reciclada",
+    "joyería hecha en Europa"
+  ]
+}
+</script>
