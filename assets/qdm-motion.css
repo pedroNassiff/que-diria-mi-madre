@@ -106,6 +106,29 @@
   box-shadow: 0 1px 0 rgba(0 0 0 / 0.06);
 }
 
+/* Mobile — header siempre blanco con iconos oscuros
+   Necesita alta especificidad para ganarle al transparent="always"
+   y al color-scheme-1 que Heritage aplica en la homepage */
+@media (max-width: 767px) {
+  [data-header],
+  [data-header][transparent],
+  [data-header][transparent="always"],
+  [data-header]:not(.is-scrolled) {
+    background-color: var(--qdm-cream, #FFFEF7);
+    box-shadow: 0 1px 0 rgba(0 0 0 / 0.08);
+  }
+
+  /* Sobreescribir el color-scheme oscuro en las filas del header */
+  [data-header] .header__row,
+  [data-header] .header__row--top,
+  [data-header] .header__row--bottom {
+    background-color: var(--qdm-cream, #FFFEF7);
+    --color-background: 255 254 247;
+    --color-foreground-rgb: 38 37 34;
+    --color-foreground: rgb(38 37 34);
+  }
+}
+
 /* Underline animado en links de nav */
 .nav-link-animated {
   position: relative;
@@ -355,3 +378,43 @@ img[loading="lazy"].is-loaded,
 img.lazyloaded {
   opacity: 1;
 }
+
+/* ─────────────────────────────────────────────────────────
+   13. COLECCIONES — mobile layout override
+───────────────────────────────────────────────────────── */
+
+/* El editorial grid usa inline styles (grid-column, grid-row).
+   Cambiar a flex hace que esos inline styles sean ignorados
+   sin necesitar !important */
+
+@media (max-width: 767px) {
+  .editorial-collection__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .editorial-collection__spacer {
+    display: none;
+  }
+
+  .editorial-collection__grid > * {
+    width: 100%;
+  }
+}
+
+/* Para cambiar a 2 columnas: reemplazar el bloque anterior con:
+
+@media (max-width: 767px) {
+  .editorial-collection__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .editorial-collection__spacer { display: none; }
+  .editorial-collection__grid > * {
+    width: calc(50% - 0.25rem);
+  }
+}
+
+*/
