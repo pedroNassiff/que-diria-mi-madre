@@ -1,0 +1,373 @@
+{%- comment -%}
+  QDM · Materiales + Proceso — S7 Homepage
+  Imagen full-bleed lado izquierdo (55%) + contenido lado derecho (45%) desktop
+  Stack mobile (imagen primero, 16:9)
+  Fondo arena, separador camel, bullets como tabla, 2 CTAs
+{%- endcomment -%}
+
+<section class="qdm-mat">
+  <div class="qdm-mat__inner">
+
+    <!-- Imagen -->
+    <div class="qdm-mat__media" data-reveal="fade-left">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="lazy"
+          class="qdm-mat__img"
+        >
+      {%- else -%}
+        <div class="qdm-mat__img-placeholder">
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'qdm-mat__svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Contenido -->
+    <div class="qdm-mat__content" data-reveal="fade-up" data-reveal-delay="80">
+      <div class="qdm-mat__content-inner">
+
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="qdm-mat__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="qdm-mat__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+
+        <span class="qdm-mat__divider" aria-hidden="true"></span>
+
+        {%- assign bullets = section.blocks | where: 'type', 'bullet' -%}
+        {%- if bullets.size > 0 -%}
+          <ul class="qdm-mat__bullets" role="list">
+            {%- for block in bullets -%}
+              <li class="qdm-mat__bullet" {{ block.shopify_attributes }}>
+                {%- if block.settings.heading != blank -%}
+                  <strong class="qdm-mat__bullet-heading">{{ block.settings.heading | escape }}</strong>
+                {%- endif -%}
+                {%- if block.settings.body != blank -%}
+                  <p class="qdm-mat__bullet-body">{{ block.settings.body | escape }}</p>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="qdm-mat__ctas">
+          {%- if section.settings.cta1_label != blank -%}
+            <a
+              href="{{ section.settings.cta1_url | default: '/pages/materiales' }}"
+              class="qdm-mat__cta qdm-mat__cta--primary"
+            >{{ section.settings.cta1_label | escape }}</a>
+          {%- endif -%}
+          {%- if section.settings.cta2_label != blank -%}
+            <a
+              href="{{ section.settings.cta2_url | default: '/pages/proceso' }}"
+              class="qdm-mat__cta qdm-mat__cta--ghost"
+            >{{ section.settings.cta2_label | escape }} <span aria-hidden="true">→</span></a>
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .qdm-mat {
+    background-color: var(--qdm-sand, #E0DED7);
+    overflow: hidden;
+  }
+
+  .qdm-mat__inner {
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    min-height: 560px;
+  }
+
+  /* Media */
+  .qdm-mat__media {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .qdm-mat__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .qdm-mat__img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--qdm-nude, #CFBFB3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qdm-mat__svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Contenido */
+  .qdm-mat__content {
+    display: flex;
+    align-items: center;
+    padding-block: 5rem;
+    padding-inline: 4rem 3rem;
+  }
+
+  .qdm-mat__content-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    max-width: 420px;
+  }
+
+  /* Eyebrow */
+  .qdm-mat__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--qdm-camel, #C9A787);
+    margin: 0;
+  }
+
+  /* Título */
+  .qdm-mat__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  /* Separador */
+  .qdm-mat__divider {
+    display: block;
+    width: 32px;
+    height: 1.5px;
+    background-color: var(--qdm-camel, #C9A787);
+    flex-shrink: 0;
+  }
+
+  /* Bullets — estilo tabla */
+  .qdm-mat__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .qdm-mat__bullet {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-block: 1.125rem;
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+
+  .qdm-mat__bullet:first-child {
+    border-top: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+
+  .qdm-mat__bullet-heading {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--qdm-carbon, #262522);
+    line-height: 1.3;
+  }
+
+  .qdm-mat__bullet-body {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.55;
+    color: rgba(38, 37, 34, 0.65);
+    margin: 0;
+  }
+
+  /* CTAs */
+  .qdm-mat__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem 1.25rem;
+    align-items: center;
+    margin-top: 0.25rem;
+  }
+
+  .qdm-mat__cta {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 200ms ease, border-color 200ms ease;
+  }
+
+  .qdm-mat__cta--primary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--qdm-carbon, #262522);
+    color: var(--qdm-cream, #FFFEF7);
+    border-radius: 2px;
+  }
+
+  @media (hover: hover) {
+    .qdm-mat__cta--primary:hover { background-color: #3d3b38; }
+  }
+
+  .qdm-mat__cta--ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--qdm-carbon, #262522);
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+    padding-bottom: 2px;
+  }
+
+  @media (hover: hover) {
+    .qdm-mat__cta--ghost:hover { border-bottom-color: var(--qdm-carbon, #262522); }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .qdm-mat__inner {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+
+    .qdm-mat__media { aspect-ratio: 16 / 9; }
+
+    .qdm-mat__content {
+      padding: 3rem 1.5rem;
+    }
+
+    .qdm-mat__content-inner {
+      max-width: 100%;
+      gap: 1.5rem;
+    }
+
+    .qdm-mat__ctas {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .qdm-mat__cta--primary {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-mat__cta { transition: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Materiales",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto sobre el título",
+      "default": "Transparencia radical"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Lo que elegimos y por qué."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen (proceso o detalle de pieza)"
+    },
+    {
+      "type": "url",
+      "id": "cta1_url",
+      "label": "Link CTA principal"
+    },
+    {
+      "type": "text",
+      "id": "cta1_label",
+      "label": "Texto CTA principal",
+      "default": "Nuestros materiales"
+    },
+    {
+      "type": "url",
+      "id": "cta2_url",
+      "label": "Link CTA secundario"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Texto CTA secundario",
+      "default": "Cómo los hacemos"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Punto clave",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Descripción"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Materiales",
+      "blocks": [
+        {
+          "type": "bullet",
+          "settings": {
+            "heading": "Plata de ley 925 certificada por AIDIMME",
+            "body": "92.5% plata pura. Sin níquel. Durable. Real."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "heading": "Plata reciclada en nuestra línea adaptada",
+            "body": "De objetos que completaron su ciclo. Transformados en algo nuevo."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "heading": "Fabricación en Europa con pequeños talleres",
+            "body": "No trabajamos con grandes volúmenes. Elegimos la curaduría."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

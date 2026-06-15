@@ -1,0 +1,290 @@
+{%- comment -%}
+  QDM · FAQ Corta — S9 Homepage
+  3 preguntas frecuentes en accordion nativo
+  Schema FAQPage JSON-LD incluido
+  max-width 720px, centrado
+{%- endcomment -%}
+
+<section class="qdm-faq">
+  <div class="qdm-faq__inner page-width">
+
+    {%- if section.settings.title != blank -%}
+      <h2 class="qdm-faq__title" data-reveal="fade-up">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- assign faq_items = section.blocks | where: 'type', 'item' -%}
+    {%- if faq_items.size > 0 -%}
+      <div class="qdm-faq__list" data-reveal="fade-up" data-reveal-delay="80">
+        {%- for block in faq_items -%}
+          {%- if block.settings.question != blank and block.settings.answer != blank -%}
+            <details class="qdm-faq__item" {{ block.shopify_attributes }}>
+              <summary class="qdm-faq__question">
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="qdm-faq__icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <line class="qdm-faq__icon-h" x1="1" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <line class="qdm-faq__icon-v" x1="8" y1="1" x2="8" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="qdm-faq__answer">
+                <p>{{ block.settings.answer }}</p>
+              </div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="qdm-faq__footer" data-reveal="fade-up" data-reveal-delay="120">
+        <a
+          href="{{ section.settings.cta_url | default: '/pages/faq' }}"
+          class="qdm-faq__cta"
+        >
+          {{ section.settings.cta_label | escape }} →
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- assign faq_items_schema = section.blocks | where: 'type', 'item' -%}
+{%- if faq_items_schema.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for block in faq_items_schema -%}
+          {%- if block.settings.question != blank and block.settings.answer != blank -%}
+            {
+              "@type": "Question",
+              "name": {{ block.settings.question | json }},
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": {{ block.settings.answer | json }}
+              }
+            }{% unless forloop.last %},{% endunless %}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .qdm-faq {
+    background-color: var(--qdm-cream, #FFFEF7);
+    padding-block: 5rem 5.5rem;
+  }
+
+  .qdm-faq__inner {
+    max-width: 720px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* Título */
+  .qdm-faq__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.375rem, 2.5vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--qdm-carbon, #262522);
+    text-align: center;
+    margin: 0;
+  }
+
+  /* Lista */
+  .qdm-faq__list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+
+  /* Item / details */
+  .qdm-faq__item {
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+
+  /* Summary / pregunta */
+  .qdm-faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 1.25rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    transition: color 200ms ease;
+  }
+
+  /* Quitar el triángulo nativo en todos los navegadores */
+  .qdm-faq__question::-webkit-details-marker { display: none; }
+  .qdm-faq__question::marker { display: none; }
+
+  @media (hover: hover) {
+    .qdm-faq__question:hover {
+      color: rgba(38, 37, 34, 0.7);
+    }
+  }
+
+  /* Ícono + / × */
+  .qdm-faq__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: var(--qdm-camel, #C9A787);
+    transition: transform 250ms ease;
+  }
+
+  .qdm-faq__icon-v {
+    transform-origin: center;
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+
+  /* Cuando está abierto: la línea vertical desaparece → queda solo el guión */
+  .qdm-faq__item[open] .qdm-faq__icon-v {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  /* Respuesta */
+  .qdm-faq__answer {
+    padding-bottom: 1.25rem;
+  }
+
+  .qdm-faq__answer p {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(38, 37, 34, 0.75);
+    margin: 0;
+  }
+
+  /* Footer CTA */
+  .qdm-faq__footer {
+    text-align: center;
+  }
+
+  .qdm-faq__cta {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    text-decoration: none;
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+    padding-bottom: 2px;
+    transition: border-color 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .qdm-faq__cta:hover {
+      border-bottom-color: var(--qdm-carbon, #262522);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .qdm-faq {
+      padding-block: 3.5rem 4rem;
+    }
+
+    .qdm-faq__inner {
+      gap: 2rem;
+    }
+
+    .qdm-faq__question {
+      font-size: 0.9375rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-faq__icon,
+    .qdm-faq__icon-v {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · FAQ Corta",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de la sección",
+      "default": "Preguntas frecuentes"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link del CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del CTA",
+      "default": "Ver todas las preguntas"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Pregunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Pregunta"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Respuesta"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · FAQ Corta",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "question": "¿De qué material están hechas las piezas?",
+            "answer": "Todas nuestras piezas están fabricadas en plata de ley 925, certificada por AIDIMME. Esto significa que contienen el 92.5% de plata pura, sin níquel, y son aptas para pieles sensibles. La línea adaptada utiliza plata 925 reciclada."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "¿Cómo funcionan las joyas para audífonos?",
+            "answer": "Nuestra línea adaptada está diseñada para modelos BTE (Behind The Ear) y RIC (Receiver In Canal), los más comunes. Cada pieza incluye un aro, un adaptador de silicona médica hipoalergénica y un tubo. Sin modificar el audífono. Si tenés un modelo diferente, escríbenos y lo evaluamos."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "¿Puedo personalizar una pieza?",
+            "answer": "Trabajamos en personalización según disponibilidad. Si tenés algo en mente, escríbenos a hola@quediriamimadre.com. No prometemos todo, pero sí escuchamos."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

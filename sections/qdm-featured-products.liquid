@@ -1,0 +1,410 @@
+{%- comment -%}
+  QDM · Productos Destacados — S5 Homepage
+  Badge + título + grid de productos curado (3 cols desktop, 2 tablet, 1 mobile)
+  Imagen swap en hover, stagger entrance, precio y material visibles
+{%- endcomment -%}
+
+<section class="qdm-products">
+  <div class="qdm-products__inner page-width">
+
+    <!-- Cabecera -->
+    <div class="qdm-products__header" data-reveal="fade-up">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="qdm-products__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="qdm-products__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="qdm-products__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- Grid de productos -->
+    {%- if section.settings.product_list != blank -%}
+      <ul class="qdm-products__grid" role="list">
+        {%- for product in section.settings.product_list limit: section.settings.limit -%}
+          <li
+            class="qdm-products__card"
+            data-reveal="fade-up"
+            data-reveal-delay="{{ forloop.index0 | times: 80 }}"
+            data-product-card
+          >
+            <a href="{{ product.url }}" class="qdm-products__card-link" aria-label="{{ product.title | escape }}">
+
+              <!-- Imagen con swap en hover -->
+              <div class="qdm-products__img-wrap" data-product-img-wrap>
+                {%- assign img1 = product.featured_image -%}
+                {%- assign img2 = product.images[1] -%}
+
+                {%- if img1 != blank -%}
+                  <img
+                    src="{{ img1 | image_url: width: 800 }}"
+                    alt="{{ img1.alt | default: product.title | escape }}"
+                    width="{{ img1.width }}"
+                    height="{{ img1.height }}"
+                    loading="lazy"
+                    class="qdm-products__img qdm-products__img--1"
+                    data-product-img-1
+                  >
+                {%- else -%}
+                  <div class="qdm-products__img-placeholder">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {%- endif -%}
+
+                {%- if img2 != blank -%}
+                  <img
+                    src="{{ img2 | image_url: width: 800 }}"
+                    alt="{{ img2.alt | default: product.title | escape }}"
+                    width="{{ img2.width }}"
+                    height="{{ img2.height }}"
+                    loading="lazy"
+                    class="qdm-products__img qdm-products__img--2"
+                    data-product-img-2
+                    aria-hidden="true"
+                  >
+                {%- endif -%}
+              </div>
+              <!-- /imagen -->
+
+              <!-- Info -->
+              <div class="qdm-products__info">
+                <p class="qdm-products__name">{{ product.title }}</p>
+
+                {%- if product.metafields.custom.material != blank -%}
+                  <p class="qdm-products__meta">{{ product.metafields.custom.material }}</p>
+                {%- elsif product.variants.first.title != 'Default Title' -%}
+                  <p class="qdm-products__meta">{{ product.variants.first.title | escape }}</p>
+                {%- elsif product.type != blank -%}
+                  <p class="qdm-products__meta">{{ product.type | escape }}</p>
+                {%- endif -%}
+
+                <p class="qdm-products__price">
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="qdm-products__price-compare">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                  <span class="qdm-products__price-current">{{ product.price | money }}</span>
+                </p>
+              </div>
+              <!-- /info -->
+
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <!-- CTA -->
+    {%- if section.settings.cta_label != blank -%}
+      <div class="qdm-products__footer" data-reveal="fade-up">
+        <a
+          href="{{ section.settings.cta_url | default: '/collections/all' }}"
+          class="qdm-products__cta"
+        >
+          {{ section.settings.cta_label | escape }}
+          <span class="qdm-products__cta-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+  /* ─── Sección ─── */
+  .qdm-products {
+    background-color: var(--qdm-cream, #FFFEF7);
+    padding-block: 5rem 5.5rem;
+  }
+
+  .qdm-products__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  /* ─── Cabecera ─── */
+  .qdm-products__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .qdm-products__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--qdm-camel, #C9A787);
+    margin: 0;
+  }
+
+  .qdm-products__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  .qdm-products__subtitle {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(38, 37, 34, 0.65);
+    max-width: 480px;
+    margin: 0;
+  }
+
+  /* ─── Grid ─── */
+  .qdm-products__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1.5rem;
+  }
+
+  /* ─── Card ─── */
+  .qdm-products__card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Imagen */
+  .qdm-products__img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background-color: var(--qdm-sand, #E0DED7);
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+
+  .qdm-products__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 350ms ease, transform 600ms ease;
+  }
+
+  .qdm-products__img--2 {
+    opacity: 0;
+  }
+
+  /* Swap en hover */
+  @media (hover: hover) {
+    .qdm-products__card-link:hover .qdm-products__img--1 {
+      opacity: 0;
+    }
+
+    .qdm-products__card-link:hover .qdm-products__img--2 {
+      opacity: 1;
+    }
+
+    .qdm-products__card-link:hover .qdm-products__img--1 {
+      transform: scale(1.03);
+    }
+  }
+
+  .qdm-products__img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--qdm-sand, #E0DED7);
+  }
+
+  /* Info */
+  .qdm-products__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-inline: 0.125rem;
+  }
+
+  .qdm-products__name {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .qdm-products__meta {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: rgba(38, 37, 34, 0.55);
+    margin: 0;
+    letter-spacing: 0;
+  }
+
+  .qdm-products__price {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    margin: 0.25rem 0 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+
+  .qdm-products__price-compare {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: rgba(38, 37, 34, 0.45);
+    text-decoration: line-through;
+  }
+
+  /* ─── Footer / CTA ─── */
+  .qdm-products__footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+
+  .qdm-products__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    text-decoration: none;
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+    padding-bottom: 2px;
+    transition: border-color 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .qdm-products__cta:hover {
+      border-bottom-color: var(--qdm-carbon, #262522);
+    }
+
+    .qdm-products__cta:hover .qdm-products__cta-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  .qdm-products__cta-arrow {
+    display: inline-block;
+    transition: transform 280ms ease;
+  }
+
+  /* ─── Tablet (2 columnas) ─── */
+  @media (max-width: 1023px) {
+    .qdm-products__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 767px) {
+    .qdm-products {
+      padding-block: 3.5rem 4rem;
+    }
+
+    .qdm-products__inner {
+      gap: 2.5rem;
+    }
+
+    .qdm-products__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem 0.75rem;
+    }
+
+    .qdm-products__name {
+      font-size: 0.9375rem;
+    }
+
+    .qdm-products__price {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .qdm-products__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ─── Accesibilidad ─── */
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-products__img,
+    .qdm-products__cta-arrow {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Productos destacados",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto sobre el título (eyebrow)",
+      "default": "Primer drop"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Piezas estrella"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo (opcional)"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Productos a mostrar",
+      "limit": 12
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Número máximo de productos",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link del CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del CTA",
+      "default": "Ver toda la colección"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Productos destacados"
+    }
+  ]
+}
+{% endschema %}
