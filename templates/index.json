@@ -6,8 +6,77 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
+    "qdm_marquee_9micP4": {
+      "type": "qdm-marquee",
+      "blocks": {
+        "phrase_wbRLMG": {
+          "type": "phrase",
+          "settings": {
+            "text": "Objetos con alma"
+          }
+        },
+        "phrase_YLGpcY": {
+          "type": "phrase",
+          "settings": {
+            "text": "Plata 925 certificada"
+          }
+        },
+        "phrase_AKNpn9": {
+          "type": "phrase",
+          "settings": {
+            "text": "Fabricada en Europa"
+          }
+        },
+        "phrase_jhTkLc": {
+          "type": "phrase",
+          "settings": {
+            "text": "Para quien se atreve"
+          }
+        },
+        "phrase_BHtbTw": {
+          "type": "phrase",
+          "settings": {
+            "text": "Símbolo antes que tendencia"
+          }
+        },
+        "phrase_3KL9xF": {
+          "type": "phrase",
+          "settings": {
+            "text": "Hecha con intención"
+          }
+        },
+        "phrase_bJTQVT": {
+          "type": "phrase",
+          "settings": {
+            "text": "QDM"
+          }
+        },
+        "phrase_3dfQrV": {
+          "type": "phrase",
+          "settings": {
+            "text": "Qué Diría Mi Madre"
+          }
+        }
+      },
+      "block_order": [
+        "phrase_wbRLMG",
+        "phrase_YLGpcY",
+        "phrase_AKNpn9",
+        "phrase_jhTkLc",
+        "phrase_BHtbTw",
+        "phrase_3KL9xF",
+        "phrase_bJTQVT",
+        "phrase_3dfQrV"
+      ],
+      "name": "QDM · Marquee",
+      "settings": {
+        "separator": "·",
+        "color_scheme": "color-1"
+      }
+    },
     "section_MgkEX9": {
       "type": "section",
       "blocks": {
@@ -15,11 +84,37 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>High-quality textiles, transformed <br/>into heirloom-quality garments.</h2>",
+            "text": "<h2>COLECCIONES</h2>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
-            "type_preset": "h2",
+            "type_preset": "h5",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_RAaA6y": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Explora por categoría</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h3",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -39,7 +134,8 @@
         }
       },
       "block_order": [
-        "text_kfVmdT"
+        "text_kfVmdT",
+        "text_RAaA6y"
       ],
       "name": "Heading",
       "settings": {
@@ -54,7 +150,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -140,6 +236,7 @@
       },
       "name": "Collection list: Editorial",
       "settings": {
+        "collection_list": [],
         "layout_type": "editorial",
         "carousel_on_mobile": false,
         "columns": 2,
@@ -153,247 +250,9 @@
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 12,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "padding-block-start": 64,
         "padding-block-end": 100
-      }
-    },
-    "media_with_content_CwFqjm": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "image",
-            "video_loop": true,
-            "video_autoplay": false,
-            "image_position": "cover",
-            "video_position": "cover"
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "space-between",
-            "gap": 24
-          },
-          "blocks": {
-            "text_KyHUy8": {
-              "type": "text",
-              "name": "Text",
-              "settings": {
-                "text": "<p>Featured</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h5",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "group_eDk3TE": {
-              "type": "group",
-              "name": "Description group",
-              "settings": {
-                "open_in_new_tab": false,
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_Nh4R7f": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2>Our signature product</h2>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-primary--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "text_WpXhQM": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Made with care and unconditionally loved by our customers, this signature bestseller exceeds all expectations.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-primary--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_Nh4R7f",
-                "text_WpXhQM"
-              ]
-            },
-            "group_T36UNF": {
-              "type": "group",
-              "name": "Button group",
-              "settings": {
-                "open_in_new_tab": false,
-                "content_direction": "row",
-                "vertical_on_mobile": false,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "button_UGkAFJ": {
-                  "type": "button",
-                  "name": "Button",
-                  "settings": {
-                    "label": "Shop now",
-                    "link": "shopify://collections/all",
-                    "open_in_new_tab": false,
-                    "style_class": "button",
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fit-content",
-                    "custom_width_mobile": 100
-                  },
-                  "blocks": {}
-                },
-                "button_yhjQWy": {
-                  "type": "button",
-                  "name": "Button",
-                  "settings": {
-                    "label": "Explore the collection",
-                    "open_in_new_tab": false,
-                    "style_class": "button-secondary",
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fit-content",
-                    "custom_width_mobile": 100
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "button_UGkAFJ",
-                "button_yhjQWy"
-              ]
-            }
-          },
-          "block_order": [
-            "text_KyHUy8",
-            "group_eDk3TE",
-            "group_T36UNF"
-          ]
-        }
-      },
-      "name": "t:names.media_with_text",
-      "settings": {
-        "media_position": "right",
-        "media_width": "medium",
-        "media_height": "80svh",
-        "section_width": "page-width",
-        "extend_media": true,
-        "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 0
       }
     },
     "product_list_4HyKBg": {
@@ -464,6 +323,7 @@
               "disabled": true,
               "settings": {
                 "label": "View all",
+                "link": "",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",
@@ -517,7 +377,6 @@
               "type": "_product-card-group",
               "name": "t:names.group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -545,6 +404,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 8,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -656,6 +517,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
+            "link": "",
             "video_loop": true,
             "video_autoplay": false,
             "image_position": "cover",
@@ -702,7 +564,6 @@
               "type": "group",
               "name": "Description group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -730,6 +591,9 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -797,7 +661,6 @@
               "type": "group",
               "name": "Button group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "row",
                 "vertical_on_mobile": false,
                 "horizontal_alignment": "flex-start",
@@ -825,6 +688,9 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -851,6 +717,7 @@
                   "name": "Button",
                   "settings": {
                     "label": "Explore the collection",
+                    "link": "",
                     "open_in_new_tab": false,
                     "style_class": "button-secondary",
                     "width": "fit-content",
@@ -885,12 +752,22 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "qdm_statement_etm3PE": {
+      "type": "qdm-statement",
+      "name": "QDM · Statement",
+      "settings": {
+        "text": "No creemos en la joyería como accesorio. Creemos en la joyería como símbolo. Creamos piezas que no siguen tendencias: cuentan historias.",
+        "cta_label": "Leer el manifiesto completo",
+        "cta_url": ""
+      }
     }
   },
   "order": [
+    "qdm_marquee_9micP4",
     "section_MgkEX9",
     "collection_list_Ge6pfb",
-    "media_with_content_CwFqjm",
+    "qdm_statement_etm3PE",
     "product_list_4HyKBg",
     "media_with_content_xUctDh"
   ]
