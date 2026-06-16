@@ -10,9 +10,14 @@
 
 cd ~/Desktop/proyectos/qdm-theme
 
-# Si estuviste editando en el editor de Shopify con el server caído,
-# primero sincronizar los templates al local:
+# ⚠️  OBLIGATORIO antes de cada `theme dev` — sin excepción:
+# shopify theme dev hace un push inicial de todos los archivos locales al servidor.
+# Si el local tiene un index.json desactualizado, sobreescribe las secciones que
+# hayas configurado en el editor. Esto sincroniza el local ANTES de que eso pase.
 shopify theme pull --theme=188752331116 --store=qdm-dev.myshopify.com --only "templates/*.json"
+
+# Commitear si hubo cambios:
+git add templates/ && git commit -m "chore: sync templates" || true
 
 # Luego arrancar el server:
 shopify theme dev --store=qdm-dev.myshopify.com

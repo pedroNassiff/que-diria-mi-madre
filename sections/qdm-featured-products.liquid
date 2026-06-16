@@ -38,15 +38,12 @@
                 {%- assign img2 = product.images[1] -%}
 
                 {%- if img1 != blank -%}
-                  <img
-                    src="{{ img1 | image_url: width: 800 }}"
-                    alt="{{ img1.alt | default: product.title | escape }}"
-                    width="{{ img1.width }}"
-                    height="{{ img1.height }}"
-                    loading="lazy"
-                    class="qdm-products__img qdm-products__img--1"
-                    data-product-img-1
-                  >
+                  {%- liquid
+                    assign img1_src = img1 | image_url: width: 800
+                    assign img1_widths = '400, 600, 800'
+                    assign img1_sizes = '(min-width: 1200px) 300px, (min-width: 750px) 28vw, 44vw'
+                  -%}
+                  {{ img1 | image_url: width: 800 | image_tag: class: 'qdm-products__img qdm-products__img--1', loading: 'lazy', widths: img1_widths, sizes: img1_sizes, alt: img1.alt }}
                 {%- else -%}
                   <div class="qdm-products__img-placeholder">
                     {{ 'product-1' | placeholder_svg_tag }}
@@ -54,16 +51,11 @@
                 {%- endif -%}
 
                 {%- if img2 != blank -%}
-                  <img
-                    src="{{ img2 | image_url: width: 800 }}"
-                    alt="{{ img2.alt | default: product.title | escape }}"
-                    width="{{ img2.width }}"
-                    height="{{ img2.height }}"
-                    loading="lazy"
-                    class="qdm-products__img qdm-products__img--2"
-                    data-product-img-2
-                    aria-hidden="true"
-                  >
+                  {%- liquid
+                    assign img2_widths = '400, 600, 800'
+                    assign img2_sizes = '(min-width: 1200px) 300px, (min-width: 750px) 28vw, 44vw'
+                  -%}
+                  {{ img2 | image_url: width: 800 | image_tag: class: 'qdm-products__img qdm-products__img--2', loading: 'lazy', widths: img2_widths, sizes: img2_sizes, alt: img2.alt, aria-hidden: 'true' }}
                 {%- endif -%}
               </div>
               <!-- /imagen -->
@@ -122,6 +114,9 @@
     display: flex;
     flex-direction: column;
     gap: 3.5rem;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
   }
 
   /* ─── Cabecera ─── */
@@ -178,9 +173,12 @@
     color: inherit;
   }
 
-  /* Imagen */
+  /* Imagen — patrón Heritage resource-image */
   .qdm-products__img-wrap {
     position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     aspect-ratio: 3 / 4;
     background-color: var(--qdm-sand, #E0DED7);
@@ -189,15 +187,17 @@
   }
 
   .qdm-products__img {
-    position: absolute;
-    inset: 0;
+    object-fit: cover;
+    aspect-ratio: 3 / 4;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    display: block;
     transition: opacity 350ms ease, transform 600ms ease;
   }
 
   .qdm-products__img--2 {
+    position: absolute;
+    inset: 0;
     opacity: 0;
   }
 
@@ -310,6 +310,10 @@
     .qdm-products__grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .qdm-products__inner {
+      padding-inline: 2rem;
+    }
   }
 
   /* ─── Mobile ─── */
@@ -320,6 +324,7 @@
 
     .qdm-products__inner {
       gap: 2.5rem;
+      padding-inline: 1rem;
     }
 
     .qdm-products__grid {
@@ -353,7 +358,7 @@
 
 {% schema %}
 {
-  "name": "QDM · Productos destacados",
+  "name": "QDM · Productos",
   "tag": "section",
   "class": "shopify-section",
   "settings": [
@@ -403,7 +408,7 @@
   ],
   "presets": [
     {
-      "name": "QDM · Productos destacados"
+      "name": "QDM · Productos"
     }
   ]
 }

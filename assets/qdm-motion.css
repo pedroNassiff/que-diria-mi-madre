@@ -369,11 +369,6 @@ html.lenis {
 }
 
 /* Image lazy load fade-in */
-img[loading="lazy"] {
-  opacity: 0;
-  transition: opacity 400ms var(--qdm-ease-hover);
-}
-
 img[loading="lazy"].is-loaded,
 img.lazyloaded {
   opacity: 1;
