@@ -24,6 +24,10 @@
 <section class="qdm-story">
   <div class="qdm-story__inner page-width">
 
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="qdm-story__eyebrow">{{ section.settings.eyebrow | upcase | escape }}</p>
+    {%- endif -%}
+
     <div class="qdm-story__accordion">
 
       <!-- La pieza — usa product.description -->
@@ -149,7 +153,7 @@
 {% stylesheet %}
   .qdm-story {
     background-color: var(--qdm-cream, #fffef7);
-    padding-block: 0 1.5rem;
+    padding-block: 1.75rem 1.5rem;
     padding-inline: 1.5rem;
   }
 
@@ -193,8 +197,22 @@
     }
   }
 
+  /* Eyebrow encima del acordeón */
+  .qdm-story__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(38, 37, 34, 0.4);
+    margin: 0 0 1.25rem;
+  }
+
   .qdm-story__label {
     flex: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8125rem;
   }
 
   /* Icono +/– */
@@ -292,6 +310,12 @@
   "class": "shopify-section",
   "settings": [
     {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior (eyebrow)",
+      "default": "La pieza"
+    },
+    {
       "type": "header",
       "content": "Etiquetas de los bloques"
     },
@@ -299,7 +323,7 @@
       "type": "text",
       "id": "label_1",
       "label": "Bloque 1 — Qué es",
-      "default": "La pieza"
+      "default": "Qué es"
     },
     {
       "type": "text",

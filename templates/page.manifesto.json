@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "qdm-manifesto": {
+      "type": "qdm-manifesto",
+      "settings": {
+        "breadcrumb": "Qué Diría Mi Madre",
+        "title": "Manifiesto",
+        "subtitle": "El alma de lo que hacemos.",
+        "para_1": "<p>Nace como una respuesta al «qué dirán».</p><p>Una reivindicación de la libertad de ser uno mismo.</p><p>De hacer lo que uno desea. De mostrarse tal como es.</p><p>Más allá de las expectativas. De lo que se considera correcto, atractivo o aceptable.</p>",
+        "quote_1": "No creemos en la joyería como accesorio. Creemos en la joyería como símbolo.",
+        "para_2": "<p>Creamos piezas originales que no siguen tendencias: cuentan historias.</p><p>Cada diseño nace con intención, carácter y una identidad propia.</p><p>No trabajamos con grandes volúmenes.</p><p>Elegimos la curaduría antes que la cantidad.</p><p>La calidad antes que la rotación.</p><p>El significado antes que la moda.</p>",
+        "para_3": "<p>Nuestras piezas representan vínculos.</p><p>La conexión con la familia.</p><p>La complicidad con los amigos.</p><p>La relación más importante: la que tenemos con nosotras mismas.</p>",
+        "para_4": "<p>Hablamos de resiliencia. De fuerza silenciosa.</p><p>De momentos que marcan un antes y un después.</p><p>De recuerdos que se transforman en símbolos.</p>",
+        "quote_2": "No vendemos joyas. Creamos objetos con alma.",
+        "para_5": "<p>Pequeños recordatorios de quién sos, de dónde venís y de todo lo que sos capaz de sostener.</p><p>Porque lo que se lleva puesto también puede llevar significado.</p>",
+        "cta_label": "Explorar la colección",
+        "cta_url": "/collections"
+      }
+    }
+  },
+  "order": [
+    "qdm-manifesto"
+  ]
+}

@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "product-information": {
       "type": "product-information",
@@ -24,6 +25,7 @@
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "bottom",
             "thumbnail_width": 44,
+            "thumbnail_radius": 0,
             "aspect_ratio": "adapt",
             "constrain_to_viewport": false,
             "media_fit": "cover",
@@ -62,15 +64,14 @@
             "border_radius": 0,
             "padding-block-start": 48,
             "padding-block-end": 16,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-start": 20,
+            "padding-inline-end": 20
           },
           "blocks": {
             "group_J87VfC": {
               "type": "group",
               "name": "Details container",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -94,11 +95,13 @@
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
-                "placeholder": "",
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -109,7 +112,6 @@
                   "type": "group",
                   "name": "Title and price",
                   "settings": {
-                    "open_in_new_tab": false,
                     "content_direction": "column",
                     "vertical_on_mobile": true,
                     "horizontal_alignment": "flex-start",
@@ -117,7 +119,7 @@
                     "align_baseline": false,
                     "horizontal_alignment_flex_direction_column": "flex-start",
                     "vertical_alignment_flex_direction_column": "center",
-                    "gap": 12,
+                    "gap": 8,
                     "width": "fill",
                     "custom_width": 100,
                     "width_mobile": "fill",
@@ -133,11 +135,13 @@
                     "border_width": 1,
                     "border_opacity": 100,
                     "border_radius": 0,
-                    "placeholder": "",
                     "toggle_overlay": false,
                     "overlay_color": "#00000026",
                     "overlay_style": "solid",
                     "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "placeholder": "",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -170,32 +174,84 @@
                       },
                       "blocks": {}
                     },
-                    "price_iBYhxh": {
-                      "type": "price",
+                    "price_row_qdm": {
+                      "type": "group",
+                      "name": "Price row",
                       "settings": {
-                        "show_sale_price_first": true,
-                        "show_installments": true,
-                        "show_tax_info": false,
-                        "type_preset": "h5",
-                        "width": "100%",
-                        "alignment": "left",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "color": "var(--color-foreground)",
-                        "padding-block-start": 4,
+                        "content_direction": "row",
+                        "vertical_on_mobile": false,
+                        "horizontal_alignment": "flex-start",
+                        "vertical_alignment": "center",
+                        "align_baseline": true,
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "center",
+                        "gap": 10,
+                        "width": "fit-content",
+                        "custom_width": 100,
+                        "width_mobile": "fill",
+                        "custom_width_mobile": 100,
+                        "height": "fit",
+                        "custom_height": 100,
+                        "inherit_color_scheme": true,
+                        "color_scheme": "",
+                        "background_media": "none",
+                        "video_position": "cover",
+                        "background_image_position": "cover",
+                        "border": "none",
+                        "border_width": 1,
+                        "border_opacity": 100,
+                        "border_radius": 0,
+                        "toggle_overlay": false,
+                        "overlay_color": "#00000026",
+                        "overlay_style": "solid",
+                        "gradient_direction": "to top",
+                        "link": "",
+                        "open_in_new_tab": false,
+                        "placeholder": "",
+                        "padding-block-start": 0,
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
                       },
-                      "blocks": {}
+                      "blocks": {
+                        "price_iBYhxh": {
+                          "type": "price",
+                          "settings": {
+                            "show_sale_price_first": true,
+                            "show_installments": true,
+                            "show_tax_info": false,
+                            "type_preset": "h5",
+                            "width": "fit-content",
+                            "alignment": "left",
+                            "font": "var(--font-body--family)",
+                            "font_size": "1rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none",
+                            "color": "var(--color-foreground)",
+                            "padding-block-start": 4,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0
+                          },
+                          "blocks": {}
+                        },
+                        "badge_plata_qdm": {
+                          "type": "custom-liquid",
+                          "settings": {
+                            "custom_liquid": "{%- assign badge = closest.product.metafields.custom.material_badge.value | default: \"Plata 925\" -%}<span class=\"qdm-price-badge\">{{ badge | escape }}</span>"
+                          }
+                        }
+                      },
+                      "block_order": [
+                        "price_iBYhxh",
+                        "badge_plata_qdm"
+                      ]
                     }
                   },
                   "block_order": [
                     "text_rwpyUz",
-                    "price_iBYhxh"
+                    "price_row_qdm"
                   ]
                 },
                 "variant_picker_VT89rh": {
@@ -246,37 +302,10 @@
                   },
                   "block_order": []
                 },
-                "text_wnQCmf": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "{{ closest.product.description }}",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-primary--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
                 "group_JK8NUb": {
                   "type": "group",
                   "name": "Info icons",
                   "settings": {
-                    "open_in_new_tab": false,
                     "content_direction": "row",
                     "vertical_on_mobile": false,
                     "horizontal_alignment": "flex-start",
@@ -285,7 +314,7 @@
                     "horizontal_alignment_flex_direction_column": "flex-start",
                     "vertical_alignment_flex_direction_column": "center",
                     "gap": 12,
-                    "width": "fit-content",
+                    "width": "fill",
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 100,
@@ -300,11 +329,13 @@
                     "border_width": 1,
                     "border_opacity": 100,
                     "border_radius": 0,
-                    "placeholder": "",
                     "toggle_overlay": false,
                     "overlay_color": "#00000026",
                     "overlay_style": "solid",
                     "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "placeholder": "",
                     "padding-block-start": 20,
                     "padding-block-end": 16,
                     "padding-inline-start": 0,
@@ -315,7 +346,6 @@
                       "type": "group",
                       "name": "Icon group",
                       "settings": {
-                        "open_in_new_tab": false,
                         "content_direction": "column",
                         "vertical_on_mobile": false,
                         "horizontal_alignment": "flex-start",
@@ -339,11 +369,13 @@
                         "border_width": 1,
                         "border_opacity": 100,
                         "border_radius": 0,
-                        "placeholder": "",
                         "toggle_overlay": false,
                         "overlay_color": "#00000026",
                         "overlay_style": "solid",
                         "gradient_direction": "to top",
+                        "link": "",
+                        "open_in_new_tab": false,
+                        "placeholder": "",
                         "padding-block-start": 0,
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
@@ -353,8 +385,9 @@
                         "icon_9Erkpa": {
                           "type": "icon",
                           "settings": {
-                            "icon": "shield",
+                            "icon": "check_box",
                             "width": 32,
+                            "link": "",
                             "open_in_new_tab": false
                           },
                           "blocks": {}
@@ -362,7 +395,7 @@
                         "text_QfbPLQ": {
                           "type": "text",
                           "settings": {
-                            "text": "<p>Plata 925 · AIDIMME</p>",
+                            "text": "<p>Plata 925<br>certificada AIDIMME</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "center",
@@ -406,7 +439,6 @@
                       "type": "group",
                       "name": "Icon group",
                       "settings": {
-                        "open_in_new_tab": false,
                         "content_direction": "column",
                         "vertical_on_mobile": false,
                         "horizontal_alignment": "flex-start",
@@ -430,11 +462,13 @@
                         "border_width": 1,
                         "border_opacity": 100,
                         "border_radius": 0,
-                        "placeholder": "",
                         "toggle_overlay": false,
                         "overlay_color": "#00000026",
                         "overlay_style": "solid",
                         "gradient_direction": "to top",
+                        "link": "",
+                        "open_in_new_tab": false,
+                        "placeholder": "",
                         "padding-block-start": 0,
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
@@ -446,6 +480,7 @@
                           "settings": {
                             "icon": "truck",
                             "width": 32,
+                            "link": "",
                             "open_in_new_tab": false
                           },
                           "blocks": {}
@@ -453,7 +488,7 @@
                         "text_b3t8my": {
                           "type": "text",
                           "settings": {
-                            "text": "<p>Envío con seguro incluido</p>",
+                            "text": "<p>Envío<br>con seguro incluido</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "center",
@@ -497,7 +532,6 @@
                       "type": "group",
                       "name": "Icon group",
                       "settings": {
-                        "open_in_new_tab": false,
                         "content_direction": "column",
                         "vertical_on_mobile": false,
                         "horizontal_alignment": "flex-start",
@@ -521,11 +555,13 @@
                         "border_width": 1,
                         "border_opacity": 100,
                         "border_radius": 0,
-                        "placeholder": "",
                         "toggle_overlay": false,
                         "overlay_color": "#00000026",
                         "overlay_style": "solid",
                         "gradient_direction": "to top",
+                        "link": "",
+                        "open_in_new_tab": false,
+                        "placeholder": "",
                         "padding-block-start": 0,
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
@@ -537,6 +573,7 @@
                           "settings": {
                             "icon": "return",
                             "width": 32,
+                            "link": "",
                             "open_in_new_tab": false
                           },
                           "blocks": {}
@@ -544,7 +581,7 @@
                         "text_qn3jAU": {
                           "type": "text",
                           "settings": {
-                            "text": "<p>Devolución 14 días</p>",
+                            "text": "<p>Devolución<br>14 días</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "center",
@@ -571,10 +608,16 @@
                         "icon_8ci8XA",
                         "text_qn3jAU"
                       ]
+                    },
+                    "icons_bg_qdm": {
+                      "type": "custom-liquid",
+                      "settings": {
+                        "custom_liquid": "<span class=\"qdm-icons-strip-marker\" aria-hidden=\"true\" style=\"display:none\"></span>"
+                      }
                     }
-
                   },
                   "block_order": [
+                    "icons_bg_qdm",
                     "group_xKNtX4",
                     "divider_zLJwUP",
                     "group_AKU3P8",
@@ -594,9 +637,13 @@
                     "icons_style": "arrow",
                     "icons_shape": "none",
                     "gap": 12,
+                    "border_radius": 0,
+                    "inherit_color_scheme": true,
                     "color_scheme": "",
                     "padding-block-start": 0,
-                    "padding-block-end": 0
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
                   },
                   "blocks": {
                     "text_wdNxWE": {
@@ -731,13 +778,26 @@
                   "block_order": [
                     "text_wdNxWE"
                   ]
+                },
+                "breadcrumb_qdm": {
+                  "type": "custom-liquid",
+                  "settings": {
+                    "custom_liquid": "{%- assign bc = closest.product -%}{%- if bc.collections.size > 0 -%}<nav class=\"qdm-breadcrumb\" aria-label=\"Breadcrumb\"><a href=\"{{ routes.root_url }}\" class=\"qdm-breadcrumb__link\">Inicio</a><span class=\"qdm-breadcrumb__sep\" aria-hidden=\"true\">›</span>{%- for col in bc.collections limit: 1 -%}<a href=\"{{ col.url }}\" class=\"qdm-breadcrumb__link\">{{ col.title }}</a><span class=\"qdm-breadcrumb__sep\" aria-hidden=\"true\">›</span>{%- endfor -%}<span class=\"qdm-breadcrumb__current\">{{ bc.title }}</span></nav>{%- endif -%}"
+                  }
+                },
+                "in_stock_qdm": {
+                  "type": "custom-liquid",
+                  "settings": {
+                    "custom_liquid": "{%- assign v = closest.product.selected_or_first_available_variant -%}{%- if v.available -%}<p class=\"qdm-in-stock\">✓ En stock · Envío en 3-5 días hábiles</p>{%- endif -%}"
+                  }
                 }
               },
               "block_order": [
+                "breadcrumb_qdm",
                 "group_nMm3w6",
                 "variant_picker_VT89rh",
                 "buy_buttons_64taHw",
-                "text_wnQCmf",
+                "in_stock_qdm",
                 "group_JK8NUb",
                 "product_recommendations_Rpc8dN"
               ]
@@ -754,9 +814,59 @@
         "equal_columns": true,
         "limit_details_width": false,
         "gap": 12,
-        "color_scheme": "",
+        "enable_sticky_add_to_cart": true,
+        "color_scheme": "scheme-2",
         "padding-block-start": 0,
         "padding-block-end": 32
+      }
+    },
+    "qdm-product-story": {
+      "type": "qdm-product-story",
+      "settings": {
+        "label_1": "Qué es",
+        "label_2": "Materiales",
+        "label_3": "Proceso",
+        "label_4": "Para quién",
+        "care_label": "Cómo cuidar tu pieza",
+        "care_url": "",
+        "show_schema": true,
+        "eyebrow": "La pieza"
+      }
+    },
+    "qdm-faq-short": {
+      "type": "qdm-faq-short",
+      "blocks": {
+        "faq_1": {
+          "type": "item",
+          "settings": {
+            "question": "¿De qué material está hecha esta pieza?",
+            "answer": "Plata de ley 925 (92,5% plata pura). Sin níquel. Apta para pieles sensibles. Certificada por AIDIMME."
+          }
+        },
+        "faq_2": {
+          "type": "item",
+          "settings": {
+            "question": "¿Cómo elijo mi talla?",
+            "answer": "Podés medir el diámetro interior de un anillo que ya tengas o usar nuestra guía de tallas. Si estás entre dos tallas, elegí la más grande. Escribinos si tenés dudas."
+          }
+        },
+        "faq_3": {
+          "type": "item",
+          "settings": {
+            "question": "¿Puedo personalizar una pieza?",
+            "answer": "Trabajamos en personalización según disponibilidad. Si tenés algo en mente, escribinos a hola@quediriamimadre.com."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3"
+      ],
+      "settings": {
+        "title": "Preguntas frecuentes",
+        "cta_url": "/pages/faq",
+        "cta_label": "Ver todas las preguntas"
       }
     },
     "product_recommendations_8RVdzU": {
@@ -825,7 +935,6 @@
             "group_GRhihq": {
               "type": "_product-card-group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -853,6 +962,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -951,53 +1062,10 @@
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 28,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "qdm-product-story": {
-      "type": "qdm-product-story",
-      "settings": {
-        "label_1": "La pieza",
-        "label_2": "Materiales",
-        "label_3": "Proceso",
-        "label_4": "Para quién",
-        "care_label": "Cómo cuidar tu pieza",
-        "show_schema": true
-      }
-    },
-    "qdm-faq-short": {
-      "type": "qdm-faq-short",
-      "settings": {
-        "title": "Preguntas frecuentes",
-        "cta_label": "Ver todas las preguntas",
-        "cta_url": "/pages/faq"
-      },
-      "blocks": {
-        "faq_1": {
-          "type": "item",
-          "settings": {
-            "question": "¿De qué material está hecha esta pieza?",
-            "answer": "Plata de ley 925 (92,5% plata pura). Sin níquel. Apta para pieles sensibles. Certificada por AIDIMME."
-          }
-        },
-        "faq_2": {
-          "type": "item",
-          "settings": {
-            "question": "¿Cómo elijo mi talla?",
-            "answer": "Podés medir el diámetro interior de un anillo que ya tengas o usar nuestra guía de tallas. Si estás entre dos tallas, elegí la más grande. Escribinos si tenés dudas."
-          }
-        },
-        "faq_3": {
-          "type": "item",
-          "settings": {
-            "question": "¿Puedo personalizar una pieza?",
-            "answer": "Trabajamos en personalización según disponibilidad. Si tenés algo en mente, escribinos a hola@quediriamimadre.com."
-          }
-        }
-      },
-      "block_order": ["faq_1", "faq_2", "faq_3"]
     }
   },
   "order": [
