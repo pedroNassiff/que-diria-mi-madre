@@ -1,0 +1,637 @@
+{%- comment -%}
+  QDM · Footer — S10 global
+  Fondo carbon · 4 col desktop · 2 col mobile
+  Col 1: logo + tagline | Col 2–4: navegación por menú
+  Barra intermedia: RRSS (izq) + newsletter (der)
+  Barra legal: copyright + políticas
+{%- endcomment -%}
+
+<footer class="qdm-footer" role="contentinfo">
+  <div class="qdm-footer__inner page-width">
+
+    <!-- NAV GRID -->
+    <div class="qdm-footer__grid">
+
+      <!-- Col 1: Marca -->
+      <div class="qdm-footer__brand">
+        <a href="{{ routes.root_url }}" class="qdm-footer__logo-link" aria-label="QDM — volver al inicio">
+          {%- if section.settings.logo != blank -%}
+            {{
+              section.settings.logo
+              | image_url: width: 160
+              | image_tag:
+                loading: 'lazy',
+                widths: '80, 120, 160',
+                sizes: '120px',
+                class: 'qdm-footer__logo-img',
+                alt: section.settings.logo.alt | default: 'QDM'
+            }}
+          {%- else -%}
+            <span class="qdm-footer__logo-text">QDM</span>
+          {%- endif -%}
+        </a>
+        {%- if section.settings.tagline != blank -%}
+          <p class="qdm-footer__tagline">{{ section.settings.tagline | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      <!-- Col 2: Colecciones -->
+      <nav class="qdm-footer__nav" aria-label="{{ section.settings.col2_heading | default: 'Colecciones' | escape }}">
+        <p class="qdm-footer__nav-heading">{{ section.settings.col2_heading | default: 'Colecciones' | escape }}</p>
+        <ul class="qdm-footer__nav-list" role="list">
+          {%- if section.settings.col2_menu != blank -%}
+            {%- for link in linklists[section.settings.col2_menu].links -%}
+              <li>
+                <a href="{{ link.url }}" class="qdm-footer__nav-link">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/collections/anillos" class="qdm-footer__nav-link">Anillos</a></li>
+            <li><a href="/collections/aros" class="qdm-footer__nav-link">Aros</a></li>
+            <li><a href="/collections/collares" class="qdm-footer__nav-link">Collares</a></li>
+            <li><a href="/collections/pulseras" class="qdm-footer__nav-link">Pulseras</a></li>
+            <li>
+              <a href="/collections/joyas-adaptadas" class="qdm-footer__nav-link qdm-footer__nav-link--featured">
+                Joyas adaptadas
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <!-- Col 3: Marca -->
+      <nav class="qdm-footer__nav" aria-label="{{ section.settings.col3_heading | default: 'Marca' | escape }}">
+        <p class="qdm-footer__nav-heading">{{ section.settings.col3_heading | default: 'Marca' | escape }}</p>
+        <ul class="qdm-footer__nav-list" role="list">
+          {%- if section.settings.col3_menu != blank -%}
+            {%- for link in linklists[section.settings.col3_menu].links -%}
+              <li>
+                <a href="{{ link.url }}" class="qdm-footer__nav-link">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/manifiesto" class="qdm-footer__nav-link">Manifiesto</a></li>
+            <li><a href="/pages/sobre-nosotras" class="qdm-footer__nav-link">Sobre nosotras</a></li>
+            <li><a href="/pages/proceso" class="qdm-footer__nav-link">Proceso</a></li>
+            <li><a href="/pages/materiales" class="qdm-footer__nav-link">Materiales</a></li>
+            <li><a href="/blogs/journal" class="qdm-footer__nav-link">Journal</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <!-- Col 4: Ayuda -->
+      <nav class="qdm-footer__nav" aria-label="{{ section.settings.col4_heading | default: 'Ayuda' | escape }}">
+        <p class="qdm-footer__nav-heading">{{ section.settings.col4_heading | default: 'Ayuda' | escape }}</p>
+        <ul class="qdm-footer__nav-list" role="list">
+          {%- if section.settings.col4_menu != blank -%}
+            {%- for link in linklists[section.settings.col4_menu].links -%}
+              <li>
+                <a href="{{ link.url }}" class="qdm-footer__nav-link">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/faq" class="qdm-footer__nav-link">FAQ</a></li>
+            <li><a href="/pages/envios-y-devoluciones" class="qdm-footer__nav-link">Envíos y devoluciones</a></li>
+            <li><a href="/pages/contacto" class="qdm-footer__nav-link">Contacto</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+    </div>
+    <!-- /NAV GRID -->
+
+    <!-- BARRA INTERMEDIA: RRSS + Newsletter -->
+    <div class="qdm-footer__bar">
+
+      <div class="qdm-footer__social" aria-label="Redes sociales de QDM">
+        {%- if section.settings.instagram_url != blank -%}
+          <a
+            href="{{ section.settings.instagram_url }}"
+            class="qdm-footer__social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="QDM en Instagram"
+          >
+            <svg class="qdm-footer__social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.pinterest_url != blank -%}
+          <a
+            href="{{ section.settings.pinterest_url }}"
+            class="qdm-footer__social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="QDM en Pinterest"
+          >
+            <svg class="qdm-footer__social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.39.806-2.428 1.808-2.428.853 0 1.265.641 1.265 1.408 0 .858-.546 2.141-.828 3.329-.236.995.499 1.806 1.48 1.806 1.773 0 3.143-1.874 3.143-4.58 0-2.393-1.72-4.068-4.177-4.068-2.845 0-4.516 2.134-4.516 4.34 0 .859.331 1.781.744 2.284a.3.3 0 0 1 .07.288c-.076.314-.244 1.003-.277 1.143-.044.185-.146.224-.336.135-1.249-.582-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="qdm-footer__newsletter">
+        {%- if section.settings.newsletter_heading != blank -%}
+          <p class="qdm-footer__newsletter-heading">{{ section.settings.newsletter_heading | escape }}</p>
+        {%- endif -%}
+        {%- form 'customer', id: 'qdm-footer-newsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="qdm-footer__newsletter-row">
+            <label for="qdm-footer-email" class="visually-hidden">
+              {{ section.settings.newsletter_placeholder | default: 'Tu email' | escape }}
+            </label>
+            <input
+              id="qdm-footer-email"
+              type="email"
+              name="contact[email]"
+              class="qdm-footer__newsletter-input"
+              placeholder="{{ section.settings.newsletter_placeholder | default: 'Tu email' | escape }}"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="qdm-footer__newsletter-btn">
+              {{- section.settings.newsletter_btn | default: 'Suscribirse' | escape -}}
+            </button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="qdm-footer__newsletter-confirm">Apuntado. Te escribimos pronto.</p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <p class="qdm-footer__newsletter-error" role="alert">
+              {{ form.errors.translated_fields['email'] | capitalize }}
+              {{ form.errors.messages['email'] }}
+            </p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+    </div>
+    <!-- /BARRA INTERMEDIA -->
+
+    <!-- LEGAL BAR -->
+    <div class="qdm-footer__legal">
+      <p class="qdm-footer__copyright">
+        © {{ 'now' | date: '%Y' }} QDM · Qué Diría Mi Madre. Hecha con ♥ en España.
+      </p>
+      <nav class="qdm-footer__policy-nav" aria-label="Políticas legales">
+        <a href="{{ routes.privacy_policy_url }}" class="qdm-footer__policy-link">Privacidad</a>
+        <span class="qdm-footer__policy-sep" aria-hidden="true">·</span>
+        <a href="{{ routes.terms_of_service_url }}" class="qdm-footer__policy-link">Términos</a>
+        <span class="qdm-footer__policy-sep" aria-hidden="true">·</span>
+        <a href="{{ routes.refund_policy_url }}" class="qdm-footer__policy-link">Devoluciones</a>
+      </nav>
+    </div>
+    <!-- /LEGAL BAR -->
+
+  </div>
+</footer>
+
+{% stylesheet %}
+  /* ── WRAPPER ── */
+  .qdm-footer {
+    background-color: var(--qdm-carbon, #262522);
+    color: var(--qdm-cream, #fffef7);
+    padding-block: 4rem 2rem;
+  }
+
+  .qdm-footer__inner {
+    padding-inline: 1.5rem;
+  }
+
+  /* ── NAV GRID ── */
+  .qdm-footer__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2rem 3.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 254, 247, 0.1);
+  }
+
+  .qdm-footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .qdm-footer__logo-link {
+    display: inline-block;
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .qdm-footer__logo-img {
+    display: block;
+    height: 30px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  .qdm-footer__logo-text {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--qdm-cream, #fffef7);
+  }
+
+  .qdm-footer__tagline {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    color: rgba(255, 254, 247, 0.5);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .qdm-footer__nav-heading {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 254, 247, 0.4);
+    margin: 0 0 1rem;
+  }
+
+  .qdm-footer__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .qdm-footer__nav-link {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    color: rgba(255, 254, 247, 0.7);
+    text-decoration: none;
+    transition: color 250ms var(--qdm-ease-hover, ease);
+  }
+
+  @media (hover: hover) {
+    .qdm-footer__nav-link:hover {
+      color: var(--qdm-cream, #fffef7);
+    }
+  }
+
+  .qdm-footer__nav-link:focus-visible {
+    outline: 1px solid rgba(255, 254, 247, 0.4);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* "Joyas adaptadas" en ámbar — diferenciador visual */
+  .qdm-footer__nav-link--featured {
+    color: var(--qdm-amber, #ebb86e);
+  }
+
+  @media (hover: hover) {
+    .qdm-footer__nav-link--featured:hover {
+      color: var(--qdm-camel, #c9a787);
+    }
+  }
+
+  /* ── BARRA INTERMEDIA ── */
+  .qdm-footer__bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+    border-bottom: 1px solid rgba(255, 254, 247, 0.1);
+  }
+
+  /* Social */
+  .qdm-footer__social {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 0.25rem;
+  }
+
+  .qdm-footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 254, 247, 0.18);
+    color: rgba(255, 254, 247, 0.65);
+    text-decoration: none;
+    transition: color 250ms var(--qdm-ease-hover, ease),
+                border-color 250ms var(--qdm-ease-hover, ease);
+  }
+
+  @media (hover: hover) {
+    .qdm-footer__social-link:hover {
+      color: var(--qdm-cream, #fffef7);
+      border-color: rgba(255, 254, 247, 0.45);
+    }
+  }
+
+  .qdm-footer__social-link:focus-visible {
+    outline: 1px solid rgba(255, 254, 247, 0.4);
+    outline-offset: 3px;
+  }
+
+  /* Newsletter */
+  .qdm-footer__newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .qdm-footer__newsletter-heading {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--qdm-cream, #fffef7);
+    margin: 0;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .qdm-footer__newsletter-row {
+    display: flex;
+    border: 1px solid rgba(255, 254, 247, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .qdm-footer__newsletter-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    padding: 0.6875rem 0.875rem;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    color: var(--qdm-cream, #fffef7);
+    outline: none;
+  }
+
+  .qdm-footer__newsletter-input::placeholder {
+    color: rgba(255, 254, 247, 0.35);
+  }
+
+  .qdm-footer__newsletter-input:focus {
+    background: rgba(255, 254, 247, 0.04);
+  }
+
+  .qdm-footer__newsletter-btn {
+    flex-shrink: 0;
+    background: rgba(255, 254, 247, 0.07);
+    border: none;
+    border-left: 1px solid rgba(255, 254, 247, 0.2);
+    padding: 0.6875rem 1.125rem;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--qdm-cream, #fffef7);
+    cursor: pointer;
+    transition: background 250ms var(--qdm-ease-hover, ease);
+    white-space: nowrap;
+  }
+
+  @media (hover: hover) {
+    .qdm-footer__newsletter-btn:hover {
+      background: rgba(255, 254, 247, 0.13);
+    }
+  }
+
+  .qdm-footer__newsletter-btn:focus-visible {
+    outline: 1px solid rgba(255, 254, 247, 0.4);
+    outline-offset: -2px;
+  }
+
+  .qdm-footer__newsletter-confirm {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    color: var(--qdm-amber, #ebb86e);
+    margin: 0;
+  }
+
+  .qdm-footer__newsletter-error {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    color: rgba(255, 254, 247, 0.55);
+    margin: 0;
+  }
+
+  /* ── LEGAL BAR ── */
+  .qdm-footer__legal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .qdm-footer__copyright {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    color: rgba(255, 254, 247, 0.3);
+    margin: 0;
+  }
+
+  .qdm-footer__policy-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .qdm-footer__policy-sep {
+    color: rgba(255, 254, 247, 0.18);
+    font-size: 0.75rem;
+  }
+
+  .qdm-footer__policy-link {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    color: rgba(255, 254, 247, 0.3);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .qdm-footer__policy-link:hover {
+      color: rgba(255, 254, 247, 0.65);
+    }
+  }
+
+  .qdm-footer__policy-link:focus-visible {
+    outline: 1px solid rgba(255, 254, 247, 0.3);
+    outline-offset: 2px;
+  }
+
+  /* ── TABLET (768–1024px) ── */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .qdm-footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 2.5rem;
+    }
+
+    .qdm-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ── MOBILE (<768px) ── */
+  @media (max-width: 767px) {
+    .qdm-footer {
+      padding-block: 3rem 1.5rem;
+    }
+
+    .qdm-footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .qdm-footer__brand {
+      grid-column: 1 / -1;
+    }
+
+    .qdm-footer__bar {
+      flex-direction: column;
+      gap: 1.75rem;
+      padding-block: 2rem;
+    }
+
+    .qdm-footer__newsletter {
+      max-width: none;
+      width: 100%;
+    }
+
+    .qdm-footer__legal {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.625rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Footer",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Identidad"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (PNG transparente o SVG)"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Objetos con alma."
+    },
+    {
+      "type": "header",
+      "content": "Redes sociales"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "pinterest_url",
+      "label": "Pinterest"
+    },
+    {
+      "type": "header",
+      "content": "Columna Colecciones"
+    },
+    {
+      "type": "text",
+      "id": "col2_heading",
+      "label": "Encabezado",
+      "default": "Colecciones"
+    },
+    {
+      "type": "link_list",
+      "id": "col2_menu",
+      "label": "Menú (opcional — sin menú usa los links por defecto)"
+    },
+    {
+      "type": "header",
+      "content": "Columna Marca"
+    },
+    {
+      "type": "text",
+      "id": "col3_heading",
+      "label": "Encabezado",
+      "default": "Marca"
+    },
+    {
+      "type": "link_list",
+      "id": "col3_menu",
+      "label": "Menú (opcional)"
+    },
+    {
+      "type": "header",
+      "content": "Columna Ayuda"
+    },
+    {
+      "type": "text",
+      "id": "col4_heading",
+      "label": "Encabezado",
+      "default": "Ayuda"
+    },
+    {
+      "type": "link_list",
+      "id": "col4_menu",
+      "label": "Menú (opcional)"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Titular",
+      "default": "Una pieza al mes. Nada más."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Placeholder email",
+      "default": "Tu email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_btn",
+      "label": "Texto del botón",
+      "default": "Suscribirse"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Footer"
+    }
+  ]
+}
+{% endschema %}

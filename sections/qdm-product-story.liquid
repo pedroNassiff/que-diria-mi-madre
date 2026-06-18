@@ -1,0 +1,355 @@
+{%- comment -%}
+  QDM · Historia de la Pieza — Ficha de producto
+  Acordeón con 4 bloques: La pieza · Materiales · Proceso · Para quién
+  Fuente: product.description + metafields custom.material/process/for_whom
+  Schema JSON-LD Product incluido
+  Sin animaciones de scroll — está debajo del fold, se carga con la página
+{%- endcomment -%}
+
+{%- liquid
+  assign mat       = product.metafields.custom.material.value
+  assign proceso   = product.metafields.custom.process.value
+  assign for_whom  = product.metafields.custom.for_whom.value
+  assign certified = product.metafields.custom.certified_by.value
+  assign hearing   = product.metafields.custom.hearing_aid.value
+-%}
+
+{%- capture icon_svg -%}
+  <svg class="qdm-story__icon-svg" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+    <line class="qdm-story__icon-h" x1="1" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <line class="qdm-story__icon-v" x1="8" y1="1" x2="8" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+{%- endcapture -%}
+
+<section class="qdm-story">
+  <div class="qdm-story__inner page-width">
+
+    <div class="qdm-story__accordion">
+
+      <!-- La pieza — usa product.description -->
+      {%- if product.description != blank -%}
+        <details class="qdm-story__item" open>
+          <summary class="qdm-story__trigger">
+            <span class="qdm-story__label">{{ section.settings.label_1 | default: 'La pieza' | escape }}</span>
+            <span class="qdm-story__icon">{{ icon_svg }}</span>
+          </summary>
+          <div class="qdm-story__body rte">
+            {{ product.description }}
+          </div>
+        </details>
+      {%- endif -%}
+
+      <!-- Materiales — metafield custom.material -->
+      {%- if mat != blank -%}
+        <details class="qdm-story__item">
+          <summary class="qdm-story__trigger">
+            <span class="qdm-story__label">{{ section.settings.label_2 | default: 'Materiales' | escape }}</span>
+            <span class="qdm-story__icon">{{ icon_svg }}</span>
+          </summary>
+          <div class="qdm-story__body">
+            <p>{{ mat }}</p>
+            {%- if certified != blank -%}
+              <p class="qdm-story__cert">Certificada por {{ certified | escape }}.</p>
+            {%- endif -%}
+            {%- if hearing -%}
+              <p class="qdm-story__badge">★ Plata reciclada 925 · Fabricada en España</p>
+            {%- endif -%}
+          </div>
+        </details>
+      {%- endif -%}
+
+      <!-- Proceso — metafield custom.process -->
+      {%- if proceso != blank -%}
+        <details class="qdm-story__item">
+          <summary class="qdm-story__trigger">
+            <span class="qdm-story__label">{{ section.settings.label_3 | default: 'Proceso' | escape }}</span>
+            <span class="qdm-story__icon">{{ icon_svg }}</span>
+          </summary>
+          <div class="qdm-story__body">
+            <p>{{ proceso }}</p>
+          </div>
+        </details>
+      {%- endif -%}
+
+      <!-- Para quién — metafield custom.for_whom -->
+      {%- if for_whom != blank -%}
+        <details class="qdm-story__item">
+          <summary class="qdm-story__trigger">
+            <span class="qdm-story__label">{{ section.settings.label_4 | default: 'Para quién' | escape }}</span>
+            <span class="qdm-story__icon">{{ icon_svg }}</span>
+          </summary>
+          <div class="qdm-story__body">
+            <p>{{ for_whom }}</p>
+          </div>
+        </details>
+      {%- endif -%}
+
+    </div>
+    <!-- /accordion -->
+
+    {%- if section.settings.care_label != blank -%}
+      <p class="qdm-story__care">
+        <a
+          href="{{ section.settings.care_url | default: '/pages/materiales' }}"
+          class="qdm-story__care-link"
+        >
+          {{- section.settings.care_label | escape }} →
+        </a>
+      </p>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- if section.settings.show_schema -%}
+  {%- liquid
+    assign current_variant = product.selected_or_first_available_variant
+    assign availability = 'https://schema.org/OutOfStock'
+    if current_variant.available
+      assign availability = 'https://schema.org/InStock'
+    endif
+  -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "description": {{ product.description | strip_html | json }},
+    "url": "{{ shop.url }}{{ product.url }}",
+    "image": [
+      {%- for image in product.images limit: 3 -%}
+        "{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ],
+    "brand": {
+      "@type": "Brand",
+      "name": "QDM"
+    },
+    {%- if mat != blank -%}
+    "material": {{ mat | json }},
+    {%- endif -%}
+    {%- if current_variant.sku != blank -%}
+    "sku": {{ current_variant.sku | json }},
+    {%- endif -%}
+    "offers": {
+      "@type": "Offer",
+      "url": "{{ shop.url }}{{ product.url }}",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": "{{ current_variant.price | money_without_currency | remove: ',' }}",
+      "availability": "{{ availability }}",
+      "seller": {
+        "@type": "Organization",
+        "name": "QDM · Qué Diría Mi Madre"
+      }
+    }
+  }
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .qdm-story {
+    background-color: var(--qdm-cream, #fffef7);
+    padding-block: 0 1.5rem;
+    padding-inline: 1.5rem;
+  }
+
+  .qdm-story__inner {
+    max-width: 720px;
+    margin-inline: auto;
+    padding-inline: 0;
+  }
+
+  /* ── Accordion ── */
+  .qdm-story__accordion {
+    border-top: 1px solid var(--qdm-nude, #cfbfb3);
+  }
+
+  .qdm-story__item {
+    border-bottom: 1px solid var(--qdm-nude, #cfbfb3);
+  }
+
+  .qdm-story__trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.125rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    transition: color 200ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .qdm-story__trigger::-webkit-details-marker { display: none; }
+  .qdm-story__trigger::marker { display: none; }
+
+  @media (hover: hover) {
+    .qdm-story__trigger:hover {
+      color: rgba(38, 37, 34, 0.65);
+    }
+  }
+
+  .qdm-story__label {
+    flex: 1;
+  }
+
+  /* Icono +/– */
+  .qdm-story__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: var(--qdm-camel, #c9a787);
+  }
+
+  .qdm-story__icon-v {
+    transform-origin: center;
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+
+  .qdm-story__item[open] .qdm-story__icon-v {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  /* Cuerpo del bloque */
+  .qdm-story__body {
+    padding-bottom: 1.25rem;
+  }
+
+  .qdm-story__body p,
+  .qdm-story__body.rte p {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(38, 37, 34, 0.75);
+    margin: 0 0 0.75rem;
+  }
+
+  .qdm-story__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Badge y certificación */
+  .qdm-story__cert {
+    font-size: 0.8125rem !important;
+    color: rgba(38, 37, 34, 0.5) !important;
+  }
+
+  .qdm-story__badge {
+    display: inline-block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--qdm-carbon, #262522);
+    background-color: var(--qdm-sand, #e0ded7);
+    padding: 0.3rem 0.625rem;
+    border-radius: 2px;
+    margin-top: 0.5rem;
+  }
+
+  /* Link cuidados */
+  .qdm-story__care {
+    margin: 1.25rem 0 0;
+    text-align: center;
+  }
+
+  .qdm-story__care-link {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(38, 37, 34, 0.5);
+    text-decoration: none;
+    border-bottom: 1px solid var(--qdm-nude, #cfbfb3);
+    padding-bottom: 1px;
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .qdm-story__care-link:hover {
+      color: var(--qdm-carbon, #262522);
+      border-bottom-color: var(--qdm-carbon, #262522);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-story__icon-v {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Historia",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Etiquetas de los bloques"
+    },
+    {
+      "type": "text",
+      "id": "label_1",
+      "label": "Bloque 1 — Qué es",
+      "default": "La pieza"
+    },
+    {
+      "type": "text",
+      "id": "label_2",
+      "label": "Bloque 2 — Materiales",
+      "default": "Materiales"
+    },
+    {
+      "type": "text",
+      "id": "label_3",
+      "label": "Bloque 3 — Proceso",
+      "default": "Proceso"
+    },
+    {
+      "type": "text",
+      "id": "label_4",
+      "label": "Bloque 4 — Para quién",
+      "default": "Para quién"
+    },
+    {
+      "type": "header",
+      "content": "Link de cuidados (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "care_label",
+      "label": "Texto del link",
+      "default": "Cómo cuidar tu pieza"
+    },
+    {
+      "type": "url",
+      "id": "care_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Schema JSON-LD"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_schema",
+      "label": "Activar schema Product",
+      "default": true,
+      "info": "Genera JSON-LD para Google y motores de IA. Desactivar si el tema ya incluye su propio schema."
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Historia"
+    }
+  ]
+}
+{% endschema %}
