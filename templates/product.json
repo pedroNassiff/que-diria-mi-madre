@@ -864,6 +864,7 @@
         "faq_3"
       ],
       "settings": {
+        "background": "sand",
         "title": "Preguntas frecuentes",
         "cta_url": "/pages/faq",
         "cta_label": "Ver todas las preguntas"

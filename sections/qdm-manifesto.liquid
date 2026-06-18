@@ -174,8 +174,8 @@
 
   .qdm-manifesto__title-rule {
     width: 2rem;
-    height: 1.5px;
-    background-color: var(--qdm-carbon, #262522);
+    height: 2px;
+    background-color: var(--qdm-amber, #ebb86e);
     margin-bottom: 1.125rem;
   }
 
@@ -215,9 +215,9 @@
 
   .qdm-manifesto__quote-deco {
     display: block;
-    width: 2rem;
-    height: 1.5px;
-    background-color: var(--qdm-camel, #c9a787);
+    width: 2.5rem;
+    height: 2px;
+    background-color: var(--qdm-amber, #ebb86e);
     margin: 0 auto 2rem;
   }
 
@@ -256,24 +256,25 @@
     display: inline-flex;
     align-items: center;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--qdm-carbon, #262522);
-    background-color: transparent;
-    border: 1.5px solid var(--qdm-carbon, #262522);
+    background-color: var(--qdm-amber, #ebb86e);
+    border: 1.5px solid var(--qdm-amber, #ebb86e);
     padding: 0.875rem 2rem;
     text-decoration: none;
     transition:
       background-color 200ms ease,
-      color 200ms ease;
+      border-color 200ms ease;
     -webkit-tap-highlight-color: transparent;
   }
 
   @media (hover: hover) {
     .qdm-manifesto__cta:hover {
-      background-color: var(--qdm-carbon, #262522);
-      color: var(--qdm-cream, #fffef7);
+      background-color: var(--qdm-camel, #c9a787);
+      border-color: var(--qdm-camel, #c9a787);
     }
   }
 

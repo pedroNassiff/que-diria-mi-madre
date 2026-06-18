@@ -97,7 +97,8 @@
           href="{{ section.settings.care_url | default: '/pages/materiales' }}"
           class="qdm-story__care-link"
         >
-          {{- section.settings.care_label | escape }} →
+          {{- section.settings.care_label | escape }}
+          <span class="qdm-story__care-arrow" aria-hidden="true">→</span>
         </a>
       </p>
     {%- endif -%}
@@ -279,20 +280,50 @@
   }
 
   .qdm-story__care-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.875rem;
-    font-weight: 400;
-    color: rgba(38, 37, 34, 0.5);
+    font-weight: 500;
+    color: rgba(38, 37, 34, 0.55);
     text-decoration: none;
-    border-bottom: 1px solid var(--qdm-nude, #cfbfb3);
-    padding-bottom: 1px;
-    transition: color 200ms ease, border-color 200ms ease;
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    box-shadow: none;
+    text-shadow: none;
+    transition: color 200ms ease;
+  }
+
+  .qdm-story__care-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: transparent;
+    transition: background-color 250ms ease;
+  }
+
+  .qdm-story__care-link .qdm-story__care-arrow {
+    display: inline-block;
+    transition: transform 300ms ease;
   }
 
   @media (hover: hover) {
     .qdm-story__care-link:hover {
       color: var(--qdm-carbon, #262522);
-      border-bottom-color: var(--qdm-carbon, #262522);
+    }
+
+    .qdm-story__care-link:hover::after {
+      background-color: var(--qdm-carbon, #262522);
+    }
+
+    .qdm-story__care-link:hover .qdm-story__care-arrow {
+      transform: translateX(4px);
     }
   }
 

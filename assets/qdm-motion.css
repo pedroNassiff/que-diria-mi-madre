@@ -9,6 +9,21 @@
 ───────────────────────────────────────────────────────── */
 
 :root {
+  /* QDM color tokens */
+  --qdm-cream:        #FFFEF7;
+  --qdm-sand:         #E0DED7;
+  --qdm-nude:         #CFBFB3;
+  --qdm-camel:        #C9A787;
+  --qdm-amber:        #EBB86E;
+  --qdm-carbon:       #262522;
+  --qdm-carbon-60:    rgba(38, 37, 34, 0.6);
+  --qdm-carbon-30:    rgba(38, 37, 34, 0.3);
+
+  /* QDM font tokens */
+  --qdm-font-heading: 'Work Sans', sans-serif;
+  --qdm-font-body:    'Source Sans 3', sans-serif;
+
+  /* QDM animation tokens */
   --qdm-ease-enter:   cubic-bezier(0.16, 1, 0.3, 1);
   --qdm-ease-hover:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --qdm-ease-ui:      cubic-bezier(0.4, 0, 0.2, 1);
@@ -453,10 +468,6 @@ img.lazyloaded {
   background-color: var(--qdm-cream, #fffef7);
 }
 
-/* FAQ section: sand background */
-.qdm-faq {
-  background-color: var(--qdm-sand, #e0ded7);
-}
 
 /* Breadcrumb */
 .qdm-breadcrumb {
@@ -515,8 +526,9 @@ img.lazyloaded {
   margin: 0;
 }
 
-/* Trust icons strip: sand background */
-.group-block:has(.group-block-content > .qdm-icons-strip-marker) {
+/* Trust icons strip: sand background.
+   .qdm-in-stock siempre precede al grupo de iconos en el DOM. */
+.qdm-in-stock + .group-block {
   background-color: var(--qdm-sand, #e0ded7);
 }
 
@@ -529,7 +541,7 @@ img.lazyloaded {
   }
 
   /* Trust icons full-bleed: counter the 1.25rem padding added above */
-  .group-block:has(.group-block-content > .qdm-icons-strip-marker) {
+  .qdm-in-stock + .group-block {
     margin-inline: -1.25rem;
     padding-inline: 1.25rem;
     width: calc(100% + 2.5rem);

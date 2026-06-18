@@ -5,7 +5,7 @@
   max-width 720px, centrado
 {%- endcomment -%}
 
-<section class="qdm-faq">
+<section class="qdm-faq{% if section.settings.background == 'sand' %} qdm-faq--sand{% endif %}">
   <div class="qdm-faq__inner page-width">
 
     {%- if section.settings.title != blank -%}
@@ -78,6 +78,10 @@
   .qdm-faq {
     background-color: var(--qdm-cream, #FFFEF7);
     padding-block: 5rem 5.5rem;
+  }
+
+  .qdm-faq--sand {
+    background-color: var(--qdm-sand, #E0DED7);
   }
 
   .qdm-faq__inner {
@@ -178,19 +182,36 @@
   }
 
   .qdm-faq__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--qdm-carbon, #262522);
     text-decoration: none;
-    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
-    padding-bottom: 2px;
-    transition: border-color 200ms ease;
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  .qdm-faq__cta::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: transparent;
+    transition: background-color 250ms ease;
   }
 
   @media (hover: hover) {
-    .qdm-faq__cta:hover {
-      border-bottom-color: var(--qdm-carbon, #262522);
+    .qdm-faq__cta:hover::after {
+      background-color: var(--qdm-carbon, #262522);
     }
   }
 
@@ -223,6 +244,16 @@
   "tag": "section",
   "class": "shopify-section",
   "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fondo",
+      "options": [
+        { "value": "cream", "label": "Crema" },
+        { "value": "sand", "label": "Arena (gris)" }
+      ],
+      "default": "cream"
+    },
     {
       "type": "text",
       "id": "title",
