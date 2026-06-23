@@ -22,7 +22,7 @@
             "large_first_image": true,
             "icons_style": "arrow",
             "slideshow_controls_style": "dots",
-            "slideshow_mobile_controls_style": "dots",
+            "slideshow_mobile_controls_style": "thumbnails",
             "thumbnail_position": "bottom",
             "thumbnail_width": 44,
             "thumbnail_radius": 0,
@@ -108,6 +108,13 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "breadcrumb_qdm": {
+                  "type": "custom-liquid",
+                  "settings": {
+                    "custom_liquid": "{%- assign bc = closest.product -%}{%- if bc.collections.size > 0 -%}<nav class=\"qdm-breadcrumb\" aria-label=\"Breadcrumb\"><a href=\"{{ routes.root_url }}\" class=\"qdm-breadcrumb__link\">Inicio</a><span class=\"qdm-breadcrumb__sep\" aria-hidden=\"true\">›</span>{%- for col in bc.collections limit: 1 -%}<a href=\"{{ col.url }}\" class=\"qdm-breadcrumb__link\">{{ col.title }}</a><span class=\"qdm-breadcrumb__sep\" aria-hidden=\"true\">›</span>{%- endfor -%}<span class=\"qdm-breadcrumb__current\">{{ bc.title }}</span></nav>{%- endif -%}"
+                  },
+                  "blocks": {}
+                },
                 "group_nMm3w6": {
                   "type": "group",
                   "name": "Title and price",
@@ -240,7 +247,8 @@
                           "type": "custom-liquid",
                           "settings": {
                             "custom_liquid": "{%- assign badge = closest.product.metafields.custom.material_badge.value | default: \"Plata 925\" -%}<span class=\"qdm-price-badge\">{{ badge | escape }}</span>"
-                          }
+                          },
+                          "blocks": {}
                         }
                       },
                       "block_order": [
@@ -302,6 +310,13 @@
                   },
                   "block_order": []
                 },
+                "in_stock_qdm": {
+                  "type": "custom-liquid",
+                  "settings": {
+                    "custom_liquid": "{%- assign v = closest.product.selected_or_first_available_variant -%}{%- if v.available -%}<p class=\"qdm-in-stock\">✓ En stock · Envío en 3-5 días hábiles</p>{%- endif -%}"
+                  },
+                  "blocks": {}
+                },
                 "group_JK8NUb": {
                   "type": "group",
                   "name": "Info icons",
@@ -342,6 +357,13 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {
+                    "icons_bg_qdm": {
+                      "type": "custom-liquid",
+                      "settings": {
+                        "custom_liquid": "<span class=\"qdm-icons-strip-marker\" aria-hidden=\"true\" style=\"display:none\"></span>"
+                      },
+                      "blocks": {}
+                    },
                     "group_xKNtX4": {
                       "type": "group",
                       "name": "Icon group",
@@ -608,12 +630,6 @@
                         "icon_8ci8XA",
                         "text_qn3jAU"
                       ]
-                    },
-                    "icons_bg_qdm": {
-                      "type": "custom-liquid",
-                      "settings": {
-                        "custom_liquid": "<span class=\"qdm-icons-strip-marker\" aria-hidden=\"true\" style=\"display:none\"></span>"
-                      }
                     }
                   },
                   "block_order": [
@@ -778,18 +794,6 @@
                   "block_order": [
                     "text_wdNxWE"
                   ]
-                },
-                "breadcrumb_qdm": {
-                  "type": "custom-liquid",
-                  "settings": {
-                    "custom_liquid": "{%- assign bc = closest.product -%}{%- if bc.collections.size > 0 -%}<nav class=\"qdm-breadcrumb\" aria-label=\"Breadcrumb\"><a href=\"{{ routes.root_url }}\" class=\"qdm-breadcrumb__link\">Inicio</a><span class=\"qdm-breadcrumb__sep\" aria-hidden=\"true\">›</span>{%- for col in bc.collections limit: 1 -%}<a href=\"{{ col.url }}\" class=\"qdm-breadcrumb__link\">{{ col.title }}</a><span class=\"qdm-breadcrumb__sep\" aria-hidden=\"true\">›</span>{%- endfor -%}<span class=\"qdm-breadcrumb__current\">{{ bc.title }}</span></nav>{%- endif -%}"
-                  }
-                },
-                "in_stock_qdm": {
-                  "type": "custom-liquid",
-                  "settings": {
-                    "custom_liquid": "{%- assign v = closest.product.selected_or_first_available_variant -%}{%- if v.available -%}<p class=\"qdm-in-stock\">✓ En stock · Envío en 3-5 días hábiles</p>{%- endif -%}"
-                  }
                 }
               },
               "block_order": [
@@ -823,14 +827,14 @@
     "qdm-product-story": {
       "type": "qdm-product-story",
       "settings": {
+        "eyebrow": "La pieza",
         "label_1": "Qué es",
         "label_2": "Materiales",
         "label_3": "Proceso",
         "label_4": "Para quién",
         "care_label": "Cómo cuidar tu pieza",
         "care_url": "",
-        "show_schema": true,
-        "eyebrow": "La pieza"
+        "show_schema": true
       }
     },
     "qdm-faq-short": {

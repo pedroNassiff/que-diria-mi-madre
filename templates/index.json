@@ -9,6 +9,20 @@
  */
 {
   "sections": {
+    "qdm_hero_VcXLFz": {
+      "type": "qdm-hero",
+      "name": "QDM · Hero",
+      "settings": {
+        "heading": "<p>Qué diría mi madre<br/>si supiera lo bien que me queda.</p>",
+        "subheading": "Joyería con intención. Plata 925 certificada. Para quien ya dejó de pedirle permiso al qué dirán.",
+        "cta_1_label": "Ver piezas",
+        "cta_1_url": "",
+        "cta_2_label": "Leer el manifiesto",
+        "cta_2_url": "",
+        "image": "shopify://shop_images/Missoma_Jewelry_Street_Fashion_AI_Editorial_Magazine_Advertising_Marketing_Campaign.jpg",
+        "min_height_desktop": 90
+      }
+    },
     "qdm_marquee_9micP4": {
       "type": "qdm-marquee",
       "blocks": {
@@ -601,6 +615,7 @@
     }
   },
   "order": [
+    "qdm_hero_VcXLFz",
     "qdm_marquee_9micP4",
     "section_MgkEX9",
     "collection_list_Ge6pfb",
