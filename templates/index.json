@@ -9,12 +9,51 @@
  */
 {
   "sections": {
-    "qdm_hero_VcXLFz": {
-      "type": "qdm-hero",
-      "name": "QDM · Hero",
+    "qdm_hero_slider_DUrtEx": {
+      "type": "qdm-hero-slider",
+      "blocks": {
+        "slide_J8xFGT": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC01940.jpg",
+            "label": "Nueva colección",
+            "heading": "Lo que siempre quisiste decirle",
+            "subheading": "Joyas que hablan cuando las palabras no alcanzan.",
+            "cta_label": "Explorar piezas",
+            "cta_url": ""
+          }
+        },
+        "slide_4Ar8Nk": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC01970.jpg",
+            "label": "Línea adaptada",
+            "heading": "Belleza sin barreras",
+            "subheading": "Diseñadas para quienes usan audífonos. Sin renunciar a nada.",
+            "cta_label": "Ver joyas adaptadas",
+            "cta_url": ""
+          }
+        },
+        "slide_BQtAxk": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC01312.jpg",
+            "label": "Nuestra historia",
+            "heading": "Hechas con intención, llevadas con amor",
+            "subheading": "Artesanía europea que acompaña historias reales.",
+            "cta_label": "Conocer el manifiesto",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_J8xFGT",
+        "slide_4Ar8Nk",
+        "slide_BQtAxk"
+      ],
+      "name": "QDM · Hero Slider",
       "settings": {
-        "image": "shopify://shop_images/Missoma_Jewelry_Street_Fashion_AI_Editorial_Magazine_Advertising_Marketing_Campaign.jpg",
-        "min_height_desktop": 90
+        "height_desktop": 90
       }
     },
     "qdm_marquee_9micP4": {
@@ -175,7 +214,7 @@
           "settings": {
             "product_card_gap": 8,
             "inherit_color_scheme": true,
-            "color_scheme": "scheme-3",
+            "color_scheme": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
@@ -220,8 +259,8 @@
                 "custom_width_mobile": 100,
                 "height": "fit",
                 "custom_height": 100,
-                "inherit_color_scheme": false,
-                "color_scheme": "scheme-3",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
@@ -247,7 +286,7 @@
                   "settings": {
                     "width": "fit-content",
                     "max_width": "normal",
-                    "alignment": "left",
+                    "alignment": "center",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
@@ -275,7 +314,7 @@
                     "show_tax_info": false,
                     "type_preset": "",
                     "width": "100%",
-                    "alignment": "left",
+                    "alignment": "center",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
@@ -323,7 +362,7 @@
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 8,
-        "columns": 2,
+        "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "44cqw",
         "columns_gap": 20,
@@ -333,99 +372,9 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 28,
-        "color_scheme": "scheme-3",
+        "color_scheme": "",
         "padding-block-start": 100,
         "padding-block-end": 100
-      }
-    },
-    "section_MgkEX9": {
-      "type": "section",
-      "blocks": {
-        "text_kfVmdT": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<h2>COLECCIONES</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "h5",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_RAaA6y": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Explora por categoría</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h3",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_kfVmdT",
-        "text_RAaA6y"
-      ],
-      "disabled": true,
-      "name": "Heading",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-2",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 48,
-        "padding-block-end": 48
       }
     },
     "collection_list_Ge6pfb": {
@@ -524,6 +473,23 @@
         "padding-block-end": 100
       }
     },
+    "qdm_adapted_feature_PxqxPW": {
+      "type": "qdm-adapted-feature",
+      "name": "QDM · Joyas Adaptadas",
+      "settings": {
+        "badge": "★ Joyería adaptada",
+        "heading": "Diseñada desde adentro.",
+        "body": "<p>Sabemos lo que es. No como tendencia, sino como experiencia vivida.</p><p>Creamos joyería adaptada para personas que usan audífonos porque creemos que ningún dispositivo debería hacer que te sintieras menos tú misma.</p>",
+        "bullets_enabled": true,
+        "bullet_1": "Compatible con audífonos BTE y RIC",
+        "bullet_2": "Plata reciclada de ley 925",
+        "bullet_3": "Fabricada en España",
+        "cta_label": "Ver joyas adaptadas",
+        "cta_url": "",
+        "trust_badge": "Fabricada en España · Plata reciclada 925",
+        "image": "shopify://shop_images/DSC01270.jpg"
+      }
+    },
     "qdm_statement_etm3PE": {
       "type": "qdm-statement",
       "name": "QDM · Statement",
@@ -531,44 +497,6 @@
         "text": "Una amistad, una experiencia compartida y la convicción de que la joyería puede ser más inclusiva, más personal y más humana.\nCreamos QDM para diseñar piezas que acompañen historias reales y para desarrollar aquello que nos hubiera gustado encontrar.",
         "cta_label": "Leer el manifiesto completo",
         "cta_url": ""
-      }
-    },
-    "qdm_materials_rRHqa6": {
-      "type": "qdm-materials",
-      "blocks": {
-        "bullet_rFgAWG": {
-          "type": "bullet",
-          "settings": {
-            "heading": "Plata de ley 925 certificada por AIDIMME"
-          }
-        },
-        "bullet_Mi3ANT": {
-          "type": "bullet",
-          "settings": {
-            "heading": "Plata reciclada en nuestra línea adaptada"
-          }
-        },
-        "bullet_VjPaTt": {
-          "type": "bullet",
-          "settings": {
-            "heading": "Fabricación en Europa con pequeños talleres"
-          }
-        }
-      },
-      "block_order": [
-        "bullet_rFgAWG",
-        "bullet_Mi3ANT",
-        "bullet_VjPaTt"
-      ],
-      "name": "QDM · Materiales",
-      "settings": {
-        "eyebrow": "",
-        "title": "Lo que elegimos y por qué.",
-        "image": "shopify://shop_images/image_materials.png",
-        "cta1_url": "",
-        "cta1_label": "Nuestros materiales",
-        "cta2_url": "",
-        "cta2_label": "Cómo los hacemos"
       }
     },
     "qdm_faq_short_CpVd8C": {
@@ -611,13 +539,12 @@
     }
   },
   "order": [
-    "qdm_hero_VcXLFz",
+    "qdm_hero_slider_DUrtEx",
     "qdm_marquee_9micP4",
     "product_list_4HyKBg",
-    "section_MgkEX9",
     "collection_list_Ge6pfb",
+    "qdm_adapted_feature_PxqxPW",
     "qdm_statement_etm3PE",
-    "qdm_materials_rRHqa6",
     "qdm_faq_short_CpVd8C"
   ]
 }
