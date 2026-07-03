@@ -473,6 +473,28 @@
         "padding-block-end": 100
       }
     },
+    "qdm_drop_teaser_HidRGP": {
+      "type": "qdm-drop-teaser",
+      "name": "QDM · Drop Teaser",
+      "settings": {
+        "image": "shopify://shop_images/DSC03151_2.jpg",
+        "min_height": 60,
+        "overlay_opacity": 45,
+        "eyebrow": "Drop 02",
+        "quote": "Qué diría mi madre si me viera ahora (frase2).",
+        "cta_label": "Anticípate al lanzamiento",
+        "cta_url": ""
+      }
+    },
+    "qdm_statement_etm3PE": {
+      "type": "qdm-statement",
+      "name": "QDM · Statement",
+      "settings": {
+        "text": "Una amistad, una experiencia compartida y la convicción de que la joyería puede ser más inclusiva, más personal y más humana.\nCreamos QDM para diseñar piezas que acompañen historias reales y para desarrollar aquello que nos hubiera gustado encontrar.",
+        "cta_label": "Leer el manifiesto completo",
+        "cta_url": ""
+      }
+    },
     "qdm_adapted_feature_PxqxPW": {
       "type": "qdm-adapted-feature",
       "name": "QDM · Joyas Adaptadas",
@@ -488,15 +510,6 @@
         "cta_url": "",
         "trust_badge": "Fabricada en España · Plata reciclada 925",
         "image": "shopify://shop_images/DSC01270.jpg"
-      }
-    },
-    "qdm_statement_etm3PE": {
-      "type": "qdm-statement",
-      "name": "QDM · Statement",
-      "settings": {
-        "text": "Una amistad, una experiencia compartida y la convicción de que la joyería puede ser más inclusiva, más personal y más humana.\nCreamos QDM para diseñar piezas que acompañen historias reales y para desarrollar aquello que nos hubiera gustado encontrar.",
-        "cta_label": "Leer el manifiesto completo",
-        "cta_url": ""
       }
     },
     "qdm_faq_short_CpVd8C": {
@@ -543,8 +556,9 @@
     "qdm_marquee_9micP4",
     "product_list_4HyKBg",
     "collection_list_Ge6pfb",
-    "qdm_adapted_feature_PxqxPW",
+    "qdm_drop_teaser_HidRGP",
     "qdm_statement_etm3PE",
+    "qdm_adapted_feature_PxqxPW",
     "qdm_faq_short_CpVd8C"
   ]
 }
