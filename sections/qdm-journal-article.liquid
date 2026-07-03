@@ -1,0 +1,338 @@
+{%- comment -%}
+  QDM · Journal Article — artículo individual
+  Layout: header centrado → imagen full-width → contenido centrado → pie
+{%- endcomment -%}
+
+<article class="qdm-article" data-qdm-article itemscope itemtype="https://schema.org/BlogPosting">
+
+  <!-- ── Back link ── -->
+  <div class="qdm-article__nav page-width">
+    <a href="{{ blog.url }}" class="qdm-article__back">
+      <span aria-hidden="true">←</span> Journal
+    </a>
+  </div>
+
+  <!-- ── Header ── -->
+  <header class="qdm-article__header page-width">
+    <div class="qdm-article__meta">
+      {%- if article.tags.size > 0 -%}
+        {%- for tag in article.tags -%}
+          <span class="qdm-article__tag">{{ tag }}</span>
+        {%- endfor -%}
+        <span class="qdm-article__sep" aria-hidden="true">·</span>
+      {%- endif -%}
+      <time
+        class="qdm-article__date"
+        datetime="{{ article.published_at | date: '%Y-%m-%d' }}"
+        itemprop="datePublished"
+      >
+        {{- article.published_at | date: '%d %B %Y' -}}
+      </time>
+      <span class="qdm-article__sep" aria-hidden="true">·</span>
+      <span class="qdm-article__read-time">
+        {%- assign words = article.content | strip_html | split: ' ' -%}
+        {%- assign mins = words.size | divided_by: 200 | plus: 1 -%}
+        {{ mins }} min de lectura
+      </span>
+    </div>
+
+    <h1 class="qdm-article__title" itemprop="headline">{{ article.title }}</h1>
+
+    {%- if article.excerpt != blank -%}
+      <p class="qdm-article__excerpt" itemprop="description">
+        {{ article.excerpt | strip_html }}
+      </p>
+    {%- endif -%}
+  </header>
+
+  <!-- ── Imagen destacada ── -->
+  {%- if article.image -%}
+    <div class="qdm-article__hero" itemprop="image">
+      {{
+        article.image
+        | image_url: width: 1600
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '768, 1200, 1440, 1600',
+          sizes: '100vw',
+          class: 'qdm-article__hero-img',
+          itemprop: 'url'
+      }}
+    </div>
+  {%- endif -%}
+
+  <!-- ── Contenido ── -->
+  <div class="qdm-article__body page-width">
+    <div class="qdm-article__content rte" itemprop="articleBody">
+      {{ article.content }}
+    </div>
+  </div>
+
+  <!-- ── Pie: tags + volver ── -->
+  <footer class="qdm-article__footer page-width">
+    {%- if article.tags.size > 0 -%}
+      <div class="qdm-article__tags">
+        {%- for tag in article.tags -%}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="qdm-article__tag-link">{{ tag }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <a href="{{ blog.url }}" class="qdm-article__back-bottom">
+      Ver todas las entradas <span aria-hidden="true">→</span>
+    </a>
+  </footer>
+
+</article>
+
+{% stylesheet %}
+  .qdm-article {
+    background-color: var(--qdm-cream, #FFFEF7);
+    padding-bottom: 6rem;
+  }
+
+  /* ── Back link ── */
+  .qdm-article__nav {
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+
+  .qdm-article__back {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(38, 37, 34, 0.5);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    transition: color 200ms ease;
+  }
+
+  .qdm-article__back:hover {
+    color: var(--qdm-carbon, #262522);
+  }
+
+  /* ── Header ── */
+  .qdm-article__header {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    max-width: 800px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .qdm-article__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .qdm-article__tag {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--qdm-amber, #EBB86E);
+  }
+
+  .qdm-article__sep {
+    color: var(--qdm-nude, #CFBFB3);
+  }
+
+  .qdm-article__date,
+  .qdm-article__read-time {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    color: rgba(38, 37, 34, 0.5);
+  }
+
+  .qdm-article__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 1.5rem;
+  }
+
+  .qdm-article__excerpt {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: rgba(38, 37, 34, 0.6);
+    margin: 0;
+    max-width: 52ch;
+    margin-inline: auto;
+  }
+
+  /* ── Hero image ── */
+  .qdm-article__hero {
+    width: 100%;
+    max-height: 70vh;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .qdm-article__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    max-height: 70vh;
+  }
+
+  /* ── Body / contenido ── */
+  .qdm-article__body {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .qdm-article__content {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: rgba(38, 37, 34, 0.85);
+  }
+
+  .qdm-article__content h2,
+  .qdm-article__content h3 {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--qdm-carbon, #262522);
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+
+  .qdm-article__content h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .qdm-article__content h3 { font-size: clamp(1.125rem, 2vw, 1.5rem); }
+
+  .qdm-article__content p { margin-block: 1.25em; }
+
+  .qdm-article__content a {
+    color: var(--qdm-carbon, #262522);
+    text-decoration: underline;
+    text-decoration-color: var(--qdm-camel, #C9A787);
+    text-underline-offset: 3px;
+  }
+
+  .qdm-article__content blockquote {
+    border-left: 2px solid var(--qdm-amber, #EBB86E);
+    margin-inline: 0;
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    color: rgba(38, 37, 34, 0.65);
+  }
+
+  .qdm-article__content img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-block: 2rem;
+  }
+
+  /* ── Footer ── */
+  .qdm-article__footer {
+    max-width: 720px;
+    margin-inline: auto;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--qdm-nude, #CFBFB3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .qdm-article__tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .qdm-article__tag-link {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--qdm-carbon, #262522);
+    text-decoration: none;
+    border: 1px solid var(--qdm-nude, #CFBFB3);
+    padding: 0.25rem 0.625rem;
+    transition: border-color 200ms ease, color 200ms ease;
+  }
+
+  .qdm-article__tag-link:hover {
+    border-color: var(--qdm-amber, #EBB86E);
+    color: var(--qdm-amber, #EBB86E);
+  }
+
+  .qdm-article__back-bottom {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--qdm-carbon, #262522);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    transition: color 200ms ease;
+  }
+
+  .qdm-article__back-bottom:hover {
+    color: var(--qdm-amber, #EBB86E);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 767px) {
+    .qdm-article__header {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      text-align: left;
+    }
+
+    .qdm-article__meta {
+      justify-content: flex-start;
+    }
+
+    .qdm-article__excerpt {
+      margin-inline: 0;
+    }
+
+    .qdm-article__hero {
+      max-height: 55vw;
+      margin-bottom: 2.5rem;
+    }
+
+    .qdm-article__footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Artículo",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "QDM · Artículo"
+    }
+  ]
+}
+{% endschema %}

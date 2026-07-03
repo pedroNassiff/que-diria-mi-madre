@@ -6,9 +6,27 @@
 {%- endcomment -%}
 
 <section class="qdm-adapted" data-section-id="{{ section.id }}">
-  <div class="qdm-adapted__inner page-width">
+  <div class="qdm-adapted__inner">
 
-    {%- comment -%} Columna texto {%- endcomment -%}
+    {%- comment -%} Columna imagen — izquierda en desktop, arriba en mobile {%- endcomment -%}
+    <div class="qdm-adapted__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 960
+          | image_tag:
+            loading: 'lazy',
+            widths: '480, 640, 800, 960',
+            sizes: '(min-width: 768px) 50vw, 100vw',
+            class: 'qdm-adapted__img',
+            alt: section.settings.image.alt | escape
+        }}
+      {%- else -%}
+        <div class="qdm-adapted__img-placeholder"></div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Columna texto — derecha en desktop, abajo en mobile {%- endcomment -%}
     <div class="qdm-adapted__text" data-reveal="fade-up" data-reveal-delay="0">
 
       {%- if section.settings.badge != blank -%}
@@ -40,9 +58,9 @@
       {%- if section.settings.cta_label != blank -%}
         <a
           href="{{ section.settings.cta_url | default: '/collections/joyas-adaptadas' }}"
-          class="qdm-btn qdm-btn--primary qdm-adapted__cta"
+          class="qdm-adapted__cta"
         >
-          {{ section.settings.cta_label | escape }}
+          {{ section.settings.cta_label | escape }} →
         </a>
       {%- endif -%}
 
@@ -52,38 +70,50 @@
 
     </div>
 
-    {%- comment -%} Columna imagen {%- endcomment -%}
-    <div class="qdm-adapted__media" data-reveal="fade-left" data-reveal-delay="120">
-      {%- if section.settings.image != blank -%}
-        {{
-          section.settings.image
-          | image_url: width: 960
-          | image_tag:
-            loading: 'lazy',
-            widths: '480, 640, 800, 960',
-            sizes: '(min-width: 768px) 50vw, 100vw',
-            class: 'qdm-adapted__img',
-            alt: section.settings.image.alt | escape
-        }}
-      {%- else -%}
-        <div class="qdm-adapted__img-placeholder"></div>
-      {%- endif -%}
-    </div>
-
   </div>
 </section>
 
 {% stylesheet %}
   .qdm-adapted {
     background-color: var(--qdm-sand, #E0DED7);
-    padding-block: 5rem;
+    overflow: hidden;
   }
 
+  /* Desktop: imagen izquierda llena todo el alto, texto derecha con padding */
   .qdm-adapted__inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    align-items: stretch;
+  }
+
+  /* ── Imagen ── */
+  .qdm-adapted__media {
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
+  }
+
+  .qdm-adapted__img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .qdm-adapted__img-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    background-color: var(--qdm-nude, #CFBFB3);
+  }
+
+  /* ── Texto ── */
+  .qdm-adapted__text {
+    padding: 4rem 4rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   /* Badge */
@@ -91,24 +121,24 @@
     display: inline-block;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     color: var(--qdm-carbon, #262522);
     background-color: var(--qdm-amber, #EBB86E);
     padding: 0.3rem 0.75rem;
     margin-bottom: 1.5rem;
+    align-self: flex-start;
   }
 
   /* Título */
   .qdm-adapted__title {
     font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
-    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
-    font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: var(--qdm-carbon, #262522);
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.5rem;
   }
 
   /* Cuerpo */
@@ -116,89 +146,101 @@
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--qdm-carbon, #262522);
+    color: rgba(38, 37, 34, 0.8);
     margin-bottom: 1.75rem;
   }
 
-  .qdm-adapted__body p {
-    margin: 0 0 0.75rem;
-  }
+  .qdm-adapted__body p { margin: 0 0 0.875rem; }
+  .qdm-adapted__body p:last-child { margin-bottom: 0; }
 
-  .qdm-adapted__body p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Bullets */
+  /* Bullets con ✦ */
   .qdm-adapted__bullets {
     list-style: none;
     padding: 0;
-    margin: 0 0 2rem;
+    margin: 0 0 2.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.625rem;
   }
 
   .qdm-adapted__bullets li {
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.9375rem;
     color: var(--qdm-carbon, #262522);
-    padding-left: 1.25rem;
+    padding-left: 1.5rem;
     position: relative;
   }
 
   .qdm-adapted__bullets li::before {
-    content: '·';
+    content: '✦';
     position: absolute;
     left: 0;
+    font-size: 0.6rem;
+    top: 0.35em;
     color: var(--qdm-amber, #EBB86E);
-    font-weight: 700;
   }
 
-  /* CTA */
+  /* CTA — desktop: amber, auto width */
   .qdm-adapted__cta {
-    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--qdm-amber, #EBB86E);
+    color: var(--qdm-carbon, #262522);
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: background-color 250ms ease, color 250ms ease;
+    margin-bottom: 1.25rem;
   }
 
-  /* Trust badge */
+  .qdm-adapted__cta:hover {
+    background-color: var(--qdm-camel, #C9A787);
+  }
+
+  /* Trust */
   .qdm-adapted__trust {
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.75rem;
-    font-weight: 500;
     letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgba(38, 37, 34, 0.55);
+    color: rgba(38, 37, 34, 0.45);
     margin: 0;
   }
 
-  /* Imagen */
-  .qdm-adapted__img {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-  }
-
-  .qdm-adapted__img-placeholder {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background-color: var(--qdm-nude, #CFBFB3);
-  }
-
-  /* Mobile — stack */
+  /* ── Mobile ── */
   @media (max-width: 767px) {
-    .qdm-adapted {
-      padding-block: 3.5rem;
-    }
-
     .qdm-adapted__inner {
       grid-template-columns: 1fr;
-      gap: 2.5rem;
     }
 
-    /* En mobile la imagen va primero */
     .qdm-adapted__media {
-      order: -1;
+      min-height: unset;
+      aspect-ratio: 4 / 5;
+    }
+
+    .qdm-adapted__img {
+      height: 100%;
+    }
+
+    .qdm-adapted__text {
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    /* CTA mobile: ancho completo, carbon */
+    .qdm-adapted__cta {
+      align-self: stretch;
+      justify-content: center;
+      background-color: var(--qdm-amber, #EBB86E);
+    color: var(--qdm-carbon, #262522);
+      padding: 1rem 1.5rem;
+    }
+
+    .qdm-adapted__cta:hover {
+      background-color: rgba(38, 37, 34, 0.85);
     }
   }
 {% endstylesheet %}

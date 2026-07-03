@@ -1,0 +1,294 @@
+{%- comment -%}
+  QDM · Drop Teaser
+  Banner "coming soon" para el próximo drop — se agrupa por momento emocional, no por material/tipo.
+  Reutilizable: cada drop define su propia imagen, eyebrow y frase.
+  Sin imagen → fondo cream sólido (texto carbon). Con imagen → overlay + texto cream.
+{%- endcomment -%}
+
+<section
+  class="qdm-drop-teaser{% if section.settings.image != blank %} qdm-drop-teaser--has-image{% endif %}"
+  style="
+    --qdm-drop-teaser-h: {{ section.settings.min_height }}vh;
+    --qdm-drop-teaser-overlay: {{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100.0 }};
+  "
+>
+  {%- if section.settings.image != blank -%}
+    <div class="qdm-drop-teaser__media" aria-hidden="true">
+      {{
+        section.settings.image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'lazy',
+          widths: '768, 1200, 1440, 1920',
+          sizes: '100vw',
+          class: 'qdm-drop-teaser__img'
+      }}
+      <div class="qdm-drop-teaser__overlay"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="qdm-drop-teaser__content page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="qdm-drop-teaser__eyebrow" data-reveal="fade-up">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.quote != blank -%}
+      <p class="qdm-drop-teaser__quote" data-reveal="fade-up" data-reveal-delay="100">
+        &ldquo;{{ section.settings.quote }}&rdquo;
+      </p>
+    {%- endif -%}
+
+    <div class="qdm-drop-teaser__divider" aria-hidden="true"></div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <a
+        href="{{ section.settings.cta_url | default: '#' }}"
+        class="qdm-drop-teaser__cta"
+        data-reveal="fade-up"
+        data-reveal-delay="200"
+      >
+        <span>{{ section.settings.cta_label }}</span>
+        <span class="qdm-drop-teaser__arrow" aria-hidden="true">→</span>
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .qdm-drop-teaser {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--qdm-drop-teaser-h, 60vh);
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+    background-color: var(--qdm-cream, #FFFEF7);
+    text-align: center;
+  }
+
+  /* ── Media de fondo ── */
+  .qdm-drop-teaser__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .qdm-drop-teaser__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .qdm-drop-teaser__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(38, 37, 34, var(--qdm-drop-teaser-overlay, 0.45));
+  }
+
+  /* ── Contenido ── */
+  .qdm-drop-teaser__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .qdm-drop-teaser__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--qdm-camel, #C9A787);
+    margin-bottom: 1.5rem;
+  }
+
+  .qdm-drop-teaser__quote {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 1.75rem;
+  }
+
+  .qdm-drop-teaser__divider {
+    width: 40px;
+    height: 1.5px;
+    background-color: var(--qdm-nude, #CFBFB3);
+    margin-bottom: 1.75rem;
+  }
+
+  .qdm-drop-teaser__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    text-decoration: none;
+    position: relative;
+  }
+
+  .qdm-drop-teaser__cta::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: transparent;
+    transition: background-color 250ms var(--qdm-ease-hover, ease);
+  }
+
+  @media (hover: hover) {
+    .qdm-drop-teaser__cta:hover::after {
+      background-color: var(--qdm-carbon, #262522);
+    }
+  }
+
+  .qdm-drop-teaser__cta:focus {
+    outline: none;
+  }
+
+  .qdm-drop-teaser__cta:focus-visible {
+    outline: 2px solid var(--qdm-carbon, #262522);
+    outline-offset: 6px;
+    border-radius: 1px;
+  }
+
+  .qdm-drop-teaser__arrow {
+    display: inline-block;
+    transition: transform 300ms var(--qdm-ease-hover, ease);
+  }
+
+  @media (hover: hover) {
+    .qdm-drop-teaser__cta:hover .qdm-drop-teaser__arrow {
+      transform: translateX(5px);
+    }
+  }
+
+  /* ── Variante con imagen: texto sobre overlay oscuro ── */
+  .qdm-drop-teaser--has-image .qdm-drop-teaser__eyebrow {
+    color: var(--qdm-amber, #EBB86E);
+  }
+
+  .qdm-drop-teaser--has-image .qdm-drop-teaser__quote {
+    color: var(--qdm-cream, #FFFEF7);
+  }
+
+  .qdm-drop-teaser--has-image .qdm-drop-teaser__divider {
+    background-color: rgba(255, 254, 247, 0.4);
+  }
+
+  .qdm-drop-teaser--has-image .qdm-drop-teaser__cta {
+    color: var(--qdm-cream, #FFFEF7);
+  }
+
+  .qdm-drop-teaser--has-image .qdm-drop-teaser__cta:focus-visible {
+    outline-color: var(--qdm-cream, #FFFEF7);
+  }
+
+  @media (hover: hover) {
+    .qdm-drop-teaser--has-image .qdm-drop-teaser__cta:hover {
+      color: var(--qdm-amber, #EBB86E);
+    }
+
+    .qdm-drop-teaser--has-image .qdm-drop-teaser__cta:hover::after {
+      background-color: var(--qdm-amber, #EBB86E);
+    }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 767px) {
+    .qdm-drop-teaser {
+      padding: 3rem 1.5rem;
+    }
+
+    .qdm-drop-teaser__quote {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Drop Teaser",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen de fondo",
+      "info": "Opcional. Sin imagen, el fondo es cream sólido. Recomendado: 1920×1080px o superior."
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 40,
+      "max": 90,
+      "step": 5,
+      "unit": "vh",
+      "label": "Altura mínima",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Oscurecido de la imagen",
+      "info": "Solo aplica cuando hay imagen de fondo.",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Drop 02 · Muy pronto"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Frase del drop",
+      "info": "El drop se agrupa por momento emocional, no por material o tipo de pieza.",
+      "default": "Qué diría mi madre si me viera ahora."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del CTA",
+      "default": "Anticípate al lanzamiento"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link del CTA"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Drop Teaser"
+    }
+  ]
+}
+{% endschema %}

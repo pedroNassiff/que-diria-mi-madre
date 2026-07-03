@@ -1,0 +1,42 @@
+{%- comment -%}
+  QDM · Journal Card
+  Parámetros: article
+{%- endcomment -%}
+
+<a href="{{ article.url }}" class="qdm-journal__card" aria-label="{{ article.title }}">
+  <div class="qdm-journal__card-media">
+    {%- if article.image -%}
+      {{
+        article.image
+        | image_url: width: 800
+        | image_tag:
+          loading: 'lazy',
+          widths: '400, 600, 800',
+          sizes: '(max-width: 767px) 100vw, 45vw',
+          class: 'qdm-journal__card-img'
+      }}
+    {%- else -%}
+      <div class="qdm-journal__img-placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="qdm-journal__card-content">
+    <div class="qdm-journal__meta">
+      {%- if article.tags.size > 0 -%}
+        <span class="qdm-journal__tag">{{ article.tags.first }}</span>
+        <span class="qdm-journal__sep" aria-hidden="true">·</span>
+      {%- endif -%}
+      <time class="qdm-journal__date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+        {{- article.published_at | date: '%d %b %Y' -}}
+      </time>
+    </div>
+
+    <h3 class="qdm-journal__card-title">{{ article.title }}</h3>
+
+    {%- if article.excerpt != blank -%}
+      <p class="qdm-journal__excerpt qdm-journal__excerpt--card">
+        {{ article.excerpt | strip_html | truncate: 120 }}
+      </p>
+    {%- endif -%}
+  </div>
+</a>

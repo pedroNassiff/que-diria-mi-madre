@@ -523,6 +523,26 @@ function initProductGrid() {
   });
 }
 
+function initFeaturedProductsCtaPosition() {
+  const productLists = document.querySelectorAll('[data-testid="product-list"]');
+
+  productLists.forEach(section => {
+    const header = section.querySelector('.section-resource-list__header');
+    const grid = section.querySelector('[data-testid="resource-list-grid"]');
+    const content = section.querySelector('.section-resource-list__content');
+    const ctaLink = header?.querySelector('.link');
+
+    if (!header || !grid || !content || !ctaLink) return;
+
+    // Solo reubicar el CTA de la sección "Ver toda la colección".
+    if (!/ver\s+toda\s+la\s+colecci[oó]n/i.test(ctaLink.textContent || '')) return;
+
+    if (!content.contains(ctaLink)) {
+      content.appendChild(ctaLink);
+    }
+  });
+}
+
 // ─────────────────────────────────────────────────────────
 // INIT — ejecutar todo
 // ─────────────────────────────────────────────────────────
@@ -535,6 +555,7 @@ function initAll() {
   initCartDrawer();
   initAccordion();
   initProductGrid();
+  initFeaturedProductsCtaPosition();
 
   // GSAP-dependent (solo si se cargó)
   if (typeof gsap !== 'undefined') {
@@ -558,4 +579,5 @@ document.addEventListener('shopify:section:load', () => {
   initScrollReveal();
   initMarquee();
   initProductGrid();
+  initFeaturedProductsCtaPosition();
 });

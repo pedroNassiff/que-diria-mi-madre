@@ -1,11 +1,9 @@
 {%- comment -%}
   QDM · Hero — sección principal homepage
-  Animaciones: text reveal GSAP SplitText + parallax imagen (solo desktop)
+  Animaciones: parallax imagen/video (solo desktop)
   data-hero         → wrapper, target para initHero()
-  data-hero-image   → imagen de fondo, target para parallax
-  data-hero-title   → H1, SplitText por palabras
-  data-hero-subtitle → subtítulo, fade-in con delay
-  data-hero-cta     → bloque de CTAs, fade-in final
+  data-hero-image   → media de fondo, target para parallax
+  Preparado para video: agregar video en settings para activarlo.
 {%- endcomment -%}
 
 <section
@@ -15,8 +13,19 @@
     style="--qdm-hero-min-height: {{ section.settings.min_height_desktop }}vh;"
   {% endif %}
 >
-  {%- comment -%} Imagen de fondo con parallax {%- endcomment -%}
-  {%- if section.settings.image != blank -%}
+  {%- if section.settings.video != blank -%}
+    <div class="qdm-hero__media" data-hero-image aria-hidden="true">
+      {{
+        section.settings.video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          class: 'qdm-hero__video'
+      }}
+    </div>
+  {%- elsif section.settings.image != blank -%}
     <div class="qdm-hero__media" data-hero-image aria-hidden="true">
       {{
         section.settings.image
@@ -32,42 +41,6 @@
   {%- else -%}
     <div class="qdm-hero__media qdm-hero__media--placeholder" data-hero-image aria-hidden="true"></div>
   {%- endif -%}
-
-  <div class="qdm-hero__overlay" aria-hidden="true"></div>
-
-  <div class="qdm-hero__content page-width">
-    {%- if section.settings.heading != blank -%}
-      <h1 class="qdm-hero__title" data-hero-title>
-        {{ section.settings.heading }}
-      </h1>
-    {%- endif -%}
-
-    {%- if section.settings.subheading != blank -%}
-      <p class="qdm-hero__subtitle" data-hero-subtitle>
-        {{ section.settings.subheading | escape }}
-      </p>
-    {%- endif -%}
-
-    <div class="qdm-hero__ctas" data-hero-cta>
-      {%- if section.settings.cta_1_label != blank -%}
-        <a
-          href="{{ section.settings.cta_1_url | default: '/collections' }}"
-          class="qdm-btn qdm-btn--primary"
-        >
-          {{ section.settings.cta_1_label | escape }}
-        </a>
-      {%- endif -%}
-
-      {%- if section.settings.cta_2_label != blank -%}
-        <a
-          href="{{ section.settings.cta_2_url | default: '/pages/manifiesto' }}"
-          class="qdm-btn qdm-btn--ghost"
-        >
-          {{ section.settings.cta_2_label | escape }}
-        </a>
-      {%- endif -%}
-    </div>
-  </div>
 </section>
 
 {% stylesheet %}
@@ -99,138 +72,19 @@
     background-color: var(--qdm-sand, #E0DED7);
   }
 
-  /* Overlay degradado */
-  .qdm-hero__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(
-      to top,
-      rgba(38, 37, 34, 0.72) 0%,
-      rgba(38, 37, 34, 0.18) 55%,
-      transparent 100%
-    );
-  }
-
-  /* Contenido */
-  .qdm-hero__content {
-    position: relative;
-    z-index: 2;
+  /* Video */
+  .qdm-hero__video {
     width: 100%;
-    padding-block: 6rem 5rem;
-    max-width: 720px;
-  }
-
-  .qdm-hero__title {
-    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
-    font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
-    font-weight: 600;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    color: var(--qdm-cream, #FFFEF7);
-    margin: 0 0 1.25rem;
-    /* Necesario para SplitText overflow hidden en palabras */
-    overflow: visible;
-  }
-
-  /* Las palabras spliteadas por GSAP necesitan overflow hidden */
-  .qdm-hero__title .word {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: bottom;
-  }
-
-  .qdm-hero__subtitle {
-    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
-    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
-    font-weight: 400;
-    line-height: 1.55;
-    color: rgba(255, 254, 247, 0.82);
-    margin: 0 0 2.5rem;
-    max-width: 560px;
-  }
-
-  /* CTAs */
-  .qdm-hero__ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .qdm-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.875rem 2rem;
-    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    border-radius: 2px;
-    transition:
-      background-color 200ms var(--qdm-ease-ui, cubic-bezier(0.4, 0, 0.2, 1)),
-      color 200ms var(--qdm-ease-ui, cubic-bezier(0.4, 0, 0.2, 1)),
-      transform 150ms ease,
-      opacity 150ms ease;
-  }
-
-  .qdm-btn:active {
-    transform: scale(0.985);
-  }
-
-  .qdm-btn--primary {
-    background-color: var(--qdm-amber, #EBB86E);
-    color: var(--qdm-carbon, #262522);
-    border: 2px solid transparent;
-  }
-
-  @media (hover: hover) {
-    .qdm-btn--primary:hover {
-      background-color: var(--qdm-camel, #C9A787);
-    }
-  }
-
-  .qdm-btn--ghost {
-    background-color: transparent;
-    color: var(--qdm-cream, #FFFEF7);
-    border: 1.5px solid rgba(255, 254, 247, 0.55);
-  }
-
-  @media (hover: hover) {
-    .qdm-btn--ghost:hover {
-      border-color: var(--qdm-cream, #FFFEF7);
-      background-color: rgba(255, 254, 247, 0.08);
-    }
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   /* Mobile */
   @media (max-width: 767px) {
     .qdm-hero {
       min-height: 90svh;
-      align-items: flex-end;
-    }
-
-    .qdm-hero__content {
-      padding-block: 3rem 4rem;
-    }
-
-    .qdm-hero__ctas {
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      max-width: 280px;
-      margin: 0 auto;
-    }
-
-    .qdm-btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .qdm-hero__title,
-    .qdm-hero__subtitle {
-      display: none;
     }
   }
 
@@ -250,56 +104,19 @@
   "settings": [
     {
       "type": "header",
-      "content": "Contenido"
+      "content": "Media"
     },
     {
-      "type": "richtext",
-      "id": "heading",
-      "label": "Titular (H1)",
-      "default": "<p>Qué diría mi madre<br>si supiera lo bien que me queda.</p>",
-      "info": "El H1 aparece en buscadores — incluir material, origen y propósito."
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subtítulo",
-      "default": "Joyería con intención. Plata 925 certificada. Para quien ya dejó de pedirle permiso al qué dirán."
-    },
-    {
-      "type": "header",
-      "content": "Botones"
-    },
-    {
-      "type": "text",
-      "id": "cta_1_label",
-      "label": "Botón principal — texto",
-      "default": "Ver piezas"
-    },
-    {
-      "type": "url",
-      "id": "cta_1_url",
-      "label": "Botón principal — link"
-    },
-    {
-      "type": "text",
-      "id": "cta_2_label",
-      "label": "Botón secundario — texto",
-      "default": "Leer el manifiesto"
-    },
-    {
-      "type": "url",
-      "id": "cta_2_url",
-      "label": "Botón secundario — link"
-    },
-    {
-      "type": "header",
-      "content": "Imagen"
+      "type": "video",
+      "id": "video",
+      "label": "Video de fondo",
+      "info": "Cuando se sube un video, reemplaza la imagen. MP4 recomendado."
     },
     {
       "type": "image_picker",
       "id": "image",
       "label": "Imagen de fondo",
-      "info": "Recomendado: 1920×1080px o superior, horizontal."
+      "info": "Se usa cuando no hay video. Recomendado: 1920×1080px o superior, horizontal."
     },
     {
       "type": "range",

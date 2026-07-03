@@ -121,26 +121,21 @@
   box-shadow: 0 1px 0 rgba(0 0 0 / 0.06);
 }
 
-/* Mobile — header siempre blanco con iconos oscuros
-   Necesita alta especificidad para ganarle al transparent="always"
-   y al color-scheme-1 que Heritage aplica en la homepage */
+/* Mobile — respetar transparencia en top of page */
 @media (max-width: 767px) {
   [data-header],
   [data-header][transparent],
   [data-header][transparent="always"],
   [data-header]:not(.is-scrolled) {
-    background-color: var(--qdm-cream, #FFFEF7);
-    box-shadow: 0 1px 0 rgba(0 0 0 / 0.08);
+    background-color: transparent;
+    box-shadow: none;
   }
 
-  /* Sobreescribir el color-scheme oscuro en las filas del header */
+  /* En estado no scrolled, las filas deben permanecer transparentes */
   [data-header] .header__row,
   [data-header] .header__row--top,
   [data-header] .header__row--bottom {
-    background-color: var(--qdm-cream, #FFFEF7);
-    --color-background: 255 254 247;
-    --color-foreground-rgb: 38 37 34;
-    --color-foreground: rgb(38 37 34);
+    background-color: transparent;
   }
 }
 
@@ -468,6 +463,17 @@ img.lazyloaded {
   background-color: var(--qdm-cream, #fffef7);
 }
 
+/* Fix: Heritage scheme-1 sets --color-background to near-black; slideshow-container inherits it.
+   Override both the variable and the direct background to transparent so PNG products show cleanly. */
+.card-gallery {
+  --color-background: transparent;
+  background-color: transparent;
+}
+
+.card-gallery slideshow-container {
+  background-color: transparent;
+}
+
 
 /* Breadcrumb */
 .qdm-breadcrumb {
@@ -545,5 +551,93 @@ img.lazyloaded {
     margin-inline: -1.25rem;
     padding-inline: 1.25rem;
     width: calc(100% + 2.5rem);
+  }
+}
+
+/* -----------------------------------------------------
+   Homepage featured products (product_list_4HyKBg)
+----------------------------------------------------- */
+[id*='product_list_4HyKBg'] .section-background,
+[id*='product_list_4HyKBg'] .section-resource-list {
+  background-color: var(--qdm-sand, #e0ded7);
+}
+
+[id*='product_list_4HyKBg'] .section-resource-list__header h3 {
+  color: var(--qdm-carbon, #262522);
+}
+
+[id*='product_list_4HyKBg'] .section-resource-list__content {
+  margin-top: 0.5rem;
+}
+
+[id*='product_list_4HyKBg'] .resource-list__item .group-block {
+  --color-background: var(--qdm-sand, #e0ded7);
+  --color-background-rgb: 224 222 215;
+  --color-foreground: var(--qdm-carbon, #262522);
+  --color-foreground-rgb: 38 37 34;
+}
+
+[id*='product_list_4HyKBg'] .resource-list__item :is(
+  .group-block,
+  .group-block-content,
+  .text-block,
+  product-price
+) {
+  background-color: transparent !important;
+}
+
+[id*='product_list_4HyKBg'] .resource-list__item :is(
+  .text-block,
+  .text-block a,
+  .text-block p,
+  .text-block h1,
+  .text-block h2,
+  .text-block h3,
+  .text-block h4,
+  .text-block h5,
+  .text-block h6,
+  product-price,
+  product-price .price,
+  product-price .price__regular,
+  product-price .price__sale,
+  product-price .price-item,
+  product-price .price-item--regular,
+  product-price .price-item--sale,
+  product-price .price__compare,
+  product-price .price__compare .price-item
+) {
+  color: var(--qdm-carbon, #262522) !important;
+}
+
+[id*='product_list_4HyKBg'] :is(.section-resource-list__header, .section-resource-list__content) .link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--qdm-carbon, #262522);
+  text-decoration: none;
+  position: relative;
+}
+
+[id*='product_list_4HyKBg'] :is(.section-resource-list__header, .section-resource-list__content) .link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: transparent;
+  transition: background-color 250ms var(--qdm-ease-hover, ease);
+}
+
+@media (hover: hover) {
+  [id*='product_list_4HyKBg'] :is(.section-resource-list__header, .section-resource-list__content) .link:hover {
+    color: var(--qdm-carbon, #262522);
+  }
+
+  [id*='product_list_4HyKBg'] :is(.section-resource-list__header, .section-resource-list__content) .link:hover::after {
+    background-color: var(--qdm-carbon, #262522);
   }
 }

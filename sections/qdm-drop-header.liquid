@@ -1,0 +1,167 @@
+{%- comment -%}
+  QDM · Drop Header
+  Header editorial para páginas de colección/drop
+  Data: collection.title, collection.description, collection.image (nativo Shopify)
+  Layout: texto izquierda (cream) / imagen derecha — split 50/50 en desktop
+{%- endcomment -%}
+
+<div class="qdm-drop-header" data-qdm-drop-header>
+
+  <div class="qdm-drop-header__text">
+    <div class="qdm-drop-header__text-inner">
+      <span class="qdm-drop-header__eyebrow" data-reveal="fade-up">Colección</span>
+      <h1 class="qdm-drop-header__title" data-reveal="fade-up">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="qdm-drop-header__desc" data-reveal="fade-up">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+      <p class="qdm-drop-header__count" data-reveal="fade-up">
+        {{ collection.products_count }}
+        {%- if collection.products_count == 1 -%}&nbsp;pieza{%- else -%}&nbsp;piezas{%- endif -%}
+      </p>
+    </div>
+  </div>
+
+  <div class="qdm-drop-header__media">
+    {%- if collection.image != blank -%}
+      {{
+        collection.image
+        | image_url: width: 1200
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '600, 900, 1200',
+          sizes: '(max-width: 767px) 100vw, 50vw',
+          class: 'qdm-drop-header__img'
+      }}
+    {%- else -%}
+      <div class="qdm-drop-header__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% stylesheet %}
+  .qdm-drop-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 68vh;
+    background-color: var(--qdm-cream, #FFFEF7);
+  }
+
+  /* ── Texto (izquierda) ── */
+  .qdm-drop-header__text {
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem;
+  }
+
+  .qdm-drop-header__text-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 40ch;
+  }
+
+  .qdm-drop-header__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-drop-header__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  .qdm-drop-header__desc {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(38, 37, 34, 0.65);
+    max-width: 38ch;
+  }
+
+  .qdm-drop-header__desc p {
+    margin: 0;
+  }
+
+  .qdm-drop-header__count {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--qdm-nude, #CFBFB3);
+    margin: 0;
+    margin-top: 0.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+
+  /* ── Media (derecha) ── */
+  .qdm-drop-header__media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .qdm-drop-header__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .qdm-drop-header__placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--qdm-sand, #E0DED7);
+  }
+
+  /* ── Mobile: apilado imagen arriba, texto abajo ── */
+  @media (max-width: 767px) {
+    .qdm-drop-header {
+      grid-template-columns: 1fr;
+      grid-template-rows: 55vw auto;
+      min-height: unset;
+    }
+
+    .qdm-drop-header__text {
+      order: 2;
+      padding: 2.5rem 1.5rem 3rem;
+      align-items: flex-start;
+    }
+
+    .qdm-drop-header__media {
+      order: 1;
+    }
+
+    .qdm-drop-header__title {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Drop Header",
+  "tag": "div",
+  "class": "shopify-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "QDM · Drop Header"
+    }
+  ]
+}
+{% endschema %}

@@ -21,7 +21,7 @@ git add templates/ && git commit -m "chore: sync templates" || true
 
 # Luego arrancar el server:
 shopify theme dev --store=qdm-dev.myshopify.com
-# → abre http://127.0.0.1:9292 — password: leisha
+# → abre http://127.0.0.1:9292 — password: malefica
 
 ---
 
