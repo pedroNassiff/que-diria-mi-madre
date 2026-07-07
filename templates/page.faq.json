@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "qdm-faq-page": {
+      "type": "qdm-faq-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "qdm-faq-page"
+  ]
+}

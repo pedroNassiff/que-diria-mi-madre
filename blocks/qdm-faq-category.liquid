@@ -1,0 +1,59 @@
+{%- doc -%}
+  QDM · FAQ — categoría
+  Bloque hijo de sections/qdm-faq-page.liquid
+  Agrupa preguntas (bloques qdm-faq-item) bajo un título de tema.
+  Cada categoría es una unidad "break-inside: avoid" dentro de la
+  grilla en columnas de la sección padre.
+{%- enddoc -%}
+
+<div class="qdm-faq-page__category" {{ block.shopify_attributes }}>
+  {%- if block.settings.title != blank -%}
+    <h2 class="qdm-faq-page__category-title">{{ block.settings.title | escape }}</h2>
+  {%- endif -%}
+  <div class="qdm-faq-page__list">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .qdm-faq-page__category {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 2.5rem;
+  }
+
+  .qdm-faq-page__category-title {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 0.75rem;
+  }
+
+  .qdm-faq-page__list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Categoría FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de la categoría",
+      "default": "Sobre QDM"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qdm-faq-item"
+    }
+  ]
+}
+{% endschema %}

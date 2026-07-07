@@ -1,0 +1,98 @@
+{%- comment -%}
+  QDM · Tarjeta de artículo (theme block)
+  Bloque hijo de sections/qdm-journal-list.liquid
+  Recibe: article
+{%- endcomment -%}
+
+<a href="{{ article.url }}" class="qdm-journal__card" aria-label="{{ article.title }}">
+  <div class="qdm-journal__card-media">
+    {%- if article.image -%}
+      {{
+        article.image
+        | image_url: width: 800
+        | image_tag:
+          loading: 'lazy',
+          widths: '400, 600, 800',
+          sizes: '(max-width: 767px) 100vw, (max-width: 1023px) 45vw, 30vw',
+          class: 'qdm-journal__card-img'
+      }}
+    {%- else -%}
+      <div class="qdm-journal__img-placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="qdm-journal__card-content">
+    {%- if article.tags.size > 0 -%}
+      <span class="qdm-journal__tag">{{ article.tags.first }}</span>
+    {%- endif -%}
+
+    <h3 class="qdm-journal__card-title">{{ article.title }}</h3>
+
+    <div class="qdm-journal__meta">
+      <time class="qdm-journal__date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+        {{- article.published_at | date: '%b %Y' -}}
+      </time>
+      <span class="qdm-journal__sep" aria-hidden="true">·</span>
+      <span class="qdm-journal__read-time">
+        {%- assign words = article.content | strip_html | split: ' ' -%}
+        {%- assign mins = words.size | divided_by: 200 | plus: 1 -%}
+        {{ mins }} min lectura
+      </span>
+    </div>
+  </div>
+</a>
+
+{% stylesheet %}
+  .qdm-journal__card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .qdm-journal__card:hover .qdm-journal__card-img {
+    transform: scale(1.04);
+  }
+
+  .qdm-journal__card-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background-color: var(--qdm-sand, #E0DED7);
+    margin-bottom: 1.5rem;
+  }
+
+  .qdm-journal__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 500ms var(--qdm-ease-hover, ease);
+  }
+
+  .qdm-journal__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .qdm-journal__card-title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+    font-weight: 300;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  .qdm-journal__card .qdm-journal__meta {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Tarjeta de artículo",
+  "settings": []
+}
+{% endschema %}

@@ -50,6 +50,48 @@
 }
 
 /* ─────────────────────────────────────────────────────────
+   LAYOUT — contenedor .page-width
+   Usado por todas las secciones qdm-*.liquid. No existía
+   definido en base.css (Horizon usa .page-width-normal/etc),
+   por eso el contenido quedaba pegado al borde del viewport.
+───────────────────────────────────────────────────────── */
+
+.page-width {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 750px) {
+  .page-width {
+    padding-inline: 40px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   FILTROS — drawer de filtros en colecciones/drops
+   #filters-drawer hereda color-scheme-1 (oliva oscuro, #202219),
+   el mismo esquema que usan el carrito y el menú. Se sobrescribe
+   solo acá vía id (más específico que la clase .color-scheme-1,
+   sin necesidad de !important) para no afectar esos otros drawers.
+───────────────────────────────────────────────────────── */
+
+#filters-drawer {
+  --color-background: var(--qdm-carbon, #262522);
+  --color-background-rgb: 38, 37, 34;
+  --color-foreground: var(--qdm-cream, #FFFEF7);
+  --color-foreground-rgb: 255, 254, 247;
+  --color-foreground-heading: var(--qdm-cream, #FFFEF7);
+  --color-foreground-heading-rgb: 255, 254, 247;
+  --color-border: var(--qdm-nude, #CFBFB3);
+  --color-border-rgb: 207, 191, 179;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ─────────────────────────────────────────────────────────
    1. SCROLL REVEAL — estados iniciales y finales
 ───────────────────────────────────────────────────────── */
 

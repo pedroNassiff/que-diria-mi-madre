@@ -1,7 +1,6 @@
 {%- comment -%}
   QDM · Journal — lista de artículos
-  Primer artículo: card featured horizontal (página 1 solo)
-  Resto: grilla 2 columnas via unless forloop.first
+  Todos los artículos se muestran igual, en grilla.
 {%- endcomment -%}
 
 <section class="qdm-journal" data-qdm-journal>
@@ -30,62 +29,11 @@
       <p class="qdm-journal__empty">Pronto habrá entradas aquí.</p>
     {%- endif -%}
 
-    <!-- ── Featured: solo primera página ── -->
-    {%- if paginate.current_page == 1 and blog.articles_count > 0 -%}
-      {%- assign featured = blog.articles.first -%}
-      <a href="{{ featured.url }}" class="qdm-journal__featured" aria-label="{{ featured.title }}">
-        <div class="qdm-journal__featured-media">
-          {%- if featured.image -%}
-            {{
-              featured.image
-              | image_url: width: 1200
-              | image_tag:
-                loading: 'eager',
-                fetchpriority: 'high',
-                widths: '600, 900, 1200',
-                sizes: '(max-width: 767px) 100vw, 55vw',
-                class: 'qdm-journal__featured-img'
-            }}
-          {%- else -%}
-            <div class="qdm-journal__img-placeholder"></div>
-          {%- endif -%}
-        </div>
-
-        <div class="qdm-journal__featured-content">
-          <div class="qdm-journal__meta">
-            {%- if featured.tags.size > 0 -%}
-              <span class="qdm-journal__tag">{{ featured.tags.first }}</span>
-              <span class="qdm-journal__sep" aria-hidden="true">·</span>
-            {%- endif -%}
-            <time class="qdm-journal__date" datetime="{{ featured.published_at | date: '%Y-%m-%d' }}">
-              {{- featured.published_at | date: '%d %b %Y' -}}
-            </time>
-            <span class="qdm-journal__sep" aria-hidden="true">·</span>
-            <span class="qdm-journal__read-time">
-              {%- assign words = featured.content | strip_html | split: ' ' -%}
-              {%- assign mins = words.size | divided_by: 200 | plus: 1 -%}
-              {{ mins }} min
-            </span>
-          </div>
-
-          <h2 class="qdm-journal__featured-title">{{ featured.title }}</h2>
-
-          {%- if featured.excerpt != blank -%}
-            <p class="qdm-journal__excerpt">{{ featured.excerpt | strip_html | truncate: 160 }}</p>
-          {%- endif -%}
-
-          <span class="qdm-journal__cta" aria-hidden="true">Leer entrada <span>→</span></span>
-        </div>
-      </a>
-    {%- endif -%}
-
-    <!-- ── Grid: todos menos el primero en página 1 ── -->
+    <!-- ── Grid: todos los artículos ── -->
     {%- if blog.articles.size > 0 -%}
       <div class="qdm-journal__grid">
         {%- for article in blog.articles -%}
-          {%- unless paginate.current_page == 1 and forloop.first -%}
-            {%- render 'qdm-journal-card', article: article -%}
-          {%- endunless -%}
+          {% content_for 'block', id: 'qdm-journal-post-card', type: 'qdm-journal-post-card', article: article %}
         {%- endfor -%}
       </div>
     {%- endif -%}
@@ -117,14 +65,14 @@
   /* ── Header ── */
   .qdm-journal__header {
     border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
-    padding: 4rem 0 3rem;
+    padding: 2.75rem 0 2rem;
   }
 
   .qdm-journal__header-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .qdm-journal__label {
@@ -145,12 +93,27 @@
 
   .qdm-journal__title {
     font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
-    font-size: clamp(2.75rem, 6vw, 5rem);
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
     font-weight: 300;
     letter-spacing: -0.02em;
     line-height: 1.0;
     color: var(--qdm-carbon, #262522);
-    margin: 0 0 1rem;
+    margin: 0 0 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .qdm-journal__header {
+      padding: 2.35rem 0 1.7rem;
+    }
+
+    .qdm-journal__header-top {
+      margin-bottom: 0.85rem;
+    }
+
+    .qdm-journal__title {
+      font-size: clamp(2rem, 3.6vw, 3rem);
+      margin-bottom: 0.65rem;
+    }
   }
 
   .qdm-journal__tagline {
@@ -204,145 +167,26 @@
     color: rgba(38, 37, 34, 0.5);
   }
 
-  /* ── Featured ── */
-  .qdm-journal__featured {
-    display: grid;
-    grid-template-columns: 55fr 45fr;
-    gap: 0;
-    min-height: 480px;
-    margin-bottom: 4rem;
-    border: 1px solid var(--qdm-nude, #CFBFB3);
-    text-decoration: none;
-    overflow: hidden;
-    transition: border-color 300ms ease;
-  }
-
-  .qdm-journal__featured:hover {
-    border-color: var(--qdm-camel, #C9A787);
-  }
-
-  .qdm-journal__featured:hover .qdm-journal__featured-img {
-    transform: scale(1.03);
-  }
-
-  .qdm-journal__featured-media {
-    position: relative;
-    overflow: hidden;
-    background-color: var(--qdm-sand, #E0DED7);
-  }
-
-  .qdm-journal__featured-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 600ms var(--qdm-ease-hover, ease);
-  }
-
-  .qdm-journal__featured-content {
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background-color: var(--qdm-cream, #FFFEF7);
-    border-left: 1px solid var(--qdm-nude, #CFBFB3);
-  }
-
-  .qdm-journal__featured-title {
-    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    color: var(--qdm-carbon, #262522);
-    margin: 0 0 1rem;
-  }
-
-  .qdm-journal__excerpt {
-    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    color: rgba(38, 37, 34, 0.6);
-    margin: 0 0 1.5rem;
-  }
-
-  .qdm-journal__cta {
-    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--qdm-carbon, #262522);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-  }
-
   /* ── Grid ── */
   .qdm-journal__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background-color: var(--qdm-nude, #CFBFB3);
-    border: 1px solid var(--qdm-nude, #CFBFB3);
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    row-gap: 3rem;
   }
 
-  .qdm-journal__card {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    background-color: var(--qdm-cream, #FFFEF7);
-    transition: background-color 250ms ease;
-  }
-
-  .qdm-journal__card:hover {
-    background-color: var(--qdm-sand, #E0DED7);
-  }
-
-  .qdm-journal__card:hover .qdm-journal__card-img {
-    transform: scale(1.04);
-  }
-
-  .qdm-journal__card-media {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 3 / 2;
-    background-color: var(--qdm-sand, #E0DED7);
-  }
-
-  .qdm-journal__card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 500ms var(--qdm-ease-hover, ease);
+  @media (max-width: 1023px) {
+    .qdm-journal__grid {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1.5rem;
+      row-gap: 2.5rem;
+    }
   }
 
   .qdm-journal__img-placeholder {
     width: 100%;
     height: 100%;
     background-color: var(--qdm-sand, #E0DED7);
-  }
-
-  .qdm-journal__card-content {
-    padding: 1.75rem 2rem 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .qdm-journal__card-title {
-    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
-    font-size: clamp(1.125rem, 1.75vw, 1.5rem);
-    font-weight: 300;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    color: var(--qdm-carbon, #262522);
-    margin: 0 0 0.75rem;
-  }
-
-  .qdm-journal__excerpt--card {
-    font-size: 0.875rem;
-    margin: 0;
   }
 
   /* ── Pagination ── */
@@ -378,34 +222,15 @@
   /* ── Mobile ── */
   @media (max-width: 767px) {
     .qdm-journal__header {
-      padding: 2.5rem 0 2rem;
+      padding: 1.75rem 0 1.25rem;
     }
 
     .qdm-journal__body {
       padding-block: 2.5rem;
     }
 
-    .qdm-journal__featured {
-      grid-template-columns: 1fr;
-      min-height: unset;
-    }
-
-    .qdm-journal__featured-media {
-      aspect-ratio: 3 / 2;
-    }
-
-    .qdm-journal__featured-content {
-      border-left: none;
-      border-top: 1px solid var(--qdm-nude, #CFBFB3);
-      padding: 1.75rem 1.5rem 2rem;
-    }
-
     .qdm-journal__grid {
       grid-template-columns: 1fr;
-    }
-
-    .qdm-journal__card-content {
-      padding: 1.25rem 1.25rem 1.5rem;
     }
   }
 {% endstylesheet %}

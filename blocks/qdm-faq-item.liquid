@@ -1,0 +1,102 @@
+{%- doc -%}
+  QDM · FAQ — pregunta individual
+  Bloque hijo de blocks/qdm-faq-category.liquid
+{%- enddoc -%}
+
+<details class="qdm-faq-page__item" {{ block.shopify_attributes }}>
+  <summary class="qdm-faq-page__question">
+    <span>{{ block.settings.question | escape }}</span>
+    <span class="qdm-faq-page__icon" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line class="qdm-faq-page__icon-h" x1="1" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line class="qdm-faq-page__icon-v" x1="8" y1="1" x2="8" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </span>
+  </summary>
+  <div class="qdm-faq-page__answer">
+    <p>{{ block.settings.answer }}</p>
+  </div>
+</details>
+
+{% stylesheet %}
+  .qdm-faq-page__item {
+    border-bottom: 1px solid var(--qdm-nude, #CFBFB3);
+  }
+
+  .qdm-faq-page__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 0.875rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--qdm-carbon, #262522);
+    transition: color 200ms ease;
+  }
+
+  .qdm-faq-page__question::-webkit-details-marker { display: none; }
+  .qdm-faq-page__question::marker { display: none; }
+
+  @media (hover: hover) {
+    .qdm-faq-page__question:hover {
+      color: rgba(38, 37, 34, 0.7);
+    }
+  }
+
+  .qdm-faq-page__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-faq-page__icon-v {
+    transform-origin: center;
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+
+  .qdm-faq-page__item[open] .qdm-faq-page__icon-v {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .qdm-faq-page__answer {
+    padding-bottom: 1rem;
+  }
+
+  .qdm-faq-page__answer p {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: rgba(38, 37, 34, 0.7);
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-faq-page__icon-v {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Pregunta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "question",
+      "label": "Pregunta"
+    },
+    {
+      "type": "textarea",
+      "id": "answer",
+      "label": "Respuesta"
+    }
+  ]
+}
+{% endschema %}

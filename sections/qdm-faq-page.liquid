@@ -1,0 +1,295 @@
+{%- comment -%}
+  QDM · Página de Preguntas Frecuentes
+  Header + columnas masonry (CSS columns) agrupadas por tema.
+  Cada categoría es un bloque qdm-faq-category, que a su vez
+  contiene bloques qdm-faq-item (pregunta/respuesta).
+{%- endcomment -%}
+
+<section class="qdm-faq-page">
+  <div class="qdm-faq-page__inner page-width">
+
+    <header class="qdm-faq-page__header">
+      <h1 class="qdm-faq-page__title">{{ section.settings.title | default: 'Preguntas frecuentes' }}</h1>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="qdm-faq-page__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="qdm-faq-page__columns">
+        {% content_for 'blocks' %}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- if section.blocks.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign first_question = true -%}
+        {%- for category in section.blocks -%}
+          {%- for item in category.blocks -%}
+            {%- if item.settings.question != blank and item.settings.answer != blank -%}
+              {%- unless first_question -%},{%- endunless -%}
+              {%- assign first_question = false -%}
+              {
+                "@type": "Question",
+                "name": {{ item.settings.question | json }},
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": {{ item.settings.answer | strip_html | json }}
+                }
+              }
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .qdm-faq-page {
+    background-color: var(--qdm-cream, #FFFEF7);
+    padding-block: 4rem 6rem;
+  }
+
+  .qdm-faq-page__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .qdm-faq-page__header {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .qdm-faq-page__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 0.75rem;
+  }
+
+  .qdm-faq-page__subtitle {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(38, 37, 34, 0.6);
+    margin: 0;
+  }
+
+  /* ── Columnas masonry ── */
+  .qdm-faq-page__columns {
+    column-count: 3;
+    column-gap: 3rem;
+  }
+
+  @media (max-width: 1023px) {
+    .qdm-faq-page__columns {
+      column-count: 2;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .qdm-faq-page__columns {
+      column-count: 1;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .qdm-faq-page {
+      padding-block: 3rem 4rem;
+    }
+
+    .qdm-faq-page__inner {
+      gap: 2.25rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Página FAQ",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Preguntas frecuentes"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Todo lo que necesitás saber sobre QDM, nuestras piezas y el proyecto adaptado."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qdm-faq-category"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Página FAQ",
+      "blocks": {
+        "cat_qdm": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre QDM"
+          },
+          "blocks": {
+            "q1": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Qué es Qué Diría Mi Madre?",
+                "answer": "QDM es una marca de joyería artesanal en plata de ley 925. Nacimos como una respuesta al qué dirán: piezas con carácter, hechas para quien decide ser una misma."
+              }
+            },
+            "q2": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Por qué desarrollamos joyería adaptada para audífonos?",
+                "answer": "Porque no existía. Muchas personas con audífonos dejan de usar aros por incomodidad o porque no encajan. Diseñamos piezas pensadas específicamente para convivir con el audífono, sin renunciar al diseño."
+              }
+            }
+          },
+          "block_order": ["q1", "q2"]
+        },
+        "cat_piezas": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre las piezas"
+          },
+          "blocks": {
+            "q1": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿De qué materiales están hechas nuestras piezas?",
+                "answer": "Todas nuestras piezas están fabricadas en plata de ley 925, certificada por AIDIMME, sin níquel y aptas para pieles sensibles."
+              }
+            },
+            "q2": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo cuido mis joyas para que duren siempre?",
+                "answer": "Evitá el contacto con perfumes, cremas y agua de mar o pileta. Guardalas en un lugar seco y limpialas con un paño suave cuando lo necesiten."
+              }
+            },
+            "q3": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo sé cuál es mi talla de anillo?",
+                "answer": "Podés medir la circunferencia de tu dedo con un hilo y compararla con nuestra tabla de talles, disponible en cada ficha de producto."
+              }
+            }
+          },
+          "block_order": ["q1", "q2", "q3"]
+        },
+        "cat_envios": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre envíos"
+          },
+          "blocks": {
+            "q1": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cuánto tarda en llegar mi pedido?",
+                "answer": "Los envíos dentro de Argentina demoran entre 3 y 7 días hábiles según la localidad, una vez despachado el pedido."
+              }
+            },
+            "q2": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Realizáis envíos internacionales?",
+                "answer": "Por el momento no, pero estamos trabajando para habilitar envíos internacionales próximamente."
+              }
+            },
+            "q3": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Puedo cambiar o devolver una pieza?",
+                "answer": "Sí, tenés 30 días desde la recepción para solicitar un cambio o devolución, siempre que la pieza esté sin uso y en su empaque original."
+              }
+            }
+          },
+          "block_order": ["q1", "q2", "q3"]
+        },
+        "cat_adaptado": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre el proyecto adaptado"
+          },
+          "blocks": {
+            "q1": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Las joyas adaptadas ya están disponibles?",
+                "answer": "Estamos en la etapa final de desarrollo. Muy pronto vas a poder encontrarlas en la tienda."
+              }
+            },
+            "q2": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Con qué modelos de audífonos serán compatibles?",
+                "answer": "Están pensadas para los modelos BTE (Behind The Ear) y RIC (Receiver In Canal), los más utilizados. Si tenés un modelo diferente, escribinos y lo evaluamos."
+              }
+            },
+            "q3": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo estamos desarrollando las piezas adaptadas?",
+                "answer": "Trabajamos junto a usuarios reales de audífonos para probar cada prototipo, ajustando comodidad y diseño antes del lanzamiento."
+              }
+            },
+            "q4": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Puedo participar en pruebas o dar feedback?",
+                "answer": "¡Sí! Escribinos a hola@quediriamimadre.com y sumate a nuestra comunidad de testeo."
+              }
+            }
+          },
+          "block_order": ["q1", "q2", "q3", "q4"]
+        },
+        "cat_otras": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Otras preguntas"
+          },
+          "blocks": {
+            "q1": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Las piezas incluyen garantía?",
+                "answer": "Sí, todas nuestras piezas tienen 6 meses de garantía por defectos de fabricación."
+              }
+            },
+            "q2": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Puedo personalizar una joya?",
+                "answer": "Trabajamos en personalización según disponibilidad. Escribinos a hola@quediriamimadre.com y lo evaluamos juntas."
+              }
+            }
+          },
+          "block_order": ["q1", "q2"]
+        }
+      },
+      "block_order": ["cat_qdm", "cat_piezas", "cat_envios", "cat_adaptado", "cat_otras"]
+    }
+  ]
+}
+{% endschema %}
