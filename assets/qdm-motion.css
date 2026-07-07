@@ -92,6 +92,87 @@
 }
 
 /* ─────────────────────────────────────────────────────────
+   HEADER — siempre transparente, texto blanco → carbón al scrollear
+   Solo aplica cuando [transparent] está activo (checkbox "Header
+   transparente" del template en el editor). Requiere Sticky = "Always"
+   para que data-sticky-state alterne active/inactive con el scroll
+   (en modo "Scroll up" el significado de 'active' es otro y el
+   efecto queda invertido).
+───────────────────────────────────────────────────────── */
+
+#header-component[transparent] .header__underlay-open,
+#header-component[transparent] .header__underlay-closed {
+  background: transparent;
+}
+
+#header-component[transparent]:not([data-sticky-state='active']) .header__row {
+  --color-foreground: var(--qdm-cream, #FFFEF7);
+  --color-foreground-rgb: 255, 254, 247;
+}
+
+#header-component[transparent][data-sticky-state='active'] .header__row {
+  --color-foreground: var(--qdm-carbon, #262522);
+  --color-foreground-rgb: 38, 37, 34;
+}
+
+/* Páginas de fondo claro sin imagen oscura arriba (producto, FAQ,
+   artículo y listado del Journal): texto carbon desde el inicio,
+   en vez de cream. `{{ template }}` incluye el sufijo del archivo
+   (la FAQ usa templates/page.faq.json → data-template="page.faq",
+   no "page"), por eso se listan ambos valores explícitamente. */
+:has(
+  main[data-template='product'],
+  main[data-template='page'],
+  main[data-template='page.faq'],
+  main[data-template='article'],
+  main[data-template='blog']
+) #header-component[transparent]:not([data-sticky-state='active']) .header__row {
+  --color-foreground: var(--qdm-carbon, #262522);
+  --color-foreground-rgb: 38, 37, 34;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CARDS DE PRODUCTO — zoom de imagen dentro de la card
+   Muchas fotos de producto vienen con harto margen vacío alrededor
+   de la pieza. object-fit: cover no puede "recortar" ese margen
+   porque forma parte de los píxeles de la foto — así que escalamos
+   la imagen en sí (no el contenedor) para que la pieza se vea más
+   grande dentro de la misma card. Afecta home, colecciones/drops
+   y recomendados de producto (todo lo que usa card-gallery).
+───────────────────────────────────────────────────────── */
+
+.card-gallery .product-media-container img {
+  transform: scale(1.7);
+  transform-origin: center;
+}
+
+/* ─────────────────────────────────────────────────────────
+   TÍTULOS PRINCIPALES — mucho más bold en Work Sans.
+   Cubre los H1/H2 principales de cada sección/página QDM.
+   Excluye a propósito los títulos de producto (nombre del
+   producto en cards) y los títulos de card del Journal, que
+   son card-level, no "principales".
+   Selector duplicado (especificidad 0,2,0) a propósito: este
+   archivo se carga ANTES que el CSS de cada sección en
+   layout/theme.liquid, así que un solo .clase (0,1,0) perdería
+   contra el font-weight:300 de cada sección por orden de fuente.
+───────────────────────────────────────────────────────── */
+
+.qdm-faq-page__title.qdm-faq-page__title,
+.qdm-adapted__title.qdm-adapted__title,
+.qdm-article__title.qdm-article__title,
+.qdm-faq__title.qdm-faq__title,
+.qdm-manifesto__title.qdm-manifesto__title,
+.qdm-journal__title.qdm-journal__title,
+.qdm-mat__title.qdm-mat__title,
+.qdm-drop-header__title.qdm-drop-header__title,
+.qdm-slider__heading.qdm-slider__heading,
+.qdm-products__title.qdm-products__title,
+.qdm-drop-teaser__quote.qdm-drop-teaser__quote {
+  font-weight: 700;
+}
+
+/* ─────────────────────────────────────────────────────────
    1. SCROLL REVEAL — estados iniciales y finales
 ───────────────────────────────────────────────────────── */
 
@@ -163,22 +244,22 @@
   box-shadow: 0 1px 0 rgba(0 0 0 / 0.06);
 }
 
-/* Mobile — respetar transparencia en top of page */
-@media (max-width: 767px) {
-  [data-header],
-  [data-header][transparent],
-  [data-header][transparent="always"],
-  [data-header]:not(.is-scrolled) {
-    background-color: transparent;
-    box-shadow: none;
-  }
+/* Respetar transparencia en top of page — todos los breakpoints.
+   Antes vivía solo dentro de @media (max-width: 767px), por eso
+   en desktop ganaba el fondo sólido de [data-header].is-scrolled. */
+[data-header],
+[data-header][transparent],
+[data-header][transparent="always"],
+[data-header]:not(.is-scrolled) {
+  background-color: transparent;
+  box-shadow: none;
+}
 
-  /* En estado no scrolled, las filas deben permanecer transparentes */
-  [data-header] .header__row,
-  [data-header] .header__row--top,
-  [data-header] .header__row--bottom {
-    background-color: transparent;
-  }
+/* En estado no scrolled, las filas deben permanecer transparentes */
+[data-header] .header__row,
+[data-header] .header__row--top,
+[data-header] .header__row--bottom {
+  background-color: transparent;
 }
 
 /* Underline animado en links de nav */
@@ -599,11 +680,6 @@ img.lazyloaded {
 /* -----------------------------------------------------
    Homepage featured products (product_list_4HyKBg)
 ----------------------------------------------------- */
-[id*='product_list_4HyKBg'] .section-background,
-[id*='product_list_4HyKBg'] .section-resource-list {
-  background-color: var(--qdm-sand, #e0ded7);
-}
-
 [id*='product_list_4HyKBg'] .section-resource-list__header h3 {
   color: var(--qdm-carbon, #262522);
 }
@@ -613,8 +689,6 @@ img.lazyloaded {
 }
 
 [id*='product_list_4HyKBg'] .resource-list__item .group-block {
-  --color-background: var(--qdm-sand, #e0ded7);
-  --color-background-rgb: 224 222 215;
   --color-foreground: var(--qdm-carbon, #262522);
   --color-foreground-rgb: 38 37 34;
 }

@@ -93,7 +93,7 @@
     "show_filters": "Filtro",
     "clear": "Borrar",
     "continue_shopping": "Seguir comprando",
-    "log_in_html": "¿Tienes una cuenta? <a href=\"{{ link }}\">Inicia sesión</a> para pagar más rápido.",
+    "log_in_html": "¿Tienes una cuenta? <a href=\"{{ link }}\">Inicia sesión</a> para finalizar tus compras con mayor rapidez.",
     "see_items": {
       "one": "Ver {{ count }} artículo",
       "other": "Ver {{ count }} artículos",

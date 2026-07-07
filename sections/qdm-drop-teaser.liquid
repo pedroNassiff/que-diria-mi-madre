@@ -34,7 +34,7 @@
 
     {%- if section.settings.quote != blank -%}
       <p class="qdm-drop-teaser__quote" data-reveal="fade-up" data-reveal-delay="100">
-        &ldquo;{{ section.settings.quote }}&rdquo;
+        {{ section.settings.quote }}
       </p>
     {%- endif -%}
 
@@ -183,6 +183,7 @@
 
   .qdm-drop-teaser--has-image .qdm-drop-teaser__quote {
     color: var(--qdm-cream, #FFFEF7);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
   }
 
   .qdm-drop-teaser--has-image .qdm-drop-teaser__divider {

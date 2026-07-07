@@ -38,12 +38,6 @@
   {% endif %}
 >
   {% if cart.empty? or force_empty %}
-    {%- if shop.customer_accounts_enabled and customer == null -%}
-      <p>
-        {{ 'actions.log_in_html' | t: link: routes.account_login_url }}
-      </p>
-    {%- endif -%}
-
     <a
       class="button cart-items__empty-button"
       href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}"
@@ -52,6 +46,12 @@
         {{ 'actions.continue_shopping' | t }}
       </span>
     </a>
+
+    {%- if shop.customer_accounts_enabled and customer == null -%}
+      <p class="cart-items__empty-login">
+        {{ 'actions.log_in_html' | t: link: routes.account_login_url }}
+      </p>
+    {%- endif -%}
   {%- else -%}
     <span
       class="visually-hidden"
@@ -649,6 +649,10 @@
     margin-top: var(--margin-md);
     padding-inline: var(--padding-4xl);
     padding-block: var(--padding-lg);
+  }
+
+  .cart-items__empty-login {
+    margin-top: var(--margin-lg);
   }
 
   /* Error message */

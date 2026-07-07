@@ -1,11 +1,209 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "qdm-faq-page": {
+    "qdm_faq_page_68tgzm": {
       "type": "qdm-faq-page",
-      "settings": {}
+      "blocks": {
+        "qdm_faq_category_67cR9b": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre QDM"
+          },
+          "blocks": {
+            "qdm_faq_item_HMKJzi": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Qué es Qué Diría Mi Madre?",
+                "answer": "QDM es una marca de joyería artesanal en plata de ley 925. Nacimos como una respuesta al qué dirán: piezas con carácter, hechas para quien decide ser una misma."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_bUmhNC": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Por qué desarrollamos joyería adaptada para audífonos?",
+                "answer": "Porque no existía. Muchas personas con audífonos dejan de usar aros por incomodidad o porque no encajan. Diseñamos piezas pensadas específicamente para convivir con el audífono, sin renunciar al diseño."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_HMKJzi",
+            "qdm_faq_item_bUmhNC"
+          ]
+        },
+        "qdm_faq_category_zG9Nx7": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre las piezas"
+          },
+          "blocks": {
+            "qdm_faq_item_jiCfLg": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿De qué materiales están hechas nuestras piezas?",
+                "answer": "Todas nuestras piezas están fabricadas en plata de ley 925, certificada por AIDIMME, sin níquel y aptas para pieles sensibles."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_w7bHDf": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo cuido mis joyas para que duren siempre?",
+                "answer": "Evitá el contacto con perfumes, cremas y agua de mar o pileta. Guardalas en un lugar seco y limpialas con un paño suave cuando lo necesiten."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_CXLeq4": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo sé cuál es mi talla de anillo?",
+                "answer": "Podés medir la circunferencia de tu dedo con un hilo y compararla con nuestra tabla de talles, disponible en cada ficha de producto."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_jiCfLg",
+            "qdm_faq_item_w7bHDf",
+            "qdm_faq_item_CXLeq4"
+          ]
+        },
+        "qdm_faq_category_bUi3KQ": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre envíos"
+          },
+          "blocks": {
+            "qdm_faq_item_yxgCb9": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cuánto tarda en llegar mi pedido?",
+                "answer": "Los envíos dentro de Argentina demoran entre 3 y 7 días hábiles según la localidad, una vez despachado el pedido."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_MEzDF9": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Realizáis envíos internacionales?",
+                "answer": "Por el momento no, pero estamos trabajando para habilitar envíos internacionales próximamente."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_eRaEHJ": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Puedo cambiar o devolver una pieza?",
+                "answer": "Sí, tenés 30 días desde la recepción para solicitar un cambio o devolución, siempre que la pieza esté sin uso y en su empaque original."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_yxgCb9",
+            "qdm_faq_item_MEzDF9",
+            "qdm_faq_item_eRaEHJ"
+          ]
+        },
+        "qdm_faq_category_CwdcTX": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Sobre el proyecto adaptado"
+          },
+          "blocks": {
+            "qdm_faq_item_TGkAjc": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Las joyas adaptadas ya están disponibles?",
+                "answer": "Estamos en la etapa final de desarrollo. Muy pronto vas a poder encontrarlas en la tienda."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_JGFHrY": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Con qué modelos de audífonos serán compatibles?",
+                "answer": "Están pensadas para los modelos BTE (Behind The Ear) y RIC (Receiver In Canal), los más utilizados. Si tenés un modelo diferente, escribinos y lo evaluamos."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_KrbKt8": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo estamos desarrollando las piezas adaptadas?",
+                "answer": "Trabajamos junto a usuarios reales de audífonos para probar cada prototipo, ajustando comodidad y diseño antes del lanzamiento."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_McxaU7": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Puedo participar en pruebas o dar feedback?",
+                "answer": "¡Sí! Escribinos a hola@quediriamimadre.com y sumate a nuestra comunidad de testeo."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_TGkAjc",
+            "qdm_faq_item_JGFHrY",
+            "qdm_faq_item_KrbKt8",
+            "qdm_faq_item_McxaU7"
+          ]
+        },
+        "qdm_faq_category_d64gCh": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Otras preguntas"
+          },
+          "blocks": {
+            "qdm_faq_item_FUXLfE": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Las piezas incluyen garantía?",
+                "answer": "Sí, todas nuestras piezas tienen 6 meses de garantía por defectos de fabricación."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_pYpipb": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Puedo personalizar una joya?",
+                "answer": "Trabajamos en personalización según disponibilidad. Escribinos a hola@quediriamimadre.com y lo evaluamos juntas."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_FUXLfE",
+            "qdm_faq_item_pYpipb"
+          ]
+        }
+      },
+      "block_order": [
+        "qdm_faq_category_67cR9b",
+        "qdm_faq_category_zG9Nx7",
+        "qdm_faq_category_bUi3KQ",
+        "qdm_faq_category_CwdcTX",
+        "qdm_faq_category_d64gCh"
+      ],
+      "name": "QDM · Página FAQ",
+      "settings": {
+        "title": "Preguntas frecuentes",
+        "subtitle": "Todo lo que necesitás saber sobre QDM, nuestras piezas y el proyecto adaptado."
+      }
     }
   },
   "order": [
-    "qdm-faq-page"
+    "qdm_faq_page_68tgzm"
   ]
 }

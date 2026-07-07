@@ -12,48 +12,36 @@
     "qdm_hero_slider_DUrtEx": {
       "type": "qdm-hero-slider",
       "blocks": {
-        "slide_J8xFGT": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC01940.jpg",
-            "label": "Nueva colección",
-            "heading": "Lo que siempre quisiste decirle",
-            "subheading": "Joyas que hablan cuando las palabras no alcanzan.",
-            "cta_label": "Explorar piezas",
-            "cta_url": ""
-          }
-        },
         "slide_4Ar8Nk": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/DSC01970.jpg",
-            "label": "Línea adaptada",
+            "label": "",
             "heading": "Belleza sin barreras",
-            "subheading": "Diseñadas para quienes usan audífonos. Sin renunciar a nada.",
-            "cta_label": "Ver joyas adaptadas",
-            "cta_url": ""
+            "subheading": "",
+            "cta_label": "",
+            "cta_url": "shopify://collections/drop-1"
           }
         },
         "slide_BQtAxk": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC01312.jpg",
-            "label": "Nuestra historia",
+            "image": "shopify://shop_images/DSC03162.jpg",
+            "label": "",
             "heading": "Hechas con intención, llevadas con amor",
-            "subheading": "Artesanía europea que acompaña historias reales.",
-            "cta_label": "Conocer el manifiesto",
-            "cta_url": ""
+            "subheading": "",
+            "cta_label": "",
+            "cta_url": "shopify://collections/la-orilla-drop"
           }
         }
       },
       "block_order": [
-        "slide_J8xFGT",
         "slide_4Ar8Nk",
         "slide_BQtAxk"
       ],
       "name": "QDM · Hero Slider",
       "settings": {
-        "height_desktop": 90
+        "height_desktop": 100
       }
     },
     "qdm_marquee_9micP4": {
@@ -118,6 +106,7 @@
         "phrase_bJTQVT",
         "phrase_3dfQrV"
       ],
+      "disabled": true,
       "name": "QDM · Marquee",
       "settings": {
         "separator": "·",
@@ -250,7 +239,7 @@
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
+                "horizontal_alignment_flex_direction_column": "center",
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 4,
                 "width": "fill",
@@ -506,8 +495,8 @@
         "bullet_1": "Compatible con audífonos BTE y RIC",
         "bullet_2": "Plata reciclada de ley 925",
         "bullet_3": "Fabricada en España",
-        "cta_label": "Ver joyas adaptadas",
-        "cta_url": "",
+        "email_label": "Recibir novedades del lanzamiento",
+        "email_button_label": "Quiero recibir el aviso",
         "trust_badge": "Fabricada en España · Plata reciclada 925",
         "image": "shopify://shop_images/DSC01270.jpg"
       }

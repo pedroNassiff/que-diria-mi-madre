@@ -1,94 +1,120 @@
 {%- comment -%}
   QDM · Manifiesto — Página editorial
-  Texto + citas en fondo arena + imagen + CTA
+  Orden: imagen header → título/subtítulo centrado → foto (margen) →
+  bloque texto-izq/foto-der → bloque foto-izq/texto-der → foto (margen)
+  → texto de cierre centrado → CTA
 {%- endcomment -%}
 
 <article class="qdm-manifesto">
 
+  {%- if section.settings.header_image != blank -%}
+    <div class="qdm-manifesto__header-image-band">
+      {{
+        section.settings.header_image
+        | image_url: width: 1600
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'qdm-manifesto__header-image',
+          widths: '600, 900, 1200, 1600',
+          sizes: '100vw',
+          alt: section.settings.header_image.alt | default: 'QDM · Manifiesto'
+      }}
+    </div>
+  {%- endif -%}
+
   <header class="qdm-manifesto__header">
-    <div class="qdm-manifesto__inner">
+    <div class="qdm-manifesto__inner qdm-manifesto__inner--center">
       <nav class="qdm-manifesto__breadcrumb" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}" class="qdm-manifesto__bc-link">QDM</a>
         <span class="qdm-manifesto__bc-sep" aria-hidden="true">·</span>
         <span class="qdm-manifesto__bc-current">{{ section.settings.breadcrumb | default: 'Qué Diría Mi Madre' | upcase }}</span>
       </nav>
       <h1 class="qdm-manifesto__title">{{ section.settings.title | default: 'Manifiesto' }}</h1>
-      <div class="qdm-manifesto__title-rule" aria-hidden="true"></div>
       {%- if section.settings.subtitle != blank -%}
         <p class="qdm-manifesto__subtitle">{{ section.settings.subtitle }}</p>
       {%- endif -%}
     </div>
   </header>
 
-  {%- if section.settings.para_1 != blank -%}
-    <div class="qdm-manifesto__block">
-      <div class="qdm-manifesto__inner">
-        <div class="qdm-manifesto__prose">{{ section.settings.para_1 }}</div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.quote_1 != blank -%}
-    <div class="qdm-manifesto__quote-band">
-      <div class="qdm-manifesto__inner qdm-manifesto__inner--center">
-        <span class="qdm-manifesto__quote-deco" aria-hidden="true"></span>
-        <p class="qdm-manifesto__quote-text">{{ section.settings.quote_1 }}</p>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.para_2 != blank -%}
-    <div class="qdm-manifesto__block">
-      <div class="qdm-manifesto__inner">
-        <div class="qdm-manifesto__prose">{{ section.settings.para_2 }}</div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.image != blank -%}
-    <div class="qdm-manifesto__image-band">
+  {%- if section.settings.photo_1 != blank -%}
+    <div class="qdm-manifesto__photo-margined">
       {{
-        section.settings.image
-        | image_url: width: 900
+        section.settings.photo_1
+        | image_url: width: 1400
         | image_tag:
           loading: 'lazy',
-          class: 'qdm-manifesto__image',
-          widths: '400, 600, 800, 900',
-          sizes: '100vw',
-          alt: section.settings.image.alt | default: 'QDM · Manifiesto'
+          class: 'qdm-manifesto__photo-margined-img',
+          widths: '600, 900, 1200, 1400',
+          sizes: '(min-width: 768px) 90vw, 100vw',
+          alt: section.settings.photo_1.alt | default: 'QDM · Manifiesto'
       }}
     </div>
   {%- endif -%}
 
-  {%- if section.settings.para_3 != blank -%}
+  {%- if section.settings.split_1_text != blank or section.settings.split_1_image != blank -%}
+    <div class="qdm-manifesto__split">
+      <div class="qdm-manifesto__split-text">
+        <div class="qdm-manifesto__prose">{{ section.settings.split_1_text }}</div>
+      </div>
+      <div class="qdm-manifesto__split-media">
+        {%- if section.settings.split_1_image != blank -%}
+          {{
+            section.settings.split_1_image
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              class: 'qdm-manifesto__split-img',
+              widths: '400, 600, 800, 900',
+              sizes: '(min-width: 768px) 45vw, 100vw',
+              alt: section.settings.split_1_image.alt | default: 'QDM · Manifiesto'
+          }}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.split_2_text != blank or section.settings.split_2_image != blank -%}
+    <div class="qdm-manifesto__split qdm-manifesto__split--reverse">
+      <div class="qdm-manifesto__split-media">
+        {%- if section.settings.split_2_image != blank -%}
+          {{
+            section.settings.split_2_image
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              class: 'qdm-manifesto__split-img',
+              widths: '400, 600, 800, 900',
+              sizes: '(min-width: 768px) 45vw, 100vw',
+              alt: section.settings.split_2_image.alt | default: 'QDM · Manifiesto'
+          }}
+        {%- endif -%}
+      </div>
+      <div class="qdm-manifesto__split-text">
+        <div class="qdm-manifesto__prose">{{ section.settings.split_2_text }}</div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.photo_2 != blank -%}
+    <div class="qdm-manifesto__photo-margined">
+      {{
+        section.settings.photo_2
+        | image_url: width: 1400
+        | image_tag:
+          loading: 'lazy',
+          class: 'qdm-manifesto__photo-margined-img',
+          widths: '600, 900, 1200, 1400',
+          sizes: '(min-width: 768px) 90vw, 100vw',
+          alt: section.settings.photo_2.alt | default: 'QDM · Manifiesto'
+      }}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.closing_text != blank -%}
     <div class="qdm-manifesto__block">
-      <div class="qdm-manifesto__inner">
-        <div class="qdm-manifesto__prose">{{ section.settings.para_3 }}</div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.para_4 != blank -%}
-    <div class="qdm-manifesto__block qdm-manifesto__block--spaced">
-      <div class="qdm-manifesto__inner">
-        <div class="qdm-manifesto__prose">{{ section.settings.para_4 }}</div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.quote_2 != blank -%}
-    <div class="qdm-manifesto__quote-band">
       <div class="qdm-manifesto__inner qdm-manifesto__inner--center">
-        <span class="qdm-manifesto__quote-deco" aria-hidden="true"></span>
-        <p class="qdm-manifesto__quote-text">{{ section.settings.quote_2 }}</p>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.para_5 != blank -%}
-    <div class="qdm-manifesto__block">
-      <div class="qdm-manifesto__inner">
-        <div class="qdm-manifesto__prose">{{ section.settings.para_5 }}</div>
+        <div class="qdm-manifesto__prose">{{ section.settings.closing_text }}</div>
       </div>
     </div>
   {%- endif -%}
@@ -124,7 +150,26 @@
     text-align: center;
   }
 
-  /* ── Header ── */
+  /* ── Header image (hero) ── */
+  .qdm-manifesto__header-image-band {
+    overflow: hidden;
+  }
+
+  .qdm-manifesto__header-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  @media (max-width: 767px) {
+    .qdm-manifesto__header-image {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  /* ── Header — centrado en desktop y mobile ── */
   .qdm-manifesto__header {
     padding-block: 2.5rem 0;
   }
@@ -133,6 +178,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.6875rem;
@@ -172,13 +218,6 @@
     margin: 0 0 1rem;
   }
 
-  .qdm-manifesto__title-rule {
-    width: 2rem;
-    height: 2px;
-    background-color: var(--qdm-amber, #ebb86e);
-    margin-bottom: 1.125rem;
-  }
-
   .qdm-manifesto__subtitle {
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.9375rem;
@@ -193,57 +232,57 @@
     padding-block-start: 2.5rem;
   }
 
-  .qdm-manifesto__block--spaced {
-    padding-block-start: 1.75rem;
-  }
-
   .qdm-manifesto__prose p {
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.9375rem;
     font-weight: 400;
     line-height: 1.7;
     color: var(--qdm-carbon, #262522);
-    margin: 0;
+    margin: 0 0 0.875rem;
   }
 
-  /* ── Quote band ── */
-  .qdm-manifesto__quote-band {
-    background-color: var(--qdm-sand, #e0ded7);
-    margin-block-start: 2.5rem;
-    padding-block: 3.25rem 3.5rem;
+  .qdm-manifesto__prose p:last-child {
+    margin-bottom: 0;
   }
 
-  .qdm-manifesto__quote-deco {
-    display: block;
-    width: 2.5rem;
-    height: 2px;
-    background-color: var(--qdm-amber, #ebb86e);
-    margin: 0 auto 2rem;
-  }
-
-  .qdm-manifesto__quote-text {
-    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
-    font-size: clamp(1.25rem, 4.5vw, 1.875rem);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    color: var(--qdm-carbon, #262522);
-    margin: 0;
-    max-width: 420px;
+  /* ── Foto con margen (no full-bleed, no tan explotada como el header) ── */
+  .qdm-manifesto__photo-margined {
+    max-width: 1200px;
     margin-inline: auto;
-  }
-
-  /* ── Image ── */
-  .qdm-manifesto__image-band {
-    margin-block-start: 2.5rem;
+    margin-block-start: 3rem;
+    padding-inline: 1.5rem;
     overflow: hidden;
   }
 
-  .qdm-manifesto__image {
+  .qdm-manifesto__photo-margined-img {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  /* ── Bloques intercalados: texto + foto en columnas (desktop) ── */
+  .qdm-manifesto__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin-inline: auto;
+    margin-block-start: 3.5rem;
+    padding-inline: 1.5rem;
+  }
+
+  .qdm-manifesto__split-media {
+    overflow: hidden;
+  }
+
+  .qdm-manifesto__split-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
   }
 
@@ -278,6 +317,7 @@
     }
   }
 
+  /* ── Mobile: todo apilado, sin reordenar columnas ── */
   @media (max-width: 767px) {
     .qdm-manifesto__header {
       padding-block-start: 2rem;
@@ -287,17 +327,20 @@
       padding-block-start: 2rem;
     }
 
-    .qdm-manifesto__block--spaced {
-      padding-block-start: 1.5rem;
+    .qdm-manifesto__photo-margined {
+      margin-block-start: 2.5rem;
+      padding-inline: 1rem;
     }
 
-    .qdm-manifesto__quote-band {
-      margin-block-start: 2rem;
-      padding-block: 2.75rem 3rem;
+    .qdm-manifesto__split {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-block-start: 2.5rem;
+      padding-inline: 1.5rem;
     }
 
-    .qdm-manifesto__image-band {
-      margin-block-start: 2rem;
+    .qdm-manifesto__split-img {
+      aspect-ratio: 4 / 3;
     }
 
     .qdm-manifesto__cta-wrap {
@@ -327,6 +370,12 @@
       "content": "Encabezado"
     },
     {
+      "type": "image_picker",
+      "id": "header_image",
+      "label": "Imagen de encabezado",
+      "info": "Foto editorial (equipo/fundadoras). Se muestra arriba de todo, full-bleed."
+    },
+    {
       "type": "text",
       "id": "breadcrumb",
       "label": "Breadcrumb — segundo nivel",
@@ -346,82 +395,63 @@
     },
     {
       "type": "header",
-      "content": "Párrafo 1"
-    },
-    {
-      "type": "richtext",
-      "id": "para_1",
-      "label": "Texto",
-      "default": "<p>Nace como una respuesta al «qué dirán».</p><p>Una reivindicación de la libertad de ser uno mismo.</p><p>De hacer lo que uno desea. De mostrarse tal como es.</p><p>Más allá de las expectativas. De lo que se considera correcto, atractivo o aceptable.</p>"
-    },
-    {
-      "type": "header",
-      "content": "Cita 1"
-    },
-    {
-      "type": "text",
-      "id": "quote_1",
-      "label": "Texto de la cita",
-      "default": "No creemos en la joyería como accesorio. Creemos en la joyería como símbolo."
-    },
-    {
-      "type": "header",
-      "content": "Párrafo 2"
-    },
-    {
-      "type": "richtext",
-      "id": "para_2",
-      "label": "Texto",
-      "default": "<p>Creamos piezas originales que no siguen tendencias: cuentan historias.</p><p>Cada diseño nace con intención, carácter y una identidad propia.</p><p>No trabajamos con grandes volúmenes.</p><p>Elegimos la curaduría antes que la cantidad.</p><p>La calidad antes que la rotación.</p><p>El significado antes que la moda.</p>"
-    },
-    {
-      "type": "header",
-      "content": "Imagen editorial"
+      "content": "Foto 1"
     },
     {
       "type": "image_picker",
-      "id": "image",
+      "id": "photo_1",
+      "label": "Imagen",
+      "info": "Ancho casi completo, con margen a los costados (no full-bleed)."
+    },
+    {
+      "type": "header",
+      "content": "Bloque intercalado 1 — texto izquierda / foto derecha"
+    },
+    {
+      "type": "richtext",
+      "id": "split_1_text",
+      "label": "Texto",
+      "default": "<p>Nace como una respuesta al «qué dirán».</p><p>Una reivindicación de la libertad de ser uno mismo.</p><p>De hacer lo que uno desea. De mostrarse tal como es.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "split_1_image",
       "label": "Imagen"
     },
     {
       "type": "header",
-      "content": "Párrafo 3"
+      "content": "Bloque intercalado 2 — foto izquierda / texto derecha"
+    },
+    {
+      "type": "image_picker",
+      "id": "split_2_image",
+      "label": "Imagen"
     },
     {
       "type": "richtext",
-      "id": "para_3",
+      "id": "split_2_text",
       "label": "Texto",
-      "default": "<p>Nuestras piezas representan vínculos.</p><p>La conexión con la familia.</p><p>La complicidad con los amigos.</p><p>La relación más importante: la que tenemos con nosotras mismas.</p>"
+      "default": "<p>Creamos piezas originales que no siguen tendencias: cuentan historias.</p><p>Cada diseño nace con intención, carácter y una identidad propia.</p><p>No trabajamos con grandes volúmenes. Elegimos la curaduría antes que la cantidad.</p>"
     },
     {
       "type": "header",
-      "content": "Párrafo 4"
+      "content": "Foto 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "photo_2",
+      "label": "Imagen",
+      "info": "Centrada, mismo margen que Foto 1."
+    },
+    {
+      "type": "header",
+      "content": "Cierre"
     },
     {
       "type": "richtext",
-      "id": "para_4",
-      "label": "Texto",
-      "default": "<p>Hablamos de resiliencia. De fuerza silenciosa.</p><p>De momentos que marcan un antes y un después.</p><p>De recuerdos que se transforman en símbolos.</p>"
-    },
-    {
-      "type": "header",
-      "content": "Cita 2"
-    },
-    {
-      "type": "text",
-      "id": "quote_2",
-      "label": "Texto de la cita",
-      "default": "No vendemos joyas. Creamos objetos con alma."
-    },
-    {
-      "type": "header",
-      "content": "Párrafo 5"
-    },
-    {
-      "type": "richtext",
-      "id": "para_5",
-      "label": "Texto",
-      "default": "<p>Pequeños recordatorios de quién sos, de dónde venís y de todo lo que sos capaz de sostener.</p><p>Porque lo que se lleva puesto también puede llevar significado.</p>"
+      "id": "closing_text",
+      "label": "Texto de cierre",
+      "default": "<p>Creemos que aquello que forma parte de nuestra identidad merece ser celebrado.</p><p>QDM es un lugar para todas las personas que encuentran en una joya una forma de hablar de sí mismas.</p><p>Porque creemos que la individualidad nunca debería esconderse. Debería poder llevarse puesta.</p>"
     },
     {
       "type": "header",

@@ -106,60 +106,64 @@
         echo '<li class="mega-menu__column ' | append: span_class | append: '">'
       endif
     %}
-    <div>
-      <a
-        href="{{ link.url }}"
-        class="mega-menu__link {% if link.links != blank %}mega-menu__link--parent{% endif %}"
-      >
-        {% if menu_content_type == 'collection_images' %}
-          {%- capture collection_image_sizes -%}
-            {%- if parent_link.links.size <= 4 -%}
-              {%- assign columns_per_item = 2 -%}
-            {%- else -%}
-              {%- assign columns_per_item = 1 -%}
-            {%- endif -%}
-            {%- render 'util-mega-menu-img-sizes-attr',
-              menu_content_type: 'collection_images',
-              settings: settings,
-              grid_columns: grid_columns_count,
-              grid_columns_tablet: grid_columns_count_tablet,
-              grid_columns_collection_images: grid_columns_count_collection_images,
-              parent_links_size: parent_link.links.size,
-              columns_per_item: columns_per_item
-            -%}
-          {%- endcapture -%}
-
-          {% render 'link-featured-image', link: link, class: 'mega-menu__link-image', sizes: collection_image_sizes %}
-        {% endif %}
-        <span class="wrap-text">
-          {{- link.title -}}
-        </span>
-      </a>
-      {% if link.links != blank %}
-        <ul
-          class="list-unstyled"
-          {% if should_break_columns %}
-            style="column-count: {{ column_span }};"
-          {% endif %}
+    {% if link.title == '---divider---' %}
+      <div class="mega-menu__divider" aria-hidden="true"></div>
+    {% else %}
+      <div>
+        <a
+          href="{{ link.url }}"
+          class="mega-menu__link {% if link.links != blank %}mega-menu__link--parent{% endif %}"
         >
-          {% for childLink in link.links %}
-            {% assign break_after_modulo = forloop.index | modulo: links_before_wrap %}
-            <li
-              {% if break_after_modulo == 0 and should_break_columns %}
-                style="break-after: column;"
-              {% endif %}
-            >
-              <a
-                href="{{ childLink.url }}"
-                class="mega-menu__link"
+          {% if menu_content_type == 'collection_images' %}
+            {%- capture collection_image_sizes -%}
+              {%- if parent_link.links.size <= 4 -%}
+                {%- assign columns_per_item = 2 -%}
+              {%- else -%}
+                {%- assign columns_per_item = 1 -%}
+              {%- endif -%}
+              {%- render 'util-mega-menu-img-sizes-attr',
+                menu_content_type: 'collection_images',
+                settings: settings,
+                grid_columns: grid_columns_count,
+                grid_columns_tablet: grid_columns_count_tablet,
+                grid_columns_collection_images: grid_columns_count_collection_images,
+                parent_links_size: parent_link.links.size,
+                columns_per_item: columns_per_item
+              -%}
+            {%- endcapture -%}
+
+            {% render 'link-featured-image', link: link, class: 'mega-menu__link-image', sizes: collection_image_sizes %}
+          {% endif %}
+          <span class="wrap-text">
+            {{- link.title -}}
+          </span>
+        </a>
+        {% if link.links != blank %}
+          <ul
+            class="list-unstyled"
+            {% if should_break_columns %}
+              style="column-count: {{ column_span }};"
+            {% endif %}
+          >
+            {% for childLink in link.links %}
+              {% assign break_after_modulo = forloop.index | modulo: links_before_wrap %}
+              <li
+                {% if break_after_modulo == 0 and should_break_columns %}
+                  style="break-after: column;"
+                {% endif %}
               >
-                <span class="wrap-text">{{- childLink.title -}}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
+                <a
+                  href="{{ childLink.url }}"
+                  class="mega-menu__link"
+                >
+                  <span class="wrap-text">{{- childLink.title -}}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endif %}
 
     {% liquid
       # Check conditions for closing the span at the end of each iteration, then close the span if needed

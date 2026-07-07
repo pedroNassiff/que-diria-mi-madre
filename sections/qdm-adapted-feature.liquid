@@ -29,39 +29,76 @@
     {%- comment -%} Columna texto — derecha en desktop, abajo en mobile {%- endcomment -%}
     <div class="qdm-adapted__text" data-reveal="fade-up" data-reveal-delay="0">
 
-      {%- if section.settings.badge != blank -%}
-        <p class="qdm-adapted__badge">{{ section.settings.badge | escape }}</p>
-      {%- endif -%}
+      <div class="qdm-adapted__content-zone">
+        {%- if section.settings.caracol_image != blank -%}
+          <div class="qdm-adapted__caracol" aria-hidden="true">
+            {{
+              section.settings.caracol_image
+              | image_url: width: 1200
+              | image_tag: loading: 'lazy', widths: '600, 900, 1200'
+            }}
+          </div>
+        {%- endif -%}
 
-      {%- if section.settings.heading != blank -%}
-        <h2 class="qdm-adapted__title">{{ section.settings.heading | escape }}</h2>
-      {%- endif -%}
+        {%- if section.settings.badge != blank -%}
+          <p class="qdm-adapted__badge">{{ section.settings.badge | escape }}</p>
+        {%- endif -%}
 
-      {%- if section.settings.body != blank -%}
-        <div class="qdm-adapted__body rte">{{ section.settings.body }}</div>
-      {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="qdm-adapted__title">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
 
-      {%- if section.settings.bullets_enabled -%}
-        <ul class="qdm-adapted__bullets">
-          {%- if section.settings.bullet_1 != blank -%}
-            <li>{{ section.settings.bullet_1 | escape }}</li>
+        {%- if section.settings.body != blank -%}
+          <div class="qdm-adapted__body rte">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.bullets_enabled -%}
+          <ul class="qdm-adapted__bullets">
+            {%- if section.settings.bullet_1 != blank -%}
+              <li>{{ section.settings.bullet_1 | escape }}</li>
+            {%- endif -%}
+            {%- if section.settings.bullet_2 != blank -%}
+              <li>{{ section.settings.bullet_2 | escape }}</li>
+            {%- endif -%}
+            {%- if section.settings.bullet_3 != blank -%}
+              <li>{{ section.settings.bullet_3 | escape }}</li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.email_button_label != blank -%}
+        {%- form 'customer', class: 'qdm-adapted__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="qdm-adapted__form-success">¡Gracias! Te avisamos apenas lancemos.</p>
+          {%- else -%}
+            {%- if section.settings.email_label != blank -%}
+              <label for="AdaptedNewsletter-{{ section.id }}" class="qdm-adapted__form-label">
+                {{ section.settings.email_label | escape }}
+              </label>
+            {%- endif -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,joyas-adaptadas">
+            <div class="qdm-adapted__form-row">
+              <input
+                type="email"
+                name="contact[email]"
+                id="AdaptedNewsletter-{{ section.id }}"
+                class="qdm-adapted__form-input"
+                placeholder="Tu email"
+                autocomplete="email"
+                required
+              >
+              <button type="submit" class="qdm-adapted__form-submit">
+                {{ section.settings.email_button_label | escape }}
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <p class="qdm-adapted__form-error">
+                {{ form.errors.messages['email'] | default: 'Ingresá un email válido.' }}
+              </p>
+            {%- endif -%}
           {%- endif -%}
-          {%- if section.settings.bullet_2 != blank -%}
-            <li>{{ section.settings.bullet_2 | escape }}</li>
-          {%- endif -%}
-          {%- if section.settings.bullet_3 != blank -%}
-            <li>{{ section.settings.bullet_3 | escape }}</li>
-          {%- endif -%}
-        </ul>
-      {%- endif -%}
-
-      {%- if section.settings.cta_label != blank -%}
-        <a
-          href="{{ section.settings.cta_url | default: '/collections/joyas-adaptadas' }}"
-          class="qdm-adapted__cta"
-        >
-          {{ section.settings.cta_label | escape }} →
-        </a>
+        {%- endform -%}
       {%- endif -%}
 
       {%- if section.settings.trust_badge != blank -%}
@@ -75,7 +112,7 @@
 
 {% stylesheet %}
   .qdm-adapted {
-    background-color: var(--qdm-sand, #E0DED7);
+    background-color: var(--qdm-cream, #FFFEF7);
     overflow: hidden;
   }
 
@@ -110,10 +147,38 @@
 
   /* ── Texto ── */
   .qdm-adapted__text {
+    position: relative;
+    overflow: hidden;
     padding: 4rem 4rem 4rem 4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  /* Zona de contenido (badge/título/body/bullets) — contexto de
+     posición para el caracol, así su base queda siempre pegada
+     al final de este bloque (justo antes del form), sin importar
+     cuánto texto haya. */
+  .qdm-adapted__content-zone {
+    position: relative;
+  }
+
+  /* Caracol — marca de agua de fondo. En desktop sangra por el
+     borde derecho (~10% de la imagen queda fuera de pantalla). */
+  .qdm-adapted__caracol {
+    position: absolute;
+    right: -20%;
+    bottom: -10%;
+    width: 55%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .qdm-adapted__caracol img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.14;
   }
 
   /* Badge */
@@ -180,26 +245,79 @@
     color: var(--qdm-amber, #EBB86E);
   }
 
-  /* CTA — desktop: amber, auto width */
-  .qdm-adapted__cta {
+  /* Form de email — reemplaza al CTA */
+  .qdm-adapted__form {
+    margin-bottom: 1.25rem;
+  }
+
+  .qdm-adapted__form-label {
+    display: block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin-bottom: 0.625rem;
+  }
+
+  .qdm-adapted__form-row {
+    display: flex;
+    gap: 0.625rem;
+  }
+
+  .qdm-adapted__form-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.875rem 1rem;
+    background-color: var(--qdm-cream, #FFFEF7);
+    border: 1px solid var(--qdm-carbon, #262522);
+    color: var(--qdm-carbon, #262522);
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+  }
+
+  .qdm-adapted__form-input::placeholder {
+    color: rgba(38, 37, 34, 0.45);
+  }
+
+  .qdm-adapted__form-input:focus {
+    outline: none;
+    border-color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-adapted__form-submit {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
+    padding: 0.875rem 1.5rem;
     background-color: var(--qdm-amber, #EBB86E);
     color: var(--qdm-carbon, #262522);
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: 0.02em;
-    text-decoration: none;
-    align-self: flex-start;
-    transition: background-color 250ms ease, color 250ms ease;
-    margin-bottom: 1.25rem;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 250ms ease;
   }
 
-  .qdm-adapted__cta:hover {
+  .qdm-adapted__form-submit:hover {
     background-color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-adapted__form-success {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  .qdm-adapted__form-error {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    color: #b3261e;
+    margin: 0.625rem 0 0;
   }
 
   /* Trust */
@@ -230,17 +348,25 @@
       padding: 2.5rem 1.5rem 3rem;
     }
 
-    /* CTA mobile: ancho completo, carbon */
-    .qdm-adapted__cta {
-      align-self: stretch;
-      justify-content: center;
-      background-color: var(--qdm-amber, #EBB86E);
-    color: var(--qdm-carbon, #262522);
-      padding: 1rem 1.5rem;
+    /* Caracol mobile: ~25% más grande. bottom: 0 lo pega justo al
+       final de la zona badge/título/body/bullets — es decir, su
+       base siempre queda arriba del form/botón, sin importar
+       cuánto texto haya arriba. */
+    .qdm-adapted__caracol {
+      top: auto;
+      bottom: -20%;
+      right: -20%;
+      width: 69%;
     }
 
-    .qdm-adapted__cta:hover {
-      background-color: rgba(38, 37, 34, 0.85);
+    /* Form mobile: input y botón apilados, ancho completo */
+    .qdm-adapted__form-row {
+      flex-direction: column;
+    }
+
+    .qdm-adapted__form-submit {
+      justify-content: center;
+      padding: 1rem 1.5rem;
     }
   }
 {% endstylesheet %}
@@ -307,23 +433,24 @@
     },
     {
       "type": "header",
-      "content": "Botón"
+      "content": "Formulario de email"
     },
     {
       "type": "text",
-      "id": "cta_label",
-      "label": "Texto del botón",
-      "default": "Ver joyas adaptadas"
+      "id": "email_label",
+      "label": "Texto sobre el input",
+      "default": "Recibir novedades del lanzamiento"
     },
     {
-      "type": "url",
-      "id": "cta_url",
-      "label": "Link del botón"
+      "type": "text",
+      "id": "email_button_label",
+      "label": "Texto del botón",
+      "default": "Quiero recibir el aviso"
     },
     {
       "type": "text",
       "id": "trust_badge",
-      "label": "Texto de confianza (bajo el botón)",
+      "label": "Texto de confianza (bajo el formulario)",
       "default": "Fabricada en España · Plata reciclada 925"
     },
     {
@@ -335,6 +462,16 @@
       "id": "image",
       "label": "Imagen",
       "info": "Persona real con audífono usando la pieza. Ratio 4:5 recomendado."
+    },
+    {
+      "type": "header",
+      "content": "Marca de agua"
+    },
+    {
+      "type": "image_picker",
+      "id": "caracol_image",
+      "label": "Caracol de identidad",
+      "info": "Se muestra de fondo, sangrando por el borde derecho de la columna de texto (ej. QDM-CMYK_04-positivo)."
     }
   ],
   "presets": [

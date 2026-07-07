@@ -501,6 +501,13 @@
     scrollbar-color: rgb(var(--color-foreground-rgb) / var(--opacity-40)) transparent;
   }
 
+  /* Separador invisible dentro de una columna del mega menu.
+     Se genera desde un link placeholder titulado "---divider---"
+     en el menú de navegación del admin (ver snippets/mega-menu-list.liquid). */
+  .mega-menu__divider {
+    margin-block-start: var(--padding-lg);
+  }
+
   .mega-menu__link {
     font-family: var(--menu-child-font-family);
     font-style: var(--menu-child-font-style);

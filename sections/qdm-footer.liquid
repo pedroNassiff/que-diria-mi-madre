@@ -7,6 +7,17 @@
 {%- endcomment -%}
 
 <footer class="qdm-footer" role="contentinfo">
+
+  {%- if section.settings.caracol_image != blank -%}
+    <div class="qdm-footer__caracol" aria-hidden="true">
+      {{
+        section.settings.caracol_image
+        | image_url: width: 1200
+        | image_tag: loading: 'lazy', widths: '600, 900, 1200'
+      }}
+    </div>
+  {%- endif -%}
+
   <div class="qdm-footer__inner page-width">
 
     <!-- NAV GRID -->
@@ -193,13 +204,45 @@
 {% stylesheet %}
   /* ── WRAPPER ── */
   .qdm-footer {
+    position: relative;
+    overflow: hidden;
     background-color: var(--qdm-carbon, #262522);
     color: var(--qdm-cream, #fffef7);
     padding-block: 4rem 2rem;
   }
 
   .qdm-footer__inner {
+    position: relative;
+    z-index: 1;
     padding-inline: 1.5rem;
+  }
+
+  /* Caracol — marca de agua a la derecha, mismo tratamiento que
+     en Joyas Adaptadas. El footer es oscuro, así que se invierte
+     a claro (igual truco que .qdm-footer__logo-img) y queda bien sutil. */
+  .qdm-footer__caracol {
+    position: absolute;
+    top: 50%;
+    right: -8%;
+    transform: translateY(-50%);
+    width: 32%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .qdm-footer__caracol img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.08;
+  }
+
+  @media (max-width: 767px) {
+    .qdm-footer__caracol {
+      width: 60%;
+      right: -15%;
+    }
   }
 
   /* ── NAV GRID ── */
@@ -557,6 +600,12 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo (PNG transparente o SVG)"
+    },
+    {
+      "type": "image_picker",
+      "id": "caracol_image",
+      "label": "Caracol de identidad (marca de agua)",
+      "info": "Se muestra a la derecha, de fondo, bien sutil (ej. QDM-CMYK_04-positivo)."
     },
     {
       "type": "text",
