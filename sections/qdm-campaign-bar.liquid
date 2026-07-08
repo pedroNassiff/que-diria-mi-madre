@@ -1,0 +1,106 @@
+{%- comment -%}
+  QDM · Barra de campaña
+  Barra de anuncio para lanzamientos/descuentos, pensada para vivir en el header group
+  (visible en todo el sitio) y activarse/desactivarse desde el editor de temas.
+  Si se completa "discount_code", el click aplica el descuento automáticamente vía
+  Shopify (/discount/CODE?redirect=...) antes de redirigir.
+{%- endcomment -%}
+
+{%- liquid
+  assign redirect_path = section.settings.link | default: '/'
+  assign bar_href = section.settings.link
+
+  if section.settings.discount_code != blank
+    assign bar_href = '/discount/' | append: section.settings.discount_code | append: '?redirect=' | append: redirect_path
+  endif
+-%}
+
+{%- if section.settings.message != blank -%}
+  <div class="qdm-campaign-bar">
+    {%- if bar_href != blank -%}
+      <a class="qdm-campaign-bar__link" href="{{ bar_href }}">
+        <span class="qdm-campaign-bar__message">{{ section.settings.message }}</span>
+      </a>
+    {%- else -%}
+      <span class="qdm-campaign-bar__message">{{ section.settings.message }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .qdm-campaign-bar {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6875rem 1.25rem;
+    background-color: var(--qdm-amber, #ebb86e);
+    border-radius: 3px;
+    position: sticky;
+    top: 0;
+    z-index: var(--layer-sticky, 8);
+  }
+
+  .qdm-campaign-bar__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .qdm-campaign-bar__message {
+    display: block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: normal;
+    color: var(--qdm-carbon, #262522);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 480px) {
+    .qdm-campaign-bar__message {
+      white-space: normal;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Barra de campaña",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Mensaje",
+      "default": "LANZAMIENTO | 30% OFF"
+    },
+    {
+      "type": "header",
+      "content": "Link y descuento"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Código de descuento",
+      "info": "Si lo completás, al hacer click se aplica este código automáticamente y se redirige al link de abajo (o al home)."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link",
+      "info": "A dónde va el visitante al hacer click. Si hay código de descuento, se usa como redirect después de aplicarlo."
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Barra de campaña"
+    }
+  ]
+}
+{% endschema %}

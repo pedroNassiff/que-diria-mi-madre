@@ -10,6 +10,7 @@
 
 :root {
   /* QDM color tokens */
+  --qdm-white:        #FFFFFF;
   --qdm-cream:        #FFFEF7;
   --qdm-sand:         #E0DED7;
   --qdm-nude:         #CFBFB3;
@@ -129,6 +130,17 @@
 ) #header-component[transparent]:not([data-sticky-state='active']) .header__row {
   --color-foreground: var(--qdm-carbon, #262522);
   --color-foreground-rgb: 38, 37, 34;
+}
+
+/* Manifiesto es un "page" genérico pero SÍ tiene imagen de header (hero),
+   así que se unifica con Home: texto cream antes de hacer scroll, carbon
+   después. Va después de la regla de arriba para ganarle en cascada
+   (misma especificidad, gana el que está último). */
+:has(main[data-page-handle='manifiesto'])
+  #header-component[transparent]:not([data-sticky-state='active'])
+  .header__row {
+  --color-foreground: var(--qdm-cream, #FFFEF7);
+  --color-foreground-rgb: 255, 254, 247;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -756,4 +768,79 @@ img.lazyloaded {
   [id*='product_list_4HyKBg'] :is(.section-resource-list__header, .section-resource-list__content) .link:hover::after {
     background-color: var(--qdm-carbon, #262522);
   }
+}
+
+/* ─────────────────────────────────────────────────────────
+   PRELOADER — pantalla de carga inicial (una vez por sesión)
+   Markup: snippets/qdm-preloader.liquid · Lógica: qdm-motion.js
+───────────────────────────────────────────────────────── */
+
+#qdm-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--qdm-cream, #fffef7);
+  opacity: 1;
+  transition: opacity var(--qdm-dur-page, 180ms) ease;
+}
+
+#qdm-preloader.qdm-preloader--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qdm-preloader__mark {
+  font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--qdm-carbon, #262522);
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+#qdm-preloader.qdm-preloader--visible .qdm-preloader__mark {
+  animation: qdmPreloaderMark 600ms var(--qdm-ease-enter, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+}
+
+@keyframes qdmPreloaderMark {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #qdm-preloader {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   BARRA DE ANUNCIOS NATIVA (Heritage) — sticky + centrado
+   No se toca sections/header-announcements.liquid directamente:
+   se sobreescribe acá para no modificar un archivo del tema base.
+   OJO: el header (sections/header.liquid) NO se offsetea para
+   convivir con esta barra — moverle el top rompe la detección
+   nativa de scroll (ver comentario ahí). Por ahora, si la barra
+   y el header quedan pegados a la vez, se van a superponer.
+───────────────────────────────────────────────────────── */
+
+.announcement-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--layer-sticky, 8);
+}
+
+/* Con un solo bloque (sin flechas de slideshow) el ancho de
+   .announcement-bar__slides queda más chico que el slider y, al no
+   haber justify-content, el texto se pega a la izquierda en vez de
+   centrarse. Se declara una sola vez (este archivo carga antes que
+   el {% stylesheet %} de la sección, así que sin duplicar la clase
+   perdería la cascada por orden de fuente). */
+.announcement-bar__slider.announcement-bar__slider {
+  justify-content: center;
 }

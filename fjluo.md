@@ -71,3 +71,44 @@ shopify theme push --theme=188752134508
 shopify theme list --store=qdm-dev.myshopify.com   # ver todos los temas y sus IDs
 git status                                          # ver qué cambió localmente
 git diff templates/index.json                      # ver cambios en el template
+
+
+# ver estos errores dps de hacer el push al github y el push al tema heritage publicado
+onassiff@MacBook-Pro-de-Pedro qdm-theme % shopify theme push --theme=188752134508
+
+
+
+
+╭─ error ──────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                  │
+│  sections/qdm-manifesto.liquid                                                                   │
+│                                                                                                  │
+│  Invalid schema: setting with type="header" content es demasiado largo (máximo 50 caracteres).   │
+│                                                                                                  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+╭─ error ──────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                  │
+│  templates/page.manifesto.json                                                                   │
+│                                                                                                  │
+│  El tipo de sección 'qdm-manifesto' no hace referencia a una sección de archivo existente        │
+│                                                                                                  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+╭─ error ──────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                  │
+│  templates/page.json                                                                             │
+│                                                                                                  │
+│  El tipo de sección 'qdm-manifesto' no hace referencia a una sección de archivo existente        │
+│                                                                                                  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+╭─ warning ────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                  │
+│  The theme 'Heritage' (#188752134508) was pushed with errors                                     │
+│                                                                                                  │
+│  Next steps                                                                                      │
+│    • View your theme                                                                             │
+│    • Customize your theme at the theme editor                                                    │
+│                                                                                                  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯

@@ -32,9 +32,11 @@
     # QDM: FAQ y Journal (artículo + listado) son de fondo claro sin hero oscuro,
     # el color de texto oscuro se fuerza vía qdm-motion.css sobre [transparent]
     assign transparent = 'always'
-  elsif template.suffix == 'manifesto'
+  elsif template.suffix == 'manifesto' or page.handle == 'manifiesto'
     # QDM: Manifiesto tiene imagen de header (hero), usa el comportamiento
-    # por defecto (texto claro sobre la imagen → oscuro al hacer scroll)
+    # por defecto (texto claro sobre la imagen → oscuro al hacer scroll).
+    # Se chequea también page.handle porque la página en vivo puede estar
+    # usando el template "page" por defecto en vez de "page.manifesto".
     assign transparent = 'always'
   endif
 
@@ -565,7 +567,15 @@
   .header-section:has(> #header-component[sticky='scroll-up'][data-sticky-state='active']) {
     position: sticky;
 
-    /* Use -1 instead of 0 so intersection observer can track sticky state */
+    /* Use -1 instead of 0 so intersection observer can track sticky state.
+       OJO: no sumar acá la altura de la barra de anuncios/campaña — el
+       IntersectionObserver nativo (assets/header.js) detecta "pegado" con
+       threshold:1 sobre #header-component: solo dispara data-sticky-state
+       cuando ese elemento queda apenas clipeado por el borde del viewport
+       (por eso -1px y no 0). Si top pasa a ser positivo (offset por la
+       altura de una barra), #header-component nunca queda clipeado y el
+       cambio de color en scroll se rompe. Requiere reemplazar la detección
+       nativa por una propia si se quiere retomar el stack barra+header. */
     top: -1px;
     z-index: var(--layer-sticky);
   }

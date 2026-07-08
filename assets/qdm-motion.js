@@ -544,10 +544,56 @@ function initFeaturedProductsCtaPosition() {
 }
 
 // ─────────────────────────────────────────────────────────
+// 11. PRELOADER — pantalla de carga inicial (una vez por sesión)
+// ─────────────────────────────────────────────────────────
+// Markup + lógica de "una vez por sesión" en snippets/qdm-preloader.liquid.
+// Acá solo se maneja la animación de entrada/salida.
+
+const PRELOADER_MIN_MS = 600;   // tiempo mínimo visible para que no "parpadee"
+const PRELOADER_MAX_MS = 2500;  // red de seguridad: nunca deja al usuario bloqueado
+
+function initPreloader() {
+  const el = document.getElementById('qdm-preloader');
+  if (!el) return;
+
+  // Ya lo ocultó el script inline (sessionStorage) o el usuario pide reducir movimiento.
+  if (el.style.display === 'none' || REDUCED) {
+    el.remove();
+    return;
+  }
+
+  el.classList.add('qdm-preloader--visible');
+
+  let hidden = false;
+  const hide = () => {
+    if (hidden) return;
+    hidden = true;
+    el.classList.add('qdm-preloader--hidden');
+    el.addEventListener('transitionend', () => el.remove(), { once: true });
+  };
+
+  const startedAt = performance.now();
+  const readyToHide = () => {
+    const elapsed = performance.now() - startedAt;
+    setTimeout(hide, Math.max(0, PRELOADER_MIN_MS - elapsed));
+  };
+
+  if (document.readyState === 'complete') {
+    readyToHide();
+  } else {
+    window.addEventListener('load', readyToHide, { once: true });
+  }
+
+  // Si algo falla (CDN lenta, error de JS), el overlay igual se libera.
+  setTimeout(hide, PRELOADER_MAX_MS);
+}
+
+// ─────────────────────────────────────────────────────────
 // INIT — ejecutar todo
 // ─────────────────────────────────────────────────────────
 
 function initAll() {
+  initPreloader();
   initLenis();
   initScrollReveal();
   initNav();

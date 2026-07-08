@@ -56,7 +56,6 @@ Slider
 8. Manifiesto
 	8.1.  header con imagen de las chicas
 	8.2. agregar intercalado de texto imagen (mobile, desktop referencia de simuero https://simuero.com/es/pages/about)
-	8.3. agregar de background el caracol de identidad difuminado en el home y en el manifiesto (en alguna parte)
 ￼
 
 9.Joyería adaptada

@@ -1,0 +1,68 @@
+﻿Entregable,Estado,Milestone,Opción,Periodo (fechas),Responsable,Semana / periodo
+Confirmación opción A o B por parte del cliente,Hecho,M0 · Kickoff y validación estratégica,A,1 de junio de 2026,Cliente,Semana 0
+Primer pago recibido (€500),Hecho,M0 · Kickoff y validación estratégica,Ambas,1 de junio de 2026,Cliente,Semana 0
+Sign-off propuesta económica + condiciones,Hecho,M0 · Kickoff y validación estratégica,Ambas,1 de junio de 2026,Ambos,Semana 0
+Doc estrategia GEO + Agentic validado,Hecho,M0 · Kickoff y validación estratégica,Ambas,2 de junio de 2026,Random Lab,Semana 0
+Nombre de dominio confirmado quediriamimadre.com,Hecho,M0 · Kickoff y validación estratégica,Ambas,2 de junio de 2026,Cliente,Semana 0
+Historia de las fundadoras y materiales recibidos,Pendiente,M0 · Kickoff y validación estratégica,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 0
+Fotografías de producto entregadas,Pendiente,M0 · Kickoff y validación estratégica,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 0
+Listado de productos iniciales (mínimo 10 SKUs),Pendiente,M0 · Kickoff y validación estratégica,Ambas,2 de junio de 2026 → 5 de junio de 2026,Cliente,Semana 0
+Cuenta Shopify activa + plan Basic contratado,En curso,M1 · Setup técnico y entorno,A,2 de junio de 2026 → 5 de junio de 2026,Ambos,Semana 1
+Dominio conectado + SSL activo,En curso,M1 · Setup técnico y entorno,A+B,2 de junio de 2026 → 5 de junio de 2026,Ambos,Semana 1
+Shopify Payments configurado y verificado,Pendiente,M1 · Setup técnico y entorno,A,2 de junio de 2026 → 5 de junio de 2026,Cliente,Semana 1
+Email corporativo configurado (mailto:signal@qdm.es),Pendiente,M1 · Setup técnico y entorno,A+B,2 de junio de 2026 → 5 de junio de 2026,Ambos,Semana 1
+llms.txt inicial publicado en /llms.txt,En curso,M1 · Setup técnico y entorno,A+B,2 de junio de 2026 → 5 de junio de 2026,Random Lab,Semana 1
+robots.txt con permisos bots IA correctos,Pendiente,M1 · Setup técnico y entorno,A+B,2 de junio de 2026 → 5 de junio de 2026,Random Lab,Semana 1
+Wireframes de colección aprobados,En curso,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 1–2
+Wireframes de ficha de producto aprobados,Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 1–2
+Wireframes de homepage aprobados,Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 1–2
+Paleta de colores + tipografías definidas,Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Random Lab,Semana 1–2
+Moodboard de referencias aprobado,Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 1–2
+Animaciones y motion definidos y aprobados,Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 1–2
+Mockup hi-fi homepage (mobile + desktop) aprobado,Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Cliente,Semana 1–2
+Sistema de diseño (tokens: colores / tipografías / espaciado),Hecho,M2 · Diseño aprobado por cliente,Ambas,2 de junio de 2026 → 12 de junio de 2026,Random Lab,Semana 1–2
+PayPal integrado + test exitoso,Pendiente,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Random Lab,Semana 2–3
+Bizum activo via Shopify Payments,Pendiente,M3 · Pagos y envíos / catálogo base,A,8 de junio de 2026 → 19 de junio de 2026,Cliente,Semana 2–3
+Zonas de envío configuradas (ES/EU/Mundo),Pendiente,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Ambos,Semana 2–3
+Packlink integrado + etiqueta de prueba generada,En curso,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Random Lab,Semana 2–3
+Emails automáticos activos (confirmación / envío),Pendiente,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Random Lab,Semana 2–3
+IVA español configurado correctamente,Pendiente,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Random Lab,Semana 2–3
+Mínimo 10 productos cargados con schema completo,En curso,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Cliente,Semana 2–3
+Schema Product JSON-LD válido en todos los productos,Pendiente,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Random Lab,Semana 2–3
+Alt text en 100% de imágenes,Pendiente,M3 · Pagos y envíos / catálogo base,A+B,8 de junio de 2026 → 19 de junio de 2026,Cliente,Semana 2–3
+Homepage implementada con animaciones,En curso,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Página de colección con filtros,Pendiente,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Ficha de producto con galería + FAQ schema,En curso,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+About page + Proceso + Materiales,En curso,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+FAQ general con schema,En curso,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Footer + navegación completa,En curso,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Panel admin autoadministrable operativo,Pendiente,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Responsive verificado iOS + Android,En curso,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Core Web Vitals en verde (mobile),Pendiente,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Política de envíos y devoluciones,Pendiente,M4 · Frontend completo,A+B,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Agentic Storefronts activado (Shopify),Pendiente,M4 · Frontend completo,A,15 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 3–4
+Test suite completo (compra / pago / envío),Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+Google Analytics 4 configurado y verificando datos,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+Google Search Console configurado + sitemap enviado,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+Google Business Profile verificado,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Cliente,Semana 4 (A) / Semana 5 (B)
+Meta Pixel instalado y verificado,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+Rich Results Test: 0 errores en todos los productos,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+Revisión legal: cookies / RGPD / política de privacidad,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Ambos,Semana 4 (A) / Semana 5 (B)
+DNS en producción + SSL verificado,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+Segundo pago recibido (€500),Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Cliente,Semana 4 (A) / Semana 5 (B)
+Sesión de handover con cliente,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Ambos,Semana 4 (A) / Semana 5 (B)
+Guía de uso entregada,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Semana 4 (A) / Semana 5 (B)
+LANZAMIENTO PÚBLICO,Pendiente,M5 · QA / Analytics / lanzamiento,Ambas,29 de junio de 2026 → 3 de julio de 2026,Ambos,Semana 4 (A) / Semana 5 (B)
+Monitoreo de errores activo (Sentry o similar),Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Random Lab,Mes 1–2
+Primeras reviews solicitadas a clientes,Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Cliente,Mes 1–2
+AggregateRating schema activado (con primeras reviews),Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Random Lab,Mes 1–2
+Primer post de blog publicado,Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Cliente,Mes 1–2
+Verificación de aparición en Google AI Overviews,Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Random Lab,Mes 1–2
+Primera verificación en Perplexity/ChatGPT,Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Random Lab,Mes 1–2
+Informe de métricas semana 2 y semana 4,Pendiente,M6 · Post-lanzamiento (días 1–30),Ambas,29 de junio de 2026 → 3 de julio de 2026,Random Lab,Mes 1–2
+"Configurar popup de campaña (descuento de bienvenida o producto en promoción) — trigger, timing, diseño",Pendiente,M4 · Frontend completo,A,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Sem. 4
+"Configurar descuentos nativos Shopify (porcentaje, monto fijo, código)",Pendiente,M4 · Frontend completo,A,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Sem. 3–4
+Instalar y configurar app de announcement bar (Hextom o equiv.) — barra superior de campaña,Pendiente,M4 · Frontend completo,A,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Sem. 4
+Documentar flujo de campaña completo en guía de uso del cliente (cómo crear descuento + activar barra + popup),Pendiente,M5 · QA / Analytics / lanzamiento,A,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Sem. 4
+Test de campaña end-to-end: descuento activo → barra visible → popup aparece → descuento aplicado en checkout,Pendiente,M5 · QA / Analytics / lanzamiento,A,22 de junio de 2026 → 26 de junio de 2026,Random Lab,Sem. 4
+Primera campaña real activada por la cliente de forma autónoma (supervisado por Random Lab),Pendiente,M6 · Post-lanzamiento (días 1–30),A,22 de junio de 2026 → 26 de junio de 2026,Ambos,Mes 1

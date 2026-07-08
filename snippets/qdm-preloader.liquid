@@ -1,0 +1,34 @@
+{%- comment -%}
+  QDM · Preloader
+  Pantalla de carga de marca, solo en la primera carga de la sesión del
+  visitante (sessionStorage). No se muestra en el editor de temas.
+  El script inline es intencional (no defer): tiene que correr antes de
+  que el navegador pinte el div, si no, el preloader "parpadearía" en
+  cada navegación dentro de la misma sesión.
+{%- endcomment -%}
+
+{%- unless request.design_mode -%}
+  <div id="qdm-preloader" data-qdm-preloader aria-hidden="true">
+    <span class="qdm-preloader__mark">QDM</span>
+  </div>
+  <script>
+    (function () {
+      try {
+        if (window.sessionStorage.getItem('qdm-preloader-seen') === 'true') {
+          document.getElementById('qdm-preloader').style.display = 'none';
+        } else {
+          window.sessionStorage.setItem('qdm-preloader-seen', 'true');
+        }
+      } catch (error) {
+        /* sessionStorage no disponible (ej. modo privado estricto): se muestra siempre, comportamiento seguro */
+      }
+    })();
+  </script>
+  <noscript>
+    <style>
+      #qdm-preloader {
+        display: none !important;
+      }
+    </style>
+  </noscript>
+{%- endunless -%}
