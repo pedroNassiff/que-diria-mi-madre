@@ -61,6 +61,7 @@
       "type": "qdm-manifesto",
       "name": "QDM · Manifiesto",
       "settings": {
+        "header_image": "shopify://shop_images/DSC02013.jpg",
         "breadcrumb": "Qué Diría Mi Madre",
         "title": "Manifiesto",
         "subtitle": "El alma de lo que hacemos.",

@@ -153,18 +153,18 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>DROP 1</h3>",
+                "text": "<h1><strong>Desmadre</strong></h1>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h3",
+                "type_preset": "h1",
                 "font": "var(--font-primary--family)",
                 "font_size": "",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "color": "var(--qdm-carbon, #262522)",
+                "color": "var(--color-foreground-heading)",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -180,7 +180,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Ver toda la colección →",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/drop-1",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",
@@ -361,7 +361,7 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 28,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "padding-block-start": 100,
         "padding-block-end": 100
       }
@@ -470,7 +470,7 @@
         "min_height": 60,
         "overlay_opacity": 45,
         "eyebrow": "Drop 02",
-        "quote": "Qué diría mi madre si me viera ahora (frase2).",
+        "quote": "LA ORILLA",
         "cta_label": "Anticípate al lanzamiento",
         "cta_url": ""
       }
@@ -490,15 +490,16 @@
       "settings": {
         "badge": "★ Joyería adaptada",
         "heading": "Diseñada desde adentro.",
-        "body": "<p>Sabemos lo que es. No como tendencia, sino como experiencia vivida.</p><p>Creamos joyería adaptada para personas que usan audífonos porque creemos que ningún dispositivo debería hacer que te sintieras menos tú misma.</p>",
+        "body": "<p>Creamos joyería adaptada para personas que usan audífonos porque creemos que ningún dispositivo debería hacer que te sintieras menos tú misma.</p>",
         "bullets_enabled": true,
-        "bullet_1": "Compatible con audífonos BTE y RIC",
-        "bullet_2": "Plata reciclada de ley 925",
-        "bullet_3": "Fabricada en España",
+        "bullet_1": "",
+        "bullet_2": "",
+        "bullet_3": "",
         "email_label": "Recibir novedades del lanzamiento",
         "email_button_label": "Quiero recibir el aviso",
         "trust_badge": "Fabricada en España · Plata reciclada 925",
-        "image": "shopify://shop_images/DSC01270.jpg"
+        "image": "shopify://shop_images/DSC01270.jpg",
+        "caracol_image": "shopify://shop_images/QDM-RGB_04-positivo.png"
       }
     },
     "qdm_faq_short_CpVd8C": {
