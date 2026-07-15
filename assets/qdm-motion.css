@@ -125,6 +125,7 @@
   main[data-template='product'],
   main[data-template='page'],
   main[data-template='page.faq'],
+  main[data-template='page.coming-soon'],
   main[data-template='article'],
   main[data-template='blog']
 ) #header-component[transparent]:not([data-sticky-state='active']) .header__row {
@@ -141,6 +142,118 @@
   .header__row {
   --color-foreground: var(--qdm-cream, #FFFEF7);
   --color-foreground-rgb: 255, 254, 247;
+}
+
+/* Navbar + sus desplegables en blanco una vez que se hizo scroll
+   (data-sticky-state='active', el mismo estado que ya pone el texto en
+   carbon). Atado al scroll, no al hover — antes dependía de :hover y
+   quedaba inconsistente porque la fila y el submenú podían cambiar de
+   estado en momentos distintos durante la animación. */
+#header-component[transparent][data-sticky-state='active'] .header__row {
+  background-color: #FFFFFF;
+  transition: background-color var(--qdm-dur-ui) var(--qdm-ease-ui);
+}
+
+/* Mientras el dropdown está abierto, la fila del navbar también se
+   pone blanca — así queda una sola superficie continua con el panel de
+   abajo, como en Simuero, en vez de una fila transparente + un panel
+   blanco separado. El aria-expanded vive en el <a> de adentro del
+   <li>, no en el <li> mismo, por eso el :has() anidado. También se
+   fuerza el texto a carbon acá — sin esto sigue siendo cream (pensado
+   para foto oscura) y queda blanco sobre el fondo blanco nuevo. */
+#header-component[transparent]:has(.menu-list__list-item:has([aria-expanded='true'])) .header__row,
+#header-component[transparent]:has(.menu-list__submenu:hover) .header__row {
+  background-color: #FFFFFF;
+  --color-foreground: var(--qdm-carbon, #262522);
+  --color-foreground-rgb: 38, 37, 34;
+  transition: background-color var(--qdm-dur-ui) var(--qdm-ease-ui);
+}
+
+/* Panel del dropdown/mega-menu (Shop, etc.): cuando el color scheme del
+   bloque de menú coincide con el del header (mismo scheme-1), Liquid
+   omite la clase color-scheme-N en .menu-list__submenu (ver
+   blocks/_header-menu.liquid) confiando en que el "underlay" (capa
+   animada por JS) pinte el fondo — pero esa capa no está cubriendo el
+   panel abierto, dejando el texto flotando directo sobre la imagen del
+   menú. Fondo explícito como red de seguridad, sin depender del JS. */
+.header-menu .menu-list__submenu {
+  background-color: #FFFFFF;
+}
+
+/* El underlay del tema (.header__underlay-open/closed) pinta un
+   gradiente propio detrás del header, cuyo segmento inferior usa
+   --color-submenu (el color scheme oscuro del bloque de menú). Esa
+   capa siempre ocupa el ancho completo del header, pero nuestro panel
+   (.menu-list__submenu, arriba) ahora es angosto a propósito — dejaba
+   ese fondo oscuro expuesto a la derecha del panel blanco. Ya no
+   depende del underlay para nada visual, así que se apaga del todo. */
+#header-component .header__underlay-open,
+#header-component .header__underlay-closed {
+  background: transparent;
+}
+
+/* Como el submenú no tiene su propio color scheme (ver comentario de
+   arriba), su texto hereda --color-foreground del header. En el top de
+   la página (sin scroll, header transparente) ese valor es cream/blanco
+   — pensado para texto sobre foto oscura — pero ahora el submenu tiene
+   fondo blanco propio, así que el texto queda blanco sobre blanco. Se
+   fuerza carbon acá SIEMPRE (no solo con [transparent]) porque el fondo
+   del panel siempre es blanco, incluso en páginas de colección que no
+   tienen header transparente (enable_transparent_header_collection en
+   false) — ahí también hacía falta forzarlo, el texto quedaba invisible. */
+#header-component .menu-list__submenu {
+  --color-foreground: var(--qdm-carbon, #262522);
+  --color-foreground-rgb: 38, 37, 34;
+}
+
+/* La lista de categorías (Shop) vive en .mega-menu__grid, una grilla de
+   6 columnas pensada para lista + imagen destacada lado a lado — la
+   lista sola ocupa 1 sola columna (span 1). Si no hay ninguna columna
+   ancha/imagen en ese grid (este Shop no tiene), esa única columna pasa
+   a ocupar TODO el ancho disponible — si no, al acotar el panel a solo
+   el ancho de los 4 links, la lista queda aplastada en 1/6 del espacio.
+   No toca mega-menús que sí combinen lista + imagen (esos ya traen sus
+   propias clases --span-2/3/4 con mayor prioridad). */
+.mega-menu__grid:not(:has(
+  .mega-menu__column--span-2,
+  .mega-menu__column--span-3,
+  .mega-menu__column--span-4,
+  .mega-menu__column--wide-collection-image
+)) .mega-menu__column {
+  grid-column: 1 / -1;
+}
+
+/* Ancho del panel medido por JS contra .menu-list (grupo Shop→Journal)
+   y expuesto en --menu-group-left/--menu-group-width — ver
+   initSubmenuWidthSync en qdm-motion.js. El fondo arranca en el borde
+   de pantalla (left: 0) en vez del padding izquierdo donde empieza el
+   texto "Shop" — el ancho compensa sumando ese mismo offset, así el
+   borde derecho (altura de "Journal") no se mueve. */
+#header-component .menu-list__list-item > .menu-list__submenu {
+  left: 0;
+  width: calc(var(--menu-group-width, 100%) + var(--menu-group-left, 0px));
+  /* `top` del tema depende de --full-open-header-height (medida por JS),
+     que en el header transparente puede salir mal y tapar la fila del
+     menú. 100% fijo siempre lo deja pegado justo debajo de la fila. */
+  top: 100%;
+  /* Alto de pantalla completo (estilo Simuero) en vez del alto del
+     contenido — el panel siempre llega hasta abajo del viewport. */
+  height: calc(100vh - var(--header-height, 60px));
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--submenu-animation-speed) var(--ease-out-cubic);
+}
+
+#header-component .menu-list__list-item:has([aria-expanded='true']) > .menu-list__submenu,
+#header-component .menu-list__submenu:is(:hover) {
+  clip-path: inset(0 0 0 0);
+}
+
+/* El contenido interno se corría verticalmente con la misma medida JS,
+   compensando la animación de "crecer" anterior — ya no aplica con el
+   wipe horizontal, y dejarlo podía desalinear el contenido si la
+   medida estaba mal. */
+#header-component .menu-list__submenu-inner {
+  transform: none;
 }
 
 /* ─────────────────────────────────────────────────────────

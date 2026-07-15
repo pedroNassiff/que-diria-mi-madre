@@ -1,0 +1,124 @@
+{%- comment -%}
+  QDM · Drop Grid — bloque Producto
+  Ficha simple (imagen + nombre + precio) + opcionalmente una segunda
+  foto de producción del MISMO producto al lado, linkeada a su ficha.
+  Se arma a mano en vez de usar el _product-card del tema porque ese
+  bloque requiere configurar sub-bloques (imagen/título/precio) a mano
+  por cada instancia estática — acá no hace falta esa flexibilidad
+  (swatches, quick-add, reviews), así que se simplifica.
+  Solo se usa dentro de sections/qdm-drop-grid.liquid.
+{%- endcomment -%}
+
+{%- liquid
+  assign product = block.settings.product
+-%}
+
+<div class="qdm-drop-grid__cell" data-reveal="fade-up" {{ block.shopify_attributes }}>
+  {%- if product != blank -%}
+    <a href="{{ product.url }}" class="qdm-drop-grid__product-link">
+      <div class="qdm-drop-grid__product-media">
+        {%- if product.featured_image != blank -%}
+          {{
+            product.featured_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 800',
+              sizes: '(max-width: 749px) 50vw, 25vw',
+              class: 'qdm-drop-grid__img'
+          }}
+        {%- endif -%}
+      </div>
+      <div class="qdm-drop-grid__product-info">
+        <span class="qdm-drop-grid__product-title">{{ product.title }}</span>
+        <span class="qdm-drop-grid__product-price">{% render 'price', product_resource: product %}</span>
+      </div>
+    </a>
+  {%- endif -%}
+</div>
+
+{%- if block.settings.lifestyle_image != blank -%}
+  <a
+    href="{{ product.url | default: '#' }}"
+    class="qdm-drop-grid__cell qdm-drop-grid__cell--lifestyle"
+    data-reveal="fade-up"
+    {%- if product != blank %} aria-label="{{ product.title | escape }}"{% endif -%}
+  >
+    {{
+      block.settings.lifestyle_image
+      | image_url: width: 1200
+      | image_tag:
+        loading: 'lazy',
+        widths: '400, 600, 900, 1200',
+        sizes: '(max-width: 749px) 50vw, 25vw',
+        class: 'qdm-drop-grid__img'
+    }}
+  </a>
+{%- endif -%}
+
+{% stylesheet %}
+  .qdm-drop-grid__product-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .qdm-drop-grid__product-media {
+    background-color: transparent;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+
+  .qdm-drop-grid__product-media .qdm-drop-grid__img {
+    aspect-ratio: 3 / 4;
+    transition: transform var(--qdm-dur-ui, 300ms) var(--qdm-ease-hover, ease);
+  }
+
+  @media (hover: hover) {
+    .qdm-drop-grid__product-link:hover .qdm-drop-grid__img {
+      /* Zoom base (picker de la sección) + un extra sutil de hover */
+      transform: scale(calc(var(--qdm-drop-grid-img-zoom, 100) / 100 * 1.03));
+    }
+  }
+
+  .qdm-drop-grid__product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    text-align: center;
+  }
+
+  .qdm-drop-grid__product-title {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    color: var(--qdm-carbon, #262522);
+  }
+
+  .qdm-drop-grid__product-price {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.875rem;
+    color: rgba(38, 37, 34, 0.65);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Producto",
+  "tag": null,
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Producto"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image",
+      "label": "Foto de producción (opcional)",
+      "info": "Segunda foto del mismo producto — no es la foto de ficha. Al clickearla lleva a la página de este producto. Ocupa la columna de al lado."
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

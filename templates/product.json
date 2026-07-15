@@ -64,7 +64,7 @@
             "border_radius": 0,
             "padding-block-start": 48,
             "padding-block-end": 16,
-            "padding-inline-start": 20,
+            "padding-inline-start": 0,
             "padding-inline-end": 20
           },
           "blocks": {
@@ -124,7 +124,7 @@
                     "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
                     "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "center",
+                    "horizontal_alignment_flex_direction_column": "flex-start",
                     "vertical_alignment_flex_direction_column": "center",
                     "gap": 8,
                     "width": "fill",
@@ -163,7 +163,7 @@
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "center",
-                        "type_preset": "h2",
+                        "type_preset": "h3",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
                         "line_height": "normal",
@@ -227,7 +227,7 @@
                             "show_sale_price_first": true,
                             "show_installments": true,
                             "show_tax_info": false,
-                            "type_preset": "h5",
+                            "type_preset": "h6",
                             "width": "fit-content",
                             "alignment": "center",
                             "font": "var(--font-body--family)",
@@ -262,10 +262,101 @@
                     "price_row_qdm"
                   ]
                 },
+                "product_description_JYcF6F": {
+                  "type": "product-description",
+                  "name": "t:names.product_description",
+                  "settings": {
+                    "text": "<p>{{ closest.product.description }}</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "qdm_accordion_info": {
+                  "type": "accordion",
+                  "settings": {},
+                  "blocks": {
+                    "qdm_accordion_row_envios": {
+                      "type": "_accordion-row",
+                      "settings": {
+                        "heading": "Devolución y envíos"
+                      },
+                      "blocks": {
+                        "qdm_accordion_text_envios": {
+                          "type": "custom-liquid",
+                          "settings": {
+                            "custom_liquid": "{{ closest.product.metafields.custom.devolucion_envios.value }}"
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "qdm_accordion_text_envios"
+                      ]
+                    },
+                    "qdm_accordion_row_info": {
+                      "type": "_accordion-row",
+                      "settings": {
+                        "heading": "Información del producto"
+                      },
+                      "blocks": {
+                        "qdm_accordion_text_info": {
+                          "type": "custom-liquid",
+                          "settings": {
+                            "custom_liquid": "{{ closest.product.metafields.custom.info_producto.value }}"
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "qdm_accordion_text_info"
+                      ]
+                    },
+                    "qdm_accordion_row_cuidado": {
+                      "type": "_accordion-row",
+                      "settings": {
+                        "heading": "Cuidado del producto"
+                      },
+                      "blocks": {
+                        "qdm_accordion_text_cuidado": {
+                          "type": "custom-liquid",
+                          "settings": {
+                            "custom_liquid": "{{ closest.product.metafields.custom.cuidado_producto.value }}"
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "qdm_accordion_text_cuidado"
+                      ]
+                    }
+                  },
+                  "block_order": [
+                    "qdm_accordion_row_envios",
+                    "qdm_accordion_row_info",
+                    "qdm_accordion_row_cuidado"
+                  ]
+                },
                 "variant_picker_VT89rh": {
                   "type": "variant-picker",
                   "settings": {
-                    "variant_style": "buttons",
+                    "variant_style": "dropdowns",
                     "show_swatches": true,
                     "alignment": "left",
                     "padding-block-start": 0,
@@ -320,6 +411,7 @@
                 "group_JK8NUb": {
                   "type": "group",
                   "name": "Info icons",
+                  "disabled": true,
                   "settings": {
                     "content_direction": "row",
                     "vertical_on_mobile": false,
@@ -799,6 +891,8 @@
               "block_order": [
                 "breadcrumb_qdm",
                 "group_nMm3w6",
+                "product_description_JYcF6F",
+                "qdm_accordion_info",
                 "variant_picker_VT89rh",
                 "buy_buttons_64taHw",
                 "in_stock_qdm",
@@ -814,7 +908,7 @@
       },
       "settings": {
         "content_width": "content-center-aligned",
-        "desktop_media_position": "right",
+        "desktop_media_position": "left",
         "equal_columns": true,
         "limit_details_width": false,
         "gap": 12,
@@ -827,8 +921,8 @@
     "qdm-product-story": {
       "type": "qdm-product-story",
       "settings": {
-        "eyebrow": "La pieza",
-        "label_1": "Qué es",
+        "eyebrow": "",
+        "label_1": "",
         "label_2": "Materiales",
         "label_3": "Proceso",
         "label_4": "Para quién",
@@ -885,7 +979,7 @@
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "rte",
+            "type_preset": "h4",
             "font": "var(--font-primary--family)",
             "font_size": "",
             "line_height": "normal",

@@ -28,9 +28,10 @@
   elsif section.settings.enable_transparent_header_collection and template.name == 'collection'
     assign transparent = 'always'
     assign transparent_color_scheme = section.settings.collection_color_scheme
-  elsif template.suffix == 'faq' or template.name == 'article' or template.name == 'blog'
-    # QDM: FAQ y Journal (artículo + listado) son de fondo claro sin hero oscuro,
-    # el color de texto oscuro se fuerza vía qdm-motion.css sobre [transparent]
+  elsif template.suffix == 'faq' or template.name == 'article' or template.name == 'blog' or template.suffix == 'coming-soon'
+    # QDM: FAQ, Journal (artículo + listado) y Coming Soon son de fondo
+    # claro sin hero oscuro, el color de texto oscuro se fuerza vía
+    # qdm-motion.css sobre [transparent]
     assign transparent = 'always'
   elsif template.suffix == 'manifesto' or page.handle == 'manifiesto'
     # QDM: Manifiesto tiene imagen de header (hero), usa el comportamiento

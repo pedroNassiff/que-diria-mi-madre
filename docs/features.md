@@ -1,78 +1,13 @@
 Minuta QDM
 
+Te paso un punteo de lo que vimos y avisanos como seguimos cuando puedas
+- Ficha de producto: todavía faltan varias cosas. Por ejemplo, según la estructura que compartimos, la imagen principal debería estar a la derecha y no a la izquierda. La tipografía quedó demasiado grande, no se visualizan las variaciones del producto y, al hacer clic en "Agregar al carrito", no se despliega el carrito lateral.
+También faltan los desplegables con la información de Envíos y devoluciones, Información del producto y Cuidado del producto, como estaban en la referencia que revisamos.
+- La sección "También te puede gustar" quedó demasiado grande, como si formara parte del scroll de la ficha del producto. Además, después de esa sección aparecen las Preguntas frecuentes ocupando demasiado espacio y, recién después, el carrusel de productos de interés.  Creo que queda un poco extraño y no coincide con la referencia. También, la idea era que el carrusel mostrara aproximadamente cuatro productos visibles.
+- El menú desaparece a medida que vas recorriendo las distintas secciones de la web, cuando debería mantenerse accesible.
+- El CTA de "Conócenos" está redireccionando a la compra de artículos de un drop y no corresponde con la sección en si. 
+- Las páginas de las colecciones (Pulseras, Collares, La Orilla Drop, Desmadre Drop, etc.) tienen exactamente la misma estructura. La idea era que cada una tuviera una estructura propia y elementos diferenciales.
 
-1. Header imagen que ocupe todo el height en mobile, ahora queda un espacio abajo dle siguiente sección
-
-2. Hacer clickeacble la imagen del reader  al drop correspondiente: desmadre drop 1,  la orilla drop 2
-
-
-Slider
-	img 1: desmadre drop 1
-	img 2: la orilla drop 2
-
-3. Navbar, esto tengo entendido que la creacion del menu la hice en el editor de shopify, analicemos que podemos hhacer aca con codigo y que con shopify
-	3.a. quitar el icono de usuario
-	3.b. agregar la func de usuario en carrito (adjunto captura)
-	3.c. al hacer scroll quitar el bg, y poner el texto en negro con fade in
-	3.d. menu shop
-		los menus hijos diferenciarlos con un espacio físico (lo que esta en mayuscula son menus, los que estan en camel case son sub menus)
-        SHOP
-        - Todos
-        - La orilla drop
-        - Desmadre drop
-        - Joyas para audífonos. Este botón debería ser de coming soon porque todavía no está disponible 
-        Aca deberia haber  un espacio, un salto de linea
-        - Pendientes
-        - Anillos
-        - Colgantes
-        -Pulseras
-
-        JOYAS PARA AUDÍFONOS
-
-        CONOCENOS
-
-        JOURNAL
-
-
-
-￼
-
-4. Producto
-	centrar titulo-nombre
-
-5. Agregar barra de anuncio
-￼
-
-
-6. Drop1
-	6.1. fondo blanco
-	6.2. agrandar piezas de los productos, hoy la relación del tamaño de los textos y el producto en si es que los textos resaltan mas que la imagen del producto, hay que agrandar mas el producto y buscar de alguna forma que el nombre y precio del producto este menos destacado que lafoto, es decir agrandar mas la imagen del producto, poner un tamaño mas chico de los textos, quitar un poco de bold del titulo? Color un poco mas claro no tan negro negro?
-
-7. Drop 2:
-	7.1. quitar comillas del titulo
-	7.2. agregar más sombreado al titulo
-
-
-8. Manifiesto
-	8.1.  header con imagen de las chicas
-	8.2. agregar intercalado de texto imagen (mobile, desktop referencia de simuero https://simuero.com/es/pages/about)
-￼
-
-9.Joyería adaptada
-	9.1. input de email en vez de CTA
-	9.2. texto: 
-		recibir novedades
-		recibir lanzamiento
-		quiero recibir el aviso
-	9.4. budget agregar el caracol
-	9.5. cambiar color de fondo a: #CFBFB3
-
-
-10. Preguntas frecuentes
-	10.1. agregar caracol
-	10.2. agregar formulario de contacto
-
-11. Agregar donde hay mucho texto la img del caracoloco
 
 ETIQUETA DE ENVIO:
 Cómo se genera la etiqueta de cada transportista:
@@ -96,5 +31,5 @@ Carpetas del drive:
 
 
 
-		
+
 	

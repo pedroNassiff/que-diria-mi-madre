@@ -1,0 +1,113 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "qdm_faq_page_envios": {
+      "type": "qdm-faq-page",
+      "blocks": {
+        "qdm_faq_category_envios": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Envíos y entregas"
+          },
+          "blocks": {
+            "qdm_faq_item_zonas": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿A qué zonas hacen envíos?",
+                "answer": "Envíamos a toda España peninsular. [PENDIENTE: confirmar si se envía también a Baleares, Canarias u otros países — revisar Configuración → Envío y entrega en el admin de Shopify]."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_costo": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cuánto cuesta el envío?",
+                "answer": "[PENDIENTE: completar según las tarifas configuradas en Configuración → Envío y entrega — puede ser tarifa plana, calculada por peso/transportista, o gratis a partir de un monto mínimo]."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_tiempo": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cuánto tarda en llegar mi pedido?",
+                "answer": "[PENDIENTE: completar tiempo estimado de entrega una vez despachado el pedido, según transportista]."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_seguimiento": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo hago seguimiento de mi pedido?",
+                "answer": "En cuanto despachamos tu pedido te enviamos un email con el número de seguimiento. Todas nuestras piezas viajan con seguro incluido."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_zonas",
+            "qdm_faq_item_costo",
+            "qdm_faq_item_tiempo",
+            "qdm_faq_item_seguimiento"
+          ]
+        },
+        "qdm_faq_category_devoluciones": {
+          "type": "qdm-faq-category",
+          "settings": {
+            "title": "Devoluciones"
+          },
+          "blocks": {
+            "qdm_faq_item_plazo": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cuánto tiempo tengo para devolver una pieza?",
+                "answer": "Tienes 14 días desde que recibes tu pedido para solicitar una devolución. La pieza debe estar sin uso y en su empaque original."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_proceso": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Cómo inicio una devolución?",
+                "answer": "Escríbenos a hola@quediriamimadre.com con tu número de pedido y te guiamos con el proceso. [PENDIENTE: confirmar quién cubre el costo del envío de vuelta y si se ofrecen cambios de talla/producto además de reembolso]."
+              },
+              "blocks": {}
+            },
+            "qdm_faq_item_dañada": {
+              "type": "qdm-faq-item",
+              "settings": {
+                "question": "¿Qué pasa si mi pieza llega dañada o con un defecto?",
+                "answer": "Si tu pieza llega dañada o con un defecto de fabricación, escríbenos a hola@quediriamimadre.com con fotos del problema y lo resolvemos sin costo para ti."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "qdm_faq_item_plazo",
+            "qdm_faq_item_proceso",
+            "qdm_faq_item_dañada"
+          ]
+        }
+      },
+      "block_order": [
+        "qdm_faq_category_envios",
+        "qdm_faq_category_devoluciones"
+      ],
+      "name": "QDM · Página FAQ",
+      "settings": {
+        "title": "Envíos y devoluciones",
+        "subtitle": "Todo lo que necesitas saber sobre cómo llega tu pedido y qué hacer si algo no encaja."
+      }
+    }
+  },
+  "order": [
+    "qdm_faq_page_envios"
+  ]
+}

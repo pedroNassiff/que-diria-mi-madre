@@ -258,6 +258,27 @@ function initNav() {
   });
 }
 
+/**
+ * Ancho/posición del panel del dropdown, medidos contra .menu-list
+ * (grupo Shop→Journal) y expuestos en píxeles sobre #header-component
+ * (el contenedor real de .menu-list__submenu).
+ */
+function initSubmenuWidthSync() {
+  const header = document.querySelector('#header-component');
+  const menuList = header?.querySelector('.menu-list');
+  if (!header || !menuList) return;
+
+  const sync = () => {
+    const headerRect = header.getBoundingClientRect();
+    const menuRect = menuList.getBoundingClientRect();
+    header.style.setProperty('--menu-group-left', `${menuRect.left - headerRect.left}px`);
+    header.style.setProperty('--menu-group-width', `${menuRect.width}px`);
+  };
+
+  sync();
+  window.addEventListener('resize', sync);
+}
+
 // ─────────────────────────────────────────────────────────
 // 6. MARQUEE — materiales y valores
 // ─────────────────────────────────────────────────────────
@@ -597,6 +618,7 @@ function initAll() {
   initLenis();
   initScrollReveal();
   initNav();
+  initSubmenuWidthSync();
   initMarquee();
   initCartDrawer();
   initAccordion();
@@ -623,6 +645,7 @@ if (document.readyState === 'loading') {
 // Re-inicializar en navegación Shopify (Section Rendering API)
 document.addEventListener('shopify:section:load', () => {
   initScrollReveal();
+  initSubmenuWidthSync();
   initMarquee();
   initProductGrid();
   initFeaturedProductsCtaPosition();

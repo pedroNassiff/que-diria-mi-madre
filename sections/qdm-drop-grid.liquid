@@ -1,0 +1,184 @@
+{%- comment -%}
+  QDM · Drop Grid
+  Grilla editorial para páginas de drop, estilo Simuero: filas de 4
+  columnas alternando producto (ficha con nombre y precio) y foto de
+  producción/shooting de ESE MISMO producto (linkeada a su ficha), con
+  fotos de producto a ancho completo como separador entre filas — todas
+  las imágenes, chicas o grandes, están linkeadas a un producto.
+  El orden de los bloques lo define el merchant desde el editor —
+  no hay lógica automática de "cada tantos productos, una foto".
+  Los bloques (_qdm-drop-product, _qdm-drop-break-image) son theme
+  blocks en vez de bloques de sección, porque necesitamos usar
+  content_for 'block' adentro para renderizar la ficha de producto del
+  propio tema — ambos sistemas de bloques no se pueden mezclar en la
+  misma sección.
+{%- endcomment -%}
+
+<div class="qdm-drop-grid color-{{ section.settings.color_scheme }}" style="--qdm-drop-grid-img-zoom: {{ section.settings.product_image_zoom | default: 100 }};">
+
+  {%- if section.settings.eyebrow != blank or section.settings.title != blank -%}
+    <div class="qdm-drop-grid__header page-width">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="qdm-drop-grid__eyebrow" data-reveal="fade-up">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="qdm-drop-grid__title" data-reveal="fade-up">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="qdm-drop-grid__grid page-width">
+    {% content_for 'blocks' %}
+  </div>
+
+</div>
+
+{% stylesheet %}
+  .qdm-drop-grid {
+    padding-block: 3rem;
+    background-color: var(--qdm-white, #FFFFFF);
+  }
+
+  /* ── Header: eyebrow + título centrados ── */
+  .qdm-drop-grid__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .qdm-drop-grid__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--qdm-carbon, #262522);
+  }
+
+  .qdm-drop-grid__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  /* ── Grid: 4 columnas, la imagen full-width corta la fila sola ── */
+  .qdm-drop-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem 1.25rem;
+  }
+
+  .qdm-drop-grid__cell {
+    display: block;
+  }
+
+  .qdm-drop-grid__cell--lifestyle {
+    background-color: var(--qdm-sand, #E0DED7);
+    overflow: hidden;
+  }
+
+  .qdm-drop-grid__cell--full {
+    grid-column: 1 / -1;
+    /* 45% más chica que el ancho completo de la fila (30% + 15% extra) */
+    width: 55%;
+    margin-inline: auto;
+  }
+
+  .qdm-drop-grid__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Zoom de la imagen (no del contenedor) — picker "Zoom de la
+       imagen" en la sección. 100% = sin recorte extra. */
+    transform: scale(calc(var(--qdm-drop-grid-img-zoom, 100) / 100));
+  }
+
+  .qdm-drop-grid__cell--lifestyle .qdm-drop-grid__img {
+    aspect-ratio: 3 / 4;
+    transition: transform var(--qdm-dur-ui, 300ms) var(--qdm-ease-hover, ease);
+  }
+
+  @media (hover: hover) {
+    .qdm-drop-grid__cell--lifestyle:hover .qdm-drop-grid__img {
+      transform: scale(calc(var(--qdm-drop-grid-img-zoom, 100) / 100 * 1.03));
+    }
+  }
+
+  .qdm-drop-grid__cell--full .qdm-drop-grid__img {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* ── Mobile: 2 columnas (mantiene el intercalado producto/foto) ── */
+  @media (max-width: 749px) {
+    .qdm-drop-grid__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem 0.75rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Drop Grid",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "New La Costa Drop, Verano '26"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Imágenes de producto"
+    },
+    {
+      "type": "range",
+      "id": "product_image_zoom",
+      "label": "Zoom de la imagen",
+      "min": 100,
+      "max": 130,
+      "step": 2,
+      "unit": "%",
+      "default": 100,
+      "info": "Recorta la foto sin achicar el marco que la contiene — 100% es sin recorte extra."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_qdm-drop-product"
+    },
+    {
+      "type": "_qdm-drop-break-image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Drop Grid",
+      "blocks": {
+        "break-1": { "type": "_qdm-drop-break-image" },
+        "product-1": { "type": "_qdm-drop-product" },
+        "product-2": { "type": "_qdm-drop-product" },
+        "break-2": { "type": "_qdm-drop-break-image" }
+      },
+      "block_order": ["break-1", "product-1", "product-2", "break-2"]
+    }
+  ]
+}
+{% endschema %}

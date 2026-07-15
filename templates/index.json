@@ -180,7 +180,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Ver toda la colección →",
-                "link": "shopify://collections/drop-1",
+                "link": "shopify://collections/desmadre",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",

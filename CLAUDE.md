@@ -5,7 +5,7 @@
 
 Ecommerce de joyería artesanal para la marca **QDM (Qué Diría Mi Madre)**.
 Plataforma: **Shopify · tema Heritage** con animaciones custom (GSAP + CSS).
-Dev store: `qdm-dev.myshopify.com`
+Dev store: `que-diria-mi-madre.myshopify.com` (cuenta post client-transfer)
 Dominio final: `quediriamimadre.com`
 
 Contexto completo en:

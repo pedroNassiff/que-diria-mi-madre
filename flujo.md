@@ -60,6 +60,28 @@ git commit -m "feat: descripción corta en presente"
 
 # Solo cuando los cambios están validados en local y en el editor dev.
 shopify theme push --theme=188752134508
+
+# este es el nuevo tema con la tienda de client trasnfer
+
+# primero pull antes de subir algo
+  shopify theme pull --store=que-diria-mi-madre.myshopify.com --theme=193117847885 --only="templates/*.json" --only="config/settings_data.json"
+
+# dps push para subir los cambios
+
+ shopify theme push --store=que-diria-mi-madre.myshopify.com --theme=193117847885 
+
+ # subir solo algo puntualmente
+  shopify theme push --store=que-diria-mi-madre.myshopify.com --theme=193117847885 \
+    --only="assets/qdm-motion.css" \
+    --only="assets/qdm-motion.js" \
+    --only="blocks/featured-collection.liquid" \ 
+    --only="blocks/_qdm-drop-break-image.liquid" \
+    --only="blocks/_qdm-drop-product.liquid" \
+    --only="sections/qdm-coming-soon.liquid" \
+    --only="sections/qdm-drop-grid.liquid" \
+    --only="templates/page.coming-soon.json"
+
+
 # → sube TODOS los archivos locales al tema Heritage (el publicado)
 # → incluye templates/index.json con las secciones configuradas
 # ⚠️  Confirmar que templates/index.json tiene las secciones correctas antes de hacer esto

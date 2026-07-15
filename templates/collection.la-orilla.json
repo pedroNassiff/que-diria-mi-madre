@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "drop_grid": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_CDbQCa": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01909.jpg",
+            "product": "anillo-garnet-plata-925-granate-natural",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_ehXcTr": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "anillo-garnet-plata-925-granate-natural",
+            "lifestyle_image": "shopify://shop_images/DSC01895.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_LnBQ6K": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "aro-espiral-plata-925-banada-en-oro-18k",
+            "lifestyle_image": "shopify://shop_images/10_2.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_iApUH8": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01970.jpg",
+            "product": "anillo-garnet-plata-925-granate-natural",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_CDbQCa",
+        "qdm_drop_product_ehXcTr",
+        "qdm_drop_product_LnBQ6K",
+        "qdm_drop_break_image_iApUH8"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "New La Orilla Drop, Verano '26",
+        "title": "",
+        "color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "drop_grid"
+  ]
+}

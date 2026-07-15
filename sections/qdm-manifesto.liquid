@@ -7,19 +7,38 @@
 
 <article class="qdm-manifesto">
 
-  {%- if section.settings.header_image != blank -%}
+  {%- if section.settings.header_image_left != blank or section.settings.header_image_right != blank -%}
     <div class="qdm-manifesto__header-image-band">
-      {{
-        section.settings.header_image
-        | image_url: width: 1600
-        | image_tag:
-          loading: 'eager',
-          fetchpriority: 'high',
-          class: 'qdm-manifesto__header-image',
-          widths: '600, 900, 1200, 1600',
-          sizes: '100vw',
-          alt: section.settings.header_image.alt | default: 'QDM · Manifiesto'
-      }}
+      <div class="qdm-manifesto__header-image-cell">
+        {%- if section.settings.header_image_left != blank -%}
+          {{
+            section.settings.header_image_left
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              class: 'qdm-manifesto__header-image',
+              widths: '400, 600, 900, 1200',
+              sizes: '(min-width: 768px) 50vw, 100vw',
+              alt: section.settings.header_image_left.alt | default: 'QDM · Manifiesto'
+          }}
+        {%- endif -%}
+      </div>
+      <div class="qdm-manifesto__header-image-cell">
+        {%- if section.settings.header_image_right != blank -%}
+          {{
+            section.settings.header_image_right
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              class: 'qdm-manifesto__header-image',
+              widths: '400, 600, 900, 1200',
+              sizes: '(min-width: 768px) 50vw, 100vw',
+              alt: section.settings.header_image_right.alt | default: 'QDM · Manifiesto'
+          }}
+        {%- endif -%}
+      </div>
     </div>
   {%- endif -%}
 
@@ -150,21 +169,38 @@
     text-align: center;
   }
 
-  /* ── Header image (hero) ── */
+  /* ── Header image (hero) — dos fotos 50/50, sin gap entre ellas.
+     El aspect-ratio va en el band (no en cada img) para que ambas
+     columnas compartan el mismo alto total sin importar la
+     proporción original de cada foto. ── */
   .qdm-manifesto__header-image-band {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
+  }
+
+  .qdm-manifesto__header-image-cell {
+    overflow: hidden;
+    height: 100%;
   }
 
   .qdm-manifesto__header-image {
     display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
+    height: 100%;
     object-fit: cover;
   }
 
   @media (max-width: 767px) {
-    .qdm-manifesto__header-image {
+    /* Dos columnas angostas en mobile quedan muy recortadas —
+       se apilan una arriba de la otra, cada una a ancho completo. */
+    .qdm-manifesto__header-image-band {
+      grid-template-columns: 1fr;
+      aspect-ratio: auto;
+    }
+
+    .qdm-manifesto__header-image-cell {
       aspect-ratio: 4 / 5;
     }
   }
@@ -371,9 +407,15 @@
     },
     {
       "type": "image_picker",
-      "id": "header_image",
-      "label": "Imagen de encabezado",
-      "info": "Foto editorial (equipo/fundadoras). Se muestra arriba de todo, full-bleed."
+      "id": "header_image_left",
+      "label": "Imagen de encabezado — izquierda",
+      "info": "Foto editorial. Ocupa el 50% izquierdo, sin espacio con la de la derecha."
+    },
+    {
+      "type": "image_picker",
+      "id": "header_image_right",
+      "label": "Imagen de encabezado — derecha",
+      "info": "Foto editorial. Ocupa el 50% derecho, sin espacio con la de la izquierda."
     },
     {
       "type": "text",

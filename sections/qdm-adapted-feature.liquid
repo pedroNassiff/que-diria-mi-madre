@@ -265,7 +265,11 @@
     gap: 0.625rem;
   }
 
-  .qdm-adapted__form-input {
+  /* Especificidad reforzada (.qdm-adapted__form-row + clase) para
+     ganarle a la regla global de base.css `input:not(...)` que
+     pisa el fondo/borde con --color-input-background del color
+     scheme activo. */
+  .qdm-adapted__form-row .qdm-adapted__form-input {
     flex: 1;
     min-width: 0;
     padding: 0.875rem 1rem;
@@ -280,7 +284,7 @@
     color: rgba(38, 37, 34, 0.45);
   }
 
-  .qdm-adapted__form-input:focus {
+  .qdm-adapted__form-row .qdm-adapted__form-input:focus {
     outline: none;
     border-color: var(--qdm-camel, #C9A787);
   }
@@ -290,7 +294,7 @@
     align-items: center;
     padding: 0.875rem 1.5rem;
     background-color: var(--qdm-amber, #EBB86E);
-    color: var(--qdm-carbon, #262522);
+    color: #FFFFFF;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.9375rem;
     font-weight: 600;

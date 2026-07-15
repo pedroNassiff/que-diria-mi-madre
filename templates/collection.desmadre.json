@@ -1,19 +1,162 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
+    "qdm_drop_grid_Km7Eka": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_RCkxR8": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC02009.jpg",
+            "product": "collar-marta",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_AGDPwE": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-beda",
+            "lifestyle_image": "shopify://shop_images/DSC01090_1.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_R4n7nF": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "sortija-cristina",
+            "lifestyle_image": "shopify://shop_images/DSC03030.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_MVtwQ4": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "product": "",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_RCkxR8",
+        "qdm_drop_product_AGDPwE",
+        "qdm_drop_product_R4n7nF",
+        "qdm_drop_break_image_MVtwQ4"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "New La Orilla Drop, Verano '26",
+        "title": "",
+        "color_scheme": ""
+      }
+    },
+    "qdm_drop_grid_qnC3zH": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_BLR4hf": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01567.jpg",
+            "product": "pendientes-marta-plata",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_tyaJLh": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "pendientes-beda",
+            "lifestyle_image": "shopify://shop_images/DSC01080.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_mdyg9p": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "silvesto-india-black-rutilated-quartz-gemstone-925-sterling-silver-ring",
+            "lifestyle_image": "shopify://shop_images/DSC01754.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_9TEYkg": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01319.jpg",
+            "product": "anillo-garnet-plata-925-granate-natural",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_BLR4hf",
+        "qdm_drop_product_tyaJLh",
+        "qdm_drop_product_mdyg9p",
+        "qdm_drop_break_image_9TEYkg"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "",
+        "title": "",
+        "color_scheme": ""
+      }
+    },
+    "qdm_drop_grid_Ux3GtK": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_hkjXhF": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01798.jpg",
+            "product": "pendientes-olga-plata",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_9DcXnj": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "pendientes-marta-oro",
+            "lifestyle_image": "shopify://shop_images/DSC02023.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_nymTyJ": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-espiral-plata-925-banada-en-oro-18k",
+            "lifestyle_image": "shopify://shop_images/DSC01145.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_QqBHzj": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "product": "",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_hkjXhF",
+        "qdm_drop_product_9DcXnj",
+        "qdm_drop_product_nymTyJ",
+        "qdm_drop_break_image_QqBHzj"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "",
+        "title": "",
+        "color_scheme": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
         "filters": {
           "type": "filters",
+          "disabled": true,
           "static": true,
           "settings": {
             "enable_filtering": true,
@@ -60,10 +203,10 @@
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
-                "padding-block-start": 16,
-                "padding-block-end": 16,
-                "padding-inline-start": 16,
-                "padding-inline-end": 16
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -198,6 +341,9 @@
     }
   },
   "order": [
+    "qdm_drop_grid_Km7Eka",
+    "qdm_drop_grid_qnC3zH",
+    "qdm_drop_grid_Ux3GtK",
     "main"
   ]
 }

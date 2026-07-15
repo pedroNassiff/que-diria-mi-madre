@@ -9,6 +9,8 @@
  */
 {
   "current": {
+    "logo_height": 36,
+    "logo_height_mobile": 28,
     "type_body_font": "instrument_sans_n4",
     "type_subheading_font": "instrument_sans_n4",
     "type_heading_font": "instrument_sans_n4",
@@ -40,10 +42,11 @@
     "show_variant_image": false,
     "variant_button_radius": 100,
     "variant_button_width": "default-width-buttons",
+    "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#202219",
+          "background": "#FFFFFF",
           "foreground_heading": "#f6eddd",
           "foreground": "#f6eddd",
           "primary": "#e3e3e3",
@@ -275,9 +278,7 @@
           "selected_variant_hover_border_color": "#1a1a1a"
         }
       }
-    },
-    "logo_height": 36,
-    "logo_height_mobile": 28
+    }
   },
   "presets": {
     "Heritage": {

@@ -1,0 +1,61 @@
+{%- comment -%}
+  QDM · Drop Grid — bloque Foto ancho completo
+  Foto de shooting/producción de un producto, mostrada a ancho completo
+  como separador entre filas. Linkeada a la ficha del producto si se
+  selecciona uno. Solo se usa dentro de sections/qdm-drop-grid.liquid.
+{%- endcomment -%}
+
+{%- liquid
+  assign break_product = block.settings.product
+  assign break_tag = 'div'
+  if break_product != blank
+    assign break_tag = 'a'
+  endif
+-%}
+
+<{{ break_tag }}
+  {%- if break_product != blank %} href="{{ break_product.url }}" aria-label="{{ break_product.title | escape }}"{% endif %}
+  class="qdm-drop-grid__cell qdm-drop-grid__cell--full"
+  data-reveal="fade-up"
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.image != blank -%}
+    {{
+      block.settings.image
+      | image_url: width: 1600
+      | image_tag:
+        loading: 'lazy',
+        widths: '768, 1200, 1600',
+        sizes: '(max-width: 749px) 100vw, 1400px',
+        alt: block.settings.image_alt,
+        class: 'qdm-drop-grid__img'
+    }}
+  {%- endif -%}
+</{{ break_tag }}>
+
+{% schema %}
+{
+  "name": "Foto ancho completo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen",
+      "info": "Foto de shooting/producción de un producto, mostrada más grande. No es la foto de ficha del producto."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Producto",
+      "info": "Al clickear la imagen, lleva a la ficha de este producto."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Texto alternativo"
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

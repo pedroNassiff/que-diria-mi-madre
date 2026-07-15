@@ -61,6 +61,8 @@
             <li><a href="/collections/aros" class="qdm-footer__nav-link">Aros</a></li>
             <li><a href="/collections/collares" class="qdm-footer__nav-link">Collares</a></li>
             <li><a href="/collections/pulseras" class="qdm-footer__nav-link">Pulseras</a></li>
+            <li><a href="/collections/desmadre" class="qdm-footer__nav-link">Desmadre</a></li>
+            <li><a href="/collections/la-orilla" class="qdm-footer__nav-link">La Orilla</a></li>
             <li>
               <a href="/collections/joyas-adaptadas" class="qdm-footer__nav-link qdm-footer__nav-link--featured">
                 Joyas adaptadas
@@ -82,10 +84,7 @@
             {%- endfor -%}
           {%- else -%}
             <li><a href="/pages/manifiesto" class="qdm-footer__nav-link">Manifiesto</a></li>
-            <li><a href="/pages/sobre-nosotras" class="qdm-footer__nav-link">Sobre nosotras</a></li>
-            <li><a href="/pages/proceso" class="qdm-footer__nav-link">Proceso</a></li>
-            <li><a href="/pages/materiales" class="qdm-footer__nav-link">Materiales</a></li>
-            <li><a href="/blogs/journal" class="qdm-footer__nav-link">Journal</a></li>
+            <li><a href="/blogs/news" class="qdm-footer__nav-link">Journal</a></li>
           {%- endif -%}
         </ul>
       </nav>
@@ -217,13 +216,13 @@
     padding-inline: 1.5rem;
   }
 
-  /* Caracol — marca de agua a la derecha, mismo tratamiento que
+  /* Caracol — marca de agua a la izquierda, mismo tratamiento que
      en Joyas Adaptadas. El footer es oscuro, así que se invierte
      a claro (igual truco que .qdm-footer__logo-img) y queda bien sutil. */
   .qdm-footer__caracol {
     position: absolute;
     top: 50%;
-    right: -8%;
+    left: -8%;
     transform: translateY(-50%);
     width: 32%;
     z-index: 0;
@@ -241,7 +240,7 @@
   @media (max-width: 767px) {
     .qdm-footer__caracol {
       width: 60%;
-      right: -15%;
+      left: -15%;
     }
   }
 

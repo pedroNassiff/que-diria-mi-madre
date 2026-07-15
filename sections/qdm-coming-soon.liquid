@@ -1,0 +1,332 @@
+{%- comment -%}
+  QDM · Coming Soon
+  Página informativa para líneas de producto que todavía no se venden
+  (ej. "Joyas para audífonos"): foto grande tipo header, título + texto
+  descriptivo debajo, y captura de email para avisar del lanzamiento —
+  mismo lenguaje visual que el form de sections/qdm-adapted-feature.liquid,
+  pero centrado (layout apilado, no a 2 columnas).
+{%- endcomment -%}
+
+<section class="qdm-coming-soon" data-section-id="{{ section.id }}">
+
+  <div class="qdm-coming-soon__media page-width">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 1600
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '768, 1200, 1600',
+          sizes: '(max-width: 749px) 100vw, 1400px',
+          class: 'qdm-coming-soon__img',
+          alt: section.settings.image.alt | escape
+      }}
+    {%- else -%}
+      <div class="qdm-coming-soon__img-placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="qdm-coming-soon__content page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="qdm-coming-soon__eyebrow" data-reveal="fade-up">{{ section.settings.eyebrow | escape }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 class="qdm-coming-soon__title" data-reveal="fade-up">{{ section.settings.heading | escape }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <div class="qdm-coming-soon__body rte" data-reveal="fade-up">{{ section.settings.body }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.email_button_label != blank -%}
+      {%- form 'customer', class: 'qdm-coming-soon__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="qdm-coming-soon__form-success">¡Gracias! Te avisamos apenas lancemos.</p>
+        {%- else -%}
+          {%- if section.settings.email_label != blank -%}
+            <label for="ComingSoonNewsletter-{{ section.id }}" class="qdm-coming-soon__form-label">
+              {{ section.settings.email_label | escape }}
+            </label>
+          {%- endif -%}
+          <input type="hidden" name="contact[tags]" value="{{ section.settings.contact_tags | escape }}">
+          <div class="qdm-coming-soon__form-row">
+            <input
+              type="email"
+              name="contact[email]"
+              id="ComingSoonNewsletter-{{ section.id }}"
+              class="qdm-coming-soon__form-input"
+              placeholder="Tu email"
+              autocomplete="email"
+              required
+            >
+            <button type="submit" class="qdm-coming-soon__form-submit">
+              {{ section.settings.email_button_label | escape }}
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <p class="qdm-coming-soon__form-error">
+              {{ form.errors.messages['email'] | default: 'Ingresá un email válido.' }}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    {%- endif -%}
+
+    {%- if section.settings.trust_badge != blank -%}
+      <p class="qdm-coming-soon__trust">{{ section.settings.trust_badge | escape }}</p>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% stylesheet %}
+  .qdm-coming-soon {
+    background-color: var(--qdm-cream, #FFFEF7);
+    padding-block-end: 4rem;
+  }
+
+  /* ── Header: foto grande ── */
+  .qdm-coming-soon__media {
+    padding-block-start: 5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Doble clase (.page-width.qdm-coming-soon__media) para ganarle en
+     especificidad a ".page-width { width: 100% }" sin importar el
+     orden de carga entre archivos — 70% ya era 30% más chica que el
+     ancho completo; un 35% más chica sobre eso = 45% del total. */
+  .qdm-coming-soon__media.page-width {
+    width: 45%;
+    margin-inline: auto;
+  }
+
+  .qdm-coming-soon__img,
+  .qdm-coming-soon__img-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .qdm-coming-soon__img-placeholder {
+    background-color: var(--qdm-nude, #CFBFB3);
+  }
+
+  /* ── Contenido: centrado, ancho de lectura ── */
+  .qdm-coming-soon__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .qdm-coming-soon__eyebrow {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--qdm-camel, #C9A787);
+    margin-bottom: 1rem;
+  }
+
+  .qdm-coming-soon__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 2.75rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 1.25rem;
+  }
+
+  .qdm-coming-soon__body {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(38, 37, 34, 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .qdm-coming-soon__body p { margin: 0 0 0.875rem; }
+  .qdm-coming-soon__body p:last-child { margin-bottom: 0; }
+
+  /* ── Form de email (mismo lenguaje visual que qdm-adapted-feature) ── */
+  .qdm-coming-soon__form {
+    width: 100%;
+    max-width: 440px;
+    margin-bottom: 1.25rem;
+  }
+
+  .qdm-coming-soon__form-label {
+    display: block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin-bottom: 0.625rem;
+  }
+
+  .qdm-coming-soon__form-row {
+    display: flex;
+    gap: 0.625rem;
+  }
+
+  .qdm-coming-soon__form-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.875rem 1rem;
+    background-color: var(--qdm-cream, #FFFEF7);
+    border: 1px solid var(--qdm-carbon, #262522);
+    color: var(--qdm-carbon, #262522);
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+  }
+
+  .qdm-coming-soon__form-input::placeholder {
+    color: rgba(38, 37, 34, 0.45);
+  }
+
+  .qdm-coming-soon__form-input:focus {
+    outline: none;
+    border-color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-coming-soon__form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--qdm-amber, #EBB86E);
+    color: var(--qdm-carbon, #262522);
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 250ms ease;
+  }
+
+  .qdm-coming-soon__form-submit:hover {
+    background-color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-coming-soon__form-success {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  .qdm-coming-soon__form-error {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    color: #b3261e;
+    margin: 0.625rem 0 0;
+  }
+
+  .qdm-coming-soon__trust {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(38, 37, 34, 0.45);
+    margin: 0;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 749px) {
+    .qdm-coming-soon__img,
+    .qdm-coming-soon__img-placeholder {
+      aspect-ratio: 4 / 5;
+    }
+
+    .qdm-coming-soon__form-row {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Coming Soon",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Foto header",
+      "info": "Recomendado 16:9 en desktop (se recorta a 4:5 en mobile)."
+    },
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Muy pronto"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Joyas para audífonos"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Texto descriptivo",
+      "default": "<p>Estamos terminando de crear esta línea. Joyería pensada desde el diseño para convivir con tu audífono, no para esconderlo.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Formulario de email"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Texto sobre el input",
+      "default": "Recibir novedades del lanzamiento"
+    },
+    {
+      "type": "text",
+      "id": "email_button_label",
+      "label": "Texto del botón",
+      "default": "Quiero recibir el aviso"
+    },
+    {
+      "type": "text",
+      "id": "contact_tags",
+      "label": "Tags de contacto (interno)",
+      "default": "newsletter,joyas-audifonos",
+      "info": "Se usa para segmentar a quién avisar cuando lance esta línea."
+    },
+    {
+      "type": "text",
+      "id": "trust_badge",
+      "label": "Texto de confianza (bajo el formulario)",
+      "default": "Fabricada en España · Plata reciclada 925"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Coming Soon"
+    }
+  ]
+}
+{% endschema %}
