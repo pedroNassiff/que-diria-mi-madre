@@ -11,10 +11,28 @@
   "sections": {
     "qdm-coming-soon": {
       "type": "qdm-coming-soon",
-      "settings": {}
+      "settings": {
+        "header_video": "shopify://files/videos/video_mejorado_v3_brillo.mp4",
+        "image": "shopify://shop_images/joyas_adaptadas.jpg"
+      }
+    },
+    "qdm-content-split-1": {
+      "type": "qdm-content-split",
+      "settings": {
+        "image_position": "left",
+        "image": "shopify://shop_images/joyas_adaptadas.jpg",
+        "badge": "Muy pronto",
+        "heading": "Joyas para audífonos",
+        "body": "<p>Estamos terminando de crear esta línea. Joyería pensada desde el diseño para convivir con tu audífono, no para esconderlo.</p>",
+        "email_label": "Recibir novedades del lanzamiento",
+        "email_button_label": "Quiero recibir el aviso",
+        "contact_tags": "newsletter,joyas-audifonos",
+        "trust_badge": "Fabricada en España · Plata reciclada 925"
+      }
     }
   },
   "order": [
-    "qdm-coming-soon"
+    "qdm-coming-soon",
+    "qdm-content-split-1"
   ]
 }

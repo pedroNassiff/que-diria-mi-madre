@@ -1,58 +1,267 @@
 {
   "sections": {
-    "drop_grid": {
+    "qdm_drop_grid_Km7Eka": {
       "type": "qdm-drop-grid",
       "blocks": {
-        "qdm_drop_break_image_CDbQCa": {
+        "qdm_drop_break_image_RCkxR8": {
           "type": "_qdm-drop-break-image",
           "settings": {
-            "image": "shopify://shop_images/DSC01909.jpg",
-            "product": "anillo-garnet-plata-925-granate-natural",
+            "image": "shopify://shop_images/DSC02864.jpg",
+            "product": "pendientes-mardel",
             "image_alt": ""
           },
           "blocks": {}
         },
-        "qdm_drop_product_ehXcTr": {
+        "qdm_drop_product_AGDPwE": {
           "type": "_qdm-drop-product",
           "settings": {
-            "product": "anillo-garnet-plata-925-granate-natural",
-            "lifestyle_image": "shopify://shop_images/DSC01895.jpg"
+            "product": "pendientes-las-toscas",
+            "lifestyle_image": "shopify://shop_images/DSC03306.jpg"
           },
           "blocks": {}
         },
-        "qdm_drop_product_LnBQ6K": {
+        "qdm_drop_product_R4n7nF": {
           "type": "_qdm-drop-product",
           "settings": {
-            "product": "aro-espiral-plata-925-banada-en-oro-18k",
-            "lifestyle_image": "shopify://shop_images/10_2.jpg"
+            "product": "pendientes-marta-plata",
+            "lifestyle_image": "shopify://shop_images/DSC01434.jpg"
           },
           "blocks": {}
         },
-        "qdm_drop_break_image_iApUH8": {
+        "qdm_drop_break_image_MVtwQ4": {
           "type": "_qdm-drop-break-image",
           "settings": {
-            "image": "shopify://shop_images/DSC01970.jpg",
-            "product": "anillo-garnet-plata-925-granate-natural",
+            "product": "",
             "image_alt": ""
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "qdm_drop_break_image_CDbQCa",
-        "qdm_drop_product_ehXcTr",
-        "qdm_drop_product_LnBQ6K",
-        "qdm_drop_break_image_iApUH8"
+        "qdm_drop_break_image_RCkxR8",
+        "qdm_drop_product_AGDPwE",
+        "qdm_drop_product_R4n7nF",
+        "qdm_drop_break_image_MVtwQ4"
       ],
       "name": "QDM · Drop Grid",
       "settings": {
         "eyebrow": "New La Orilla Drop, Verano '26",
         "title": "",
-        "color_scheme": ""
+        "color_scheme": "scheme-1",
+        "product_image_zoom": 100
+      }
+    },
+    "qdm_drop_grid_qnC3zH": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_BLR4hf": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03006.jpg",
+            "product": "collar-la-pedrera",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_tyaJLh": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-carilo",
+            "lifestyle_image": "shopify://shop_images/DSC02838.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_mdyg9p": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-punta-ballena",
+            "lifestyle_image": "shopify://shop_images/DSC03220.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_9TEYkg": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03665.jpg",
+            "product": "collar-manantiales",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_BLR4hf",
+        "qdm_drop_product_tyaJLh",
+        "qdm_drop_product_mdyg9p",
+        "qdm_drop_break_image_9TEYkg"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "",
+        "title": "",
+        "color_scheme": "",
+        "product_image_zoom": 100
+      }
+    },
+    "qdm_drop_grid_Ux3GtK": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_hkjXhF": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03372.jpg",
+            "product": "collar-punta-del-caracol",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_9DcXnj": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-luna-roja",
+            "lifestyle_image": "shopify://shop_images/DSC02937.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_nymTyJ": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-solanas",
+            "lifestyle_image": "shopify://shop_images/DSC03638.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_QqBHzj": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "product": "",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_hkjXhF",
+        "qdm_drop_product_9DcXnj",
+        "qdm_drop_product_nymTyJ",
+        "qdm_drop_break_image_QqBHzj"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "",
+        "title": "",
+        "color_scheme": "",
+        "product_image_zoom": 100
+      }
+    },
+    "qdm_drop_grid_NJKfqK": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_FabdRx": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03244.jpg",
+            "product": "collar-mar-azul",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_4qBh7e": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-cabo-polonio",
+            "lifestyle_image": "shopify://shop_images/DSC03025.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_nxDRRa": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "collar-la-juanita",
+            "lifestyle_image": "shopify://shop_images/DSC03064.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_AxnAPq": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "product": "",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_FabdRx",
+        "qdm_drop_product_4qBh7e",
+        "qdm_drop_product_nxDRRa",
+        "qdm_drop_break_image_AxnAPq"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "",
+        "title": "",
+        "color_scheme": "",
+        "product_image_zoom": 100
+      }
+    },
+    "qdm_drop_grid_FPfNzE": {
+      "type": "qdm-drop-grid",
+      "blocks": {
+        "qdm_drop_break_image_wnn7Ab": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03570_1.jpg",
+            "product": "pulsera-las-grutas",
+            "image_alt": ""
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_ybPAhL": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "pulsera-las-gaviotas",
+            "lifestyle_image": "shopify://shop_images/DSC03597.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_product_EJ3Gig": {
+          "type": "_qdm-drop-product",
+          "settings": {
+            "product": "pulsera-mar-chiquita",
+            "lifestyle_image": "shopify://shop_images/DSC03567.jpg"
+          },
+          "blocks": {}
+        },
+        "qdm_drop_break_image_fp4XMY": {
+          "type": "_qdm-drop-break-image",
+          "settings": {
+            "product": "",
+            "image_alt": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "qdm_drop_break_image_wnn7Ab",
+        "qdm_drop_product_ybPAhL",
+        "qdm_drop_product_EJ3Gig",
+        "qdm_drop_break_image_fp4XMY"
+      ],
+      "name": "QDM · Drop Grid",
+      "settings": {
+        "eyebrow": "",
+        "title": "",
+        "color_scheme": "",
+        "product_image_zoom": 100
       }
     }
   },
   "order": [
-    "drop_grid"
+    "qdm_drop_grid_Km7Eka",
+    "qdm_drop_grid_qnC3zH",
+    "qdm_drop_grid_Ux3GtK",
+    "qdm_drop_grid_NJKfqK",
+    "qdm_drop_grid_FPfNzE"
   ]
 }

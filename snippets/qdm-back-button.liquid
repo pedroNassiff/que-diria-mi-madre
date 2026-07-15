@@ -1,0 +1,117 @@
+{%- doc -%}
+  QDM · Botón "Volver" — global, en todas las páginas menos el home.
+  Píldora flotante fija arriba a la izquierda.
+
+  Comportamiento:
+  - Si el visitante llegó navegando desde otra página del mismo sitio
+    (document.referrer del mismo origen), el click hace history.back()
+    — vuelve exactamente a donde estaba (con filtros, scroll, etc.).
+  - Si llegó directo (link externo, Google, WhatsApp, sin referrer),
+    el href de respaldo calculado acá abajo lo lleva a un destino
+    sensato: en producto, a su colección de origen; en colección, al
+    listado de colecciones; en el resto, al home.
+
+  @example
+  {% render 'qdm-back-button' %}
+{%- enddoc -%}
+
+{%- liquid
+  case template.name
+    when 'product'
+      assign fallback_url = product.collections.first.url | default: routes.all_products_collection_url
+      assign fallback_label = product.collections.first.title | default: 'Ver todo'
+    when 'collection'
+      assign fallback_url = routes.collections_url
+      assign fallback_label = 'Colecciones'
+    else
+      assign fallback_url = routes.root_url
+      assign fallback_label = 'Inicio'
+  endcase
+-%}
+
+<a
+  href="{{ fallback_url }}"
+  class="qdm-back-button"
+  data-qdm-back-button
+  aria-label="Volver{% if fallback_label != blank %} a {{ fallback_label }}{% endif %}"
+>
+  <span class="qdm-back-button__arrow" aria-hidden="true">←</span>
+  <span class="qdm-back-button__label">Volver</span>
+</a>
+
+<script>
+  (function () {
+    var link = document.currentScript.previousElementSibling;
+    if (!link || !link.hasAttribute('data-qdm-back-button')) return;
+
+    var sameOriginReferrer = document.referrer && document.referrer.indexOf(window.location.origin) === 0;
+    if (!sameOriginReferrer) return;
+
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      history.back();
+    });
+  })();
+</script>
+
+{% stylesheet %}
+  .qdm-back-button {
+    position: fixed;
+    top: calc(var(--header-height, 60px) + 0.75rem);
+    left: 1rem;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    background-color: var(--qdm-cream, #FFFEF7);
+    color: var(--qdm-carbon, #262522);
+    border: 1px solid rgba(38, 37, 34, 0.15);
+    border-radius: 999px;
+    text-decoration: none;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(38, 37, 34, 0.08);
+    transition: background-color 200ms ease, transform 200ms ease;
+  }
+
+  .qdm-back-button__arrow {
+    transition: transform 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .qdm-back-button:hover {
+      background-color: var(--qdm-sand, #E0DED7);
+    }
+
+    .qdm-back-button:hover .qdm-back-button__arrow {
+      transform: translateX(-2px);
+    }
+  }
+
+  @media (max-width: 749px) {
+    .qdm-back-button {
+      top: auto;
+      bottom: 1rem;
+      left: 1rem;
+    }
+
+    .qdm-back-button__label {
+      display: none;
+    }
+
+    .qdm-back-button {
+      padding: 0.625rem;
+      border-radius: 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qdm-back-button,
+    .qdm-back-button__arrow {
+      transition: none;
+    }
+  }
+{% endstylesheet %}

@@ -610,6 +610,49 @@ function initPreloader() {
 }
 
 // ─────────────────────────────────────────────────────────
+// 12. FOOTER — modales de políticas (Privacidad/Términos/Devoluciones)
+// ─────────────────────────────────────────────────────────
+// Los <dialog> ya vienen renderizados con el contenido de shop.policies
+// (ver sections/qdm-footer.liquid). Delegación de eventos en document
+// en vez de buscar los botones al cargar: el footer se renderiza vía
+// {% sections 'footer-group' %} y puede no existir todavía en el DOM
+// en el momento en que corre initAll() — con delegación no importa
+// cuándo aparece, el listener ya está escuchando en document.
+
+let footerPolicyModalsBound = false;
+
+function initFooterPolicyModals() {
+  if (footerPolicyModalsBound) return;
+  footerPolicyModalsBound = true;
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-qdm-policy-open]');
+    if (trigger) {
+      const dialog = document.getElementById(trigger.dataset.qdmPolicyOpen);
+      if (!dialog) return;
+      e.preventDefault();
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+      return;
+    }
+
+    const closeBtn = e.target.closest('[data-qdm-policy-close]');
+    if (closeBtn) {
+      closeBtn.closest('dialog')?.close();
+      return;
+    }
+
+    // Backdrop: click directo sobre el <dialog> (fuera de su contenido)
+    if (e.target.matches('dialog[data-qdm-policy-dialog]')) {
+      e.target.close();
+    }
+  });
+}
+
+// ─────────────────────────────────────────────────────────
 // INIT — ejecutar todo
 // ─────────────────────────────────────────────────────────
 
@@ -624,6 +667,7 @@ function initAll() {
   initAccordion();
   initProductGrid();
   initFeaturedProductsCtaPosition();
+  initFooterPolicyModals();
 
   // GSAP-dependent (solo si se cargó)
   if (typeof gsap !== 'undefined') {
@@ -649,4 +693,5 @@ document.addEventListener('shopify:section:load', () => {
   initMarquee();
   initProductGrid();
   initFeaturedProductsCtaPosition();
+  initFooterPolicyModals();
 });

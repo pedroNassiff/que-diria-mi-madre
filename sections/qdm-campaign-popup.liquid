@@ -260,7 +260,11 @@
     margin: 0;
   }
 
-  .qdm-campaign-popup__input {
+  /* Especificidad reforzada (.qdm-campaign-popup__form + clase) para
+     ganarle a la regla global de base.css `input:not(...)` que pisa
+     el fondo con --color-input-background del color scheme activo —
+     mismo problema/arreglo que en qdm-adapted-feature y qdm-coming-soon. */
+  .qdm-campaign-popup__form .qdm-campaign-popup__input {
     box-sizing: border-box;
     width: 100%;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);

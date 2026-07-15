@@ -185,19 +185,66 @@
     <!-- LEGAL BAR -->
     <div class="qdm-footer__legal">
       <p class="qdm-footer__copyright">
-        © {{ 'now' | date: '%Y' }} QDM · Qué Diría Mi Madre. Hecha con ♥ en España.
+        © {{ 'now' | date: '%Y' }} QDM · Qué Diría Mi Madre. Hecha con ♥ en España
+        · Desarrollado por
+        <a href="https://random-lab.es" class="qdm-footer__credit-link" target="_blank" rel="noopener noreferrer">Random Lab</a>
       </p>
       <nav class="qdm-footer__policy-nav" aria-label="Políticas legales">
-        <a href="{{ routes.privacy_policy_url }}" class="qdm-footer__policy-link">Privacidad</a>
+        {%- if shop.policies.privacy_policy.body != blank -%}
+          <button type="button" class="qdm-footer__policy-link" data-qdm-policy-open="qdm-policy-privacy">Privacidad</button>
+        {%- else -%}
+          <a href="{{ routes.privacy_policy_url | default: '/policies/privacy-policy' }}" class="qdm-footer__policy-link">Privacidad</a>
+        {%- endif -%}
         <span class="qdm-footer__policy-sep" aria-hidden="true">·</span>
-        <a href="{{ routes.terms_of_service_url }}" class="qdm-footer__policy-link">Términos</a>
+        {%- if shop.policies.terms_of_service.body != blank -%}
+          <button type="button" class="qdm-footer__policy-link" data-qdm-policy-open="qdm-policy-terms">Términos</button>
+        {%- else -%}
+          <a href="{{ routes.terms_of_service_url | default: '/policies/terms-of-service' }}" class="qdm-footer__policy-link">Términos</a>
+        {%- endif -%}
         <span class="qdm-footer__policy-sep" aria-hidden="true">·</span>
-        <a href="{{ routes.refund_policy_url }}" class="qdm-footer__policy-link">Devoluciones</a>
+        {%- if shop.policies.refund_policy.body != blank -%}
+          <button type="button" class="qdm-footer__policy-link" data-qdm-policy-open="qdm-policy-refund">Devoluciones</button>
+        {%- else -%}
+          <a href="{{ routes.refund_policy_url | default: '/policies/refund-policy' }}" class="qdm-footer__policy-link">Devoluciones</a>
+        {%- endif -%}
       </nav>
     </div>
     <!-- /LEGAL BAR -->
 
   </div>
+
+  <!-- Modales de políticas — contenido nativo de Shopify (shop.policies,
+       el mismo que ya tenés cargado en Configuración → Políticas),
+       sin fetch ni JSON, se abren con <dialog>.showModal() -->
+  {%- if shop.policies.privacy_policy.body != blank -%}
+    <dialog id="qdm-policy-privacy" class="qdm-policy-dialog" data-qdm-policy-dialog>
+      <div class="qdm-policy-dialog__inner">
+        <button type="button" class="qdm-policy-dialog__close" data-qdm-policy-close aria-label="Cerrar">×</button>
+        <h2 class="qdm-policy-dialog__title">{{ shop.policies.privacy_policy.title }}</h2>
+        <div class="qdm-policy-dialog__body rte">{{ shop.policies.privacy_policy.body }}</div>
+      </div>
+    </dialog>
+  {%- endif -%}
+
+  {%- if shop.policies.terms_of_service.body != blank -%}
+    <dialog id="qdm-policy-terms" class="qdm-policy-dialog" data-qdm-policy-dialog>
+      <div class="qdm-policy-dialog__inner">
+        <button type="button" class="qdm-policy-dialog__close" data-qdm-policy-close aria-label="Cerrar">×</button>
+        <h2 class="qdm-policy-dialog__title">{{ shop.policies.terms_of_service.title }}</h2>
+        <div class="qdm-policy-dialog__body rte">{{ shop.policies.terms_of_service.body }}</div>
+      </div>
+    </dialog>
+  {%- endif -%}
+
+  {%- if shop.policies.refund_policy.body != blank -%}
+    <dialog id="qdm-policy-refund" class="qdm-policy-dialog" data-qdm-policy-dialog>
+      <div class="qdm-policy-dialog__inner">
+        <button type="button" class="qdm-policy-dialog__close" data-qdm-policy-close aria-label="Cerrar">×</button>
+        <h2 class="qdm-policy-dialog__title">{{ shop.policies.refund_policy.title }}</h2>
+        <div class="qdm-policy-dialog__body rte">{{ shop.policies.refund_policy.body }}</div>
+      </div>
+    </dialog>
+  {%- endif -%}
 </footer>
 
 {% stylesheet %}
@@ -510,6 +557,14 @@
   }
 
   .qdm-footer__policy-link {
+    /* Reset — algunos son <button> (abren modal) y otros <a> (fallback
+       sin política cargada), tienen que verse idénticos. */
+    display: inline;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
     font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
     font-size: 0.75rem;
     color: rgba(255, 254, 247, 0.3);
@@ -526,6 +581,93 @@
   .qdm-footer__policy-link:focus-visible {
     outline: 1px solid rgba(255, 254, 247, 0.3);
     outline-offset: 2px;
+  }
+
+  .qdm-footer__credit-link {
+    color: rgba(255, 254, 247, 0.45);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .qdm-footer__credit-link:hover {
+      color: var(--qdm-cream, #fffef7);
+    }
+  }
+
+  /* ── MODALES DE POLÍTICAS ── */
+  .qdm-policy-dialog {
+    max-width: 640px;
+    width: 90vw;
+    max-height: 80vh;
+    padding: 0;
+    border: none;
+    background-color: var(--qdm-cream, #FFFEF7);
+    color: var(--qdm-carbon, #262522);
+  }
+
+  .qdm-policy-dialog::backdrop {
+    background-color: rgba(38, 37, 34, 0.55);
+  }
+
+  .qdm-policy-dialog__inner {
+    position: relative;
+    padding: 3rem 2rem 2.5rem;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+
+  .qdm-policy-dialog__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--qdm-carbon, #262522);
+    cursor: pointer;
+  }
+
+  .qdm-policy-dialog__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: 1.375rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.25rem;
+  }
+
+  .qdm-policy-dialog__body {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: rgba(38, 37, 34, 0.85);
+  }
+
+  .qdm-policy-dialog__body p {
+    margin: 0 0 0.875rem;
+  }
+
+  .qdm-policy-dialog__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 749px) {
+    .qdm-policy-dialog {
+      width: 94vw;
+      max-height: 85vh;
+    }
+
+    .qdm-policy-dialog__inner {
+      padding: 2.5rem 1.25rem 2rem;
+      max-height: 85vh;
+    }
   }
 
   /* ── TABLET (768–1024px) ── */

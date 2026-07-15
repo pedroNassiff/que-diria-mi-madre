@@ -1,0 +1,342 @@
+{%- comment -%}
+  QDM · Content Split
+  Bloque editorial de 2 columnas: imagen + texto, estilo Manifiesto.
+  Reutilizable — se puede agregar más de una vez a la misma página, y
+  cada instancia elige por separado si la imagen va a la izquierda o
+  a la derecha (setting "image_position", sin duplicar liquid).
+{%- endcomment -%}
+
+<section class="qdm-content-split{% if section.settings.image_position == 'right' %} qdm-content-split--reverse{% endif %}">
+  <div class="qdm-content-split__inner">
+
+    <div class="qdm-content-split__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            class: 'qdm-content-split__img',
+            widths: '400, 600, 900, 1200',
+            sizes: '(min-width: 768px) 50vw, 100vw',
+            alt: section.settings.image.alt | default: section.settings.heading | escape
+        }}
+      {%- else -%}
+        <div class="qdm-content-split__img-placeholder"></div>
+      {%- endif -%}
+    </div>
+
+    <div class="qdm-content-split__text" data-reveal="fade-up">
+      {%- if section.settings.badge != blank -%}
+        <p class="qdm-content-split__badge">{{ section.settings.badge | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="qdm-content-split__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="qdm-content-split__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.email_button_label != blank -%}
+        {%- form 'customer', class: 'qdm-content-split__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="qdm-content-split__form-success">¡Gracias! Te avisamos apenas lancemos.</p>
+          {%- else -%}
+            {%- if section.settings.email_label != blank -%}
+              <label for="ContentSplitNewsletter-{{ section.id }}" class="qdm-content-split__form-label">
+                {{ section.settings.email_label | escape }}
+              </label>
+            {%- endif -%}
+            <input type="hidden" name="contact[tags]" value="{{ section.settings.contact_tags | escape }}">
+            <div class="qdm-content-split__form-row">
+              <input
+                type="email"
+                name="contact[email]"
+                id="ContentSplitNewsletter-{{ section.id }}"
+                class="qdm-content-split__form-input"
+                placeholder="Tu email"
+                autocomplete="email"
+                required
+              >
+              <button type="submit" class="qdm-content-split__form-submit">
+                {{ section.settings.email_button_label | escape }}
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <p class="qdm-content-split__form-error">
+                {{ form.errors.messages['email'] | default: 'Ingresá un email válido.' }}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      {%- endif -%}
+
+      {%- if section.settings.trust_badge != blank -%}
+        <p class="qdm-content-split__trust">{{ section.settings.trust_badge | escape }}</p>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .qdm-content-split {
+    background-color: var(--qdm-cream, #FFFEF7);
+    overflow: hidden;
+  }
+
+  .qdm-content-split__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: 3.5rem 1.5rem;
+  }
+
+  /* Imagen a la derecha: el media pasa a la segunda columna sin
+     tocar el markup (mismo mecanismo que .qdm-manifesto__split--reverse). */
+  .qdm-content-split--reverse .qdm-content-split__media {
+    order: 2;
+  }
+
+  .qdm-content-split__media {
+    overflow: hidden;
+  }
+
+  .qdm-content-split__img,
+  .qdm-content-split__img-placeholder {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .qdm-content-split__img-placeholder {
+    background-color: var(--qdm-nude, #CFBFB3);
+  }
+
+  .qdm-content-split__badge {
+    display: inline-block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--qdm-carbon, #262522);
+    background-color: var(--qdm-amber, #EBB86E);
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .qdm-content-split__title {
+    font-family: var(--qdm-font-heading, 'Work Sans', sans-serif);
+    font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin: 0 0 1.25rem;
+  }
+
+  .qdm-content-split__body p {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(38, 37, 34, 0.8);
+    margin: 0 0 0.875rem;
+  }
+
+  .qdm-content-split__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Form de email (mismo lenguaje visual que qdm-adapted-feature) ── */
+  .qdm-content-split__form {
+    width: 100%;
+    max-width: 440px;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .qdm-content-split__form-label {
+    display: block;
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--qdm-carbon, #262522);
+    margin-bottom: 0.625rem;
+  }
+
+  .qdm-content-split__form-row {
+    display: flex;
+    gap: 0.625rem;
+  }
+
+  /* Especificidad reforzada (.qdm-content-split__form-row + clase) para
+     ganarle a la regla global de base.css `input:not(...)` que pisa el
+     fondo con --color-input-background del color scheme activo. */
+  .qdm-content-split__form-row .qdm-content-split__form-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.875rem 1rem;
+    background-color: transparent;
+    border: 1px solid var(--qdm-carbon, #262522);
+    color: var(--qdm-carbon, #262522);
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+  }
+
+  .qdm-content-split__form-input::placeholder {
+    color: rgba(38, 37, 34, 0.45);
+  }
+
+  .qdm-content-split__form-row .qdm-content-split__form-input:focus {
+    outline: none;
+    border-color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-content-split__form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--qdm-amber, #EBB86E);
+    color: var(--qdm-carbon, #262522);
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 250ms ease;
+  }
+
+  .qdm-content-split__form-submit:hover {
+    background-color: var(--qdm-camel, #C9A787);
+  }
+
+  .qdm-content-split__form-success {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--qdm-carbon, #262522);
+    margin: 0;
+  }
+
+  .qdm-content-split__form-error {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.8125rem;
+    color: #b3261e;
+    margin: 0.625rem 0 0;
+  }
+
+  .qdm-content-split__trust {
+    font-family: var(--qdm-font-body, 'Source Sans 3', sans-serif);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(38, 37, 34, 0.45);
+    margin: 0;
+  }
+
+  /* ── Mobile: siempre imagen arriba, texto abajo, sin importar
+     la posición elegida en desktop ── */
+  @media (max-width: 767px) {
+    .qdm-content-split__inner {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .qdm-content-split--reverse .qdm-content-split__media {
+      order: 0;
+    }
+
+    .qdm-content-split__img,
+    .qdm-content-split__img-placeholder {
+      aspect-ratio: 4 / 3;
+    }
+
+    .qdm-content-split__form-row {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "QDM · Imagen y Texto",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Posición de la imagen",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "right", "label": "Derecha" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Título de la sección"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Texto",
+      "default": "<p>Texto descriptivo de la sección.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Formulario de email (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Texto sobre el input"
+    },
+    {
+      "type": "text",
+      "id": "email_button_label",
+      "label": "Texto del botón",
+      "info": "Si lo dejás vacío, no se muestra ningún formulario en esta sección."
+    },
+    {
+      "type": "text",
+      "id": "contact_tags",
+      "label": "Tags de contacto (interno)",
+      "info": "Se usa para segmentar a quién avisar cuando lance esta línea."
+    },
+    {
+      "type": "text",
+      "id": "trust_badge",
+      "label": "Texto de confianza (bajo el formulario)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "QDM · Imagen y Texto"
+    }
+  ]
+}
+{% endschema %}
