@@ -80,7 +80,7 @@
       "type": "section",
       "blocks": {
         "contact_form_UwiCkQ": {
-          "type": "contact-form",
+          "type": "qdm-contact-form",
           "settings": {
             "width": "custom",
             "custom_width": 70,

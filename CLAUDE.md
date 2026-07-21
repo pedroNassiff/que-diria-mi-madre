@@ -103,7 +103,7 @@ Commits en inglés, cortos, en presente: `feat: add hero parallax animation`
 ```
 --qdm-cream:   #FFFEF7   fondo principal
 --qdm-sand:    #E0DED7   fondos secundarios
---qdm-nude:    #CFBFB3   bordes
+--qdm-nude:    #CFBFB3   bordesqd
 --qdm-camel:   #C9A787   hover states
 --qdm-amber:   #EBB86E   acento principal (CTAs, badges)
 --qdm-carbon:  #262522   texto principal

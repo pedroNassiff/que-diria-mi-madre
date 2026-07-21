@@ -6,6 +6,8 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    {%- render 'qdm-gtm-head' -%}
+
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -54,6 +56,9 @@
     {% comment %} QDM · Motion JS (después de GSAP y Lenis) {% endcomment %}
     <script src="{{ 'qdm-motion.js' | asset_url }}" defer></script>
 
+    {% comment %} QDM · Analytics (dataLayer para GTM/GA4) {% endcomment %}
+    <script src="{{ 'qdm-analytics.js' | asset_url }}" defer></script>
+
     {% comment %} QDM · Organization schema {% endcomment %}
     {%- render 'qdm-schema-org' -%}
 
@@ -66,6 +71,8 @@
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    {%- render 'qdm-gtm-body' -%}
+
     {%- comment -%} QDM · Preloader desactivado por ahora (queda el código listo para retomar). {%- endcomment -%}
     {%- comment -%} {%- render 'qdm-preloader' -%} {%- endcomment -%}
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}

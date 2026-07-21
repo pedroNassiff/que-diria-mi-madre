@@ -72,14 +72,7 @@ shopify theme push --theme=188752134508
 
  # subir solo algo puntualmente
   shopify theme push --store=que-diria-mi-madre.myshopify.com --theme=193117847885 \
-    --only="assets/qdm-motion.css" \
-    --only="assets/qdm-motion.js" \
-    --only="blocks/featured-collection.liquid" \ 
-    --only="blocks/_qdm-drop-break-image.liquid" \
-    --only="blocks/_qdm-drop-product.liquid" \
-    --only="sections/qdm-coming-soon.liquid" \
-    --only="sections/qdm-drop-grid.liquid" \
-    --only="templates/page.coming-soon.json"
+    --only="sections/qdm-footer.liquid" 
 
 
 # → sube TODOS los archivos locales al tema Heritage (el publicado)

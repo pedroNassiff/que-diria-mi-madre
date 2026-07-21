@@ -1,0 +1,29 @@
+{%- comment -%}
+  QDM · GA4 view_cart (dataLayer)
+  Requiere `cart` en scope. Render en la página de carrito, solo si no está vacío.
+{%- endcomment -%}
+<script>
+  (function () {
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ ecommerce: null });
+    dataLayer.push({
+      event: 'view_cart',
+      ecommerce: {
+        currency: {{ shop.currency | json }},
+        value: {{ cart.total_price | times: 0.01 }},
+        items: [
+          {%- for item in cart.items -%}
+            {
+              item_id: {{ item.sku | default: item.product_id | json }},
+              item_name: {{ item.product_title | json }},
+              item_variant: {{ item.variant_title | json }},
+              item_brand: {{ item.vendor | json }},
+              price: {{ item.price | times: 0.01 }},
+              quantity: {{ item.quantity }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    });
+  })();
+</script>

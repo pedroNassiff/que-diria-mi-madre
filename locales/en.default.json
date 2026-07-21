@@ -124,6 +124,17 @@
       "name": "Name",
       "email": "Email",
       "phone": "Phone",
+      "subject": "Subject",
+      "subject_placeholder": "Select a subject",
+      "subject_options": {
+        "product_inquiry": "Product inquiry",
+        "order": "Order",
+        "shipping": "Shipping",
+        "returns": "Returns and exchanges",
+        "adapted_jewelry": "Hearing aid adapted jewelry",
+        "collaborations": "Collaborations",
+        "other": "Other"
+      },
       "comment": "Comment",
       "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
       "error_heading": "Please adjust the following:"

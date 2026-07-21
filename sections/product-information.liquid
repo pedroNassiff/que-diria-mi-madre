@@ -4,6 +4,8 @@
   {{ closest.product | structured_data }}
 </script>
 
+{% render 'qdm-ga4-view-item' %}
+
 {% capture media_gallery %}
   {%- content_for 'block',
     type: '_product-media-gallery',

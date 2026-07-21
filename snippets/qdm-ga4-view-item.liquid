@@ -1,0 +1,32 @@
+{%- comment -%}
+  QDM · GA4 view_item (dataLayer)
+  Requiere `product` en scope. Render en la ficha de producto.
+{%- endcomment -%}
+{%- liquid
+  assign qdm_variant = product.selected_or_first_available_variant
+  assign qdm_price = qdm_variant.price | times: 0.01
+-%}
+<script>
+  (function () {
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ ecommerce: null });
+    dataLayer.push({
+      event: 'view_item',
+      ecommerce: {
+        currency: {{ shop.currency | json }},
+        value: {{ qdm_price }},
+        items: [
+          {
+            item_id: {{ qdm_variant.sku | default: product.id | json }},
+            item_name: {{ product.title | json }},
+            item_variant: {{ qdm_variant.title | json }},
+            item_brand: {{ product.vendor | json }},
+            item_category: {{ product.type | json }},
+            price: {{ qdm_price }},
+            quantity: 1
+          }
+        ]
+      }
+    });
+  })();
+</script>

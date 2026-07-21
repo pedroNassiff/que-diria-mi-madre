@@ -22,6 +22,17 @@
       "name": "Nombre",
       "email": "Correo electrónico",
       "phone": "Teléfono",
+      "subject": "Asunto",
+      "subject_placeholder": "Seleccionar asunto",
+      "subject_options": {
+        "product_inquiry": "Consulta sobre un producto",
+        "order": "Pedido",
+        "shipping": "Envíos",
+        "returns": "Cambios y devoluciones",
+        "adapted_jewelry": "Joyería adaptada para audífonos",
+        "collaborations": "Colaboraciones",
+        "other": "Otro"
+      },
       "comment": "Comentario",
       "post_success": "Gracias por contactarnos. Te responderemos lo antes posible.",
       "error_heading": "Realiza los ajustes siguientes:"

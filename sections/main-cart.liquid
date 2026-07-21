@@ -57,6 +57,10 @@
 {% endcapture %}
 {% render 'cart-items-component', children: cart_items_children, section_id: section.id %}
 
+{% unless cart.empty? %}
+  {% render 'qdm-ga4-view-cart' %}
+{% endunless %}
+
 {% stylesheet %}
   .cart-page {
     display: grid;
